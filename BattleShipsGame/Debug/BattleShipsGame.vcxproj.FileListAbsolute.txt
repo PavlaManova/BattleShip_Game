@@ -1,0 +1,2 @@
+D:\Projects\c++\BattleShipsGame\Debug\BattleShipsGame.exe
+D:\Projects\c++\BattleShipsGame\Debug\BattleShipsGame.pdb
