@@ -49,7 +49,7 @@ int main()
 	firstOption();
 
 	int choice = _getch();
-	int temp = 3;
+	int temp = 3;   
 
 	while (choice != 13) // Enter - choice is made
 	{
