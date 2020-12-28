@@ -27,15 +27,17 @@ void startGameOption();
 void exitOption();
 void startingMenu();
 void setWhiteSpacesLength(string firstLine, string secondLine, int& whiteSpacesFirst, int& whiteSpacesSecond);
+void setWhiteSpacesLength(string firstLine, string secondLine, string thirdLine, int& whiteSpacesFirst, int& whiteSpacesSecond, int& whiteSpacesThird);
 void printOptions(string firstOption, string secondOption);
+void printOptions(string firstOption, string secondOption, string thirdOption);
 void arrangeShipsMenu();
 void randomArrangementOption();
 void playersArrangementOption();
-
+void returnOption();
 
 int main()
 {
-	
+
 	startingMenu();
 	//ADD ---chose player option---
 	arrangeShipsMenu();
@@ -53,6 +55,22 @@ void setWhiteSpacesLength(string firstLine, string secondLine, int& whiteSpacesF
 	whiteSpacesSecond = whiteSpacesFirst - temp / 2;
 }
 
+void setWhiteSpacesLength(string firstLine, string secondLine, string thirdLine, int& whiteSpacesFirst, int& whiteSpacesSecond, int& whiteSpacesThird)
+{
+	whiteSpacesFirst = MIDDLE_CONSOLE + (firstLine.size() / 2);
+
+	int temp = firstLine.size() - secondLine.size();
+	if (secondLine.size() % 2 == 1)
+		temp++;
+
+	whiteSpacesSecond = whiteSpacesFirst - temp / 2;
+
+	temp = firstLine.size() - thirdLine.size();
+	if (thirdLine.size() % 2 == 1)
+		temp++;
+	whiteSpacesThird = whiteSpacesFirst - temp / 2;
+}
+
 void printOptions(string firstOption, string secondOption)
 {
 	cout << "\n\n\n\n\n\n\n\n\n";
@@ -62,9 +80,19 @@ void printOptions(string firstOption, string secondOption)
 	cout << setw(whiteSpacesSecond) << secondOption << endl;
 }
 
+void printOptions(string firstOption, string secondOption, string thirdOption)
+{
+	cout << "\n\n\n\n\n\n\n\n\n";
+	int whiteSpacesFirst = 0, whiteSpacesSecond = 0, whiteSpacesThird = 0;
+	setWhiteSpacesLength(firstOption, secondOption,thirdOption, whiteSpacesFirst, whiteSpacesSecond,whiteSpacesThird);
+	cout << setw(whiteSpacesFirst) << firstOption << endl;
+	cout << setw(whiteSpacesSecond) << secondOption << endl;
+	cout << setw(whiteSpacesThird) << thirdOption << endl;
+}
+
 void startGameOption()
 {
-	printOptions(">New Game<", "Exit");	
+	printOptions(">New Game<", "Exit");
 }
 
 void exitOption()
@@ -141,15 +169,20 @@ void arrangeShipsMenu() //ADD ---return option---
 		default: break;
 		}
 
-		if (temp % 2 == 0)
+		if (temp % 3 == 0)
 		{
 			system("CLS");
 			randomArrangementOption();
 		}
-		else
+		else if(temp%3==1)
 		{
 			system("CLS");
 			playersArrangementOption();
+		}
+		else
+		{
+			system("CLS");
+			returnOption();
 		}
 
 		choice = _getch();
@@ -158,10 +191,15 @@ void arrangeShipsMenu() //ADD ---return option---
 
 void randomArrangementOption()
 {
-	printOptions(">Choose random positions for your ships<", "Arrange your ships");
+	printOptions(">Choose random positions for your ships<", "Arrange your ships","Return");
 }
 
 void playersArrangementOption()
 {
-	printOptions("Choose random positions for your ships", ">Arrange your ships<");
+	printOptions("Choose random positions for your ships", ">Arrange your ships<","Return");
+}
+
+void returnOption()
+{
+	printOptions("Choose random positions for your ships", "Arrange your ships", ">Return<");
 }
