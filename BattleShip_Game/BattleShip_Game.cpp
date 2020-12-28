@@ -22,7 +22,7 @@
 using namespace std;
 
 const int MIDDLE_CONSOLE = 60;
-const int FIELD_SIZE = 10; 
+const int FIELD_SIZE = 10;
 
 void startGameOption();
 void exitOption();
@@ -42,32 +42,9 @@ void returnOption();
 // 2 - ship
 // 3 - shoted ship
 
-void fillBattlefield(int array[FIELD_SIZE][FIELD_SIZE])
-{
-	for (int i = 0; i < FIELD_SIZE; i++)
-	{
-		for (int j = 0; j < FIELD_SIZE; j++)
-		{
-			switch (array[i][j])
-			{
-			case 0: {
-				cout << "  "; break;
-			}
-			case 1: {
-				cout << "•"; break;
-			}
-			case 2: {
-				cout << (char)219; break;
-			}
-			case 3: {
-				cout << (char)176; break;
-			}
-			default: break;
-			}
-		}
-		cout << endl;
-	}
-}
+void fillBattlefield(int array[FIELD_SIZE][FIELD_SIZE]);
+void drawEmptyField();
+void printLine();
 
 int main()
 {
@@ -97,7 +74,7 @@ int main()
 		default: break;
 		}
 	}*/
-	int field[FIELD_SIZE][FIELD_SIZE] =
+	/*int field[FIELD_SIZE][FIELD_SIZE] =
 	{
 		{2,2,0,2,0,0,2,2,2,2},
 		{0,0,0,1,0,0,0,0,0,0},
@@ -109,8 +86,10 @@ int main()
 		{3,3,0,0,0,0,0,1,0,2},
 		{0,0,0,0,0,0,0,0,0,0},
 		{0,0,0,0,2,2,2,2,2,2}
-	};
-	fillBattlefield(field);
+	};*/
+	//fillBattlefield(field);
+
+	drawEmptyField();
 }
 
 void setWhiteSpacesLength(string firstLine, string secondLine, int& whiteSpacesFirst, int& whiteSpacesSecond)
@@ -279,4 +258,93 @@ void playersArrangementOption()
 void returnOption()
 {
 	printOptions("Choose random positions for your ships", "Arrange your ships", ">Return<");
+}
+
+void fillBattlefield(int array[FIELD_SIZE][FIELD_SIZE])
+{
+	for (int i = 0; i < FIELD_SIZE; i++)
+	{
+		for (int j = 0; j < FIELD_SIZE; j++)
+		{
+			switch (array[i][j])
+			{
+			case 0: {
+				cout << "  "; break;
+			}
+			case 1: {
+				cout << "•"; break;
+			}
+			case 2: {
+				cout << (char)219; break;
+			}
+			case 3: {
+				cout << (char)176; break;
+			}
+			default: break;
+			}
+		}
+		cout << endl;
+	}
+}
+
+void drawEmptyField()
+{
+	//first line
+	cout << (char)201 << (char)205 << (char)205 << (char)205;
+	for (int i = 0; i < FIELD_SIZE; i++)
+		cout << (char)209 << (char)205 << (char)205 << (char)205;
+	cout << (char)187 << endl;
+
+	//second line
+	cout << (char)186 << " \\ ";
+	for (int i = 65; i < 65 + FIELD_SIZE; i++)
+	{
+		cout << (char)179 << " " << (char)i << " ";
+	}
+	cout << (char)186 << endl;
+
+	//print line
+	printLine();
+
+	for (int i = 1; i < FIELD_SIZE; i++)
+	{
+		cout << (char)186 << " " << i << " ";
+
+		for (int j = 0; j < FIELD_SIZE; j++)
+		{
+			cout << (char)179 << "   ";
+		}
+
+		cout << (char)186 << endl;
+		printLine();
+	}
+
+
+	cout << (char)186 << FIELD_SIZE << " ";
+
+	for (int j = 0; j < FIELD_SIZE; j++)
+	{
+		cout << (char)179 << "   ";
+	}
+
+	cout << (char)186 << endl;
+
+	cout << (char)200 << (char)205 << (char)205 << (char)205;
+	for (int i = 0; i < FIELD_SIZE; i++)
+		cout << (char)207 << (char)205 << (char)205 << (char)205;
+	cout << (char)188 << endl;
+}
+
+void printLine()
+{
+	cout << (char)199;
+	for (int i = 0; i < FIELD_SIZE * 3 ; i+=3)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			cout << (char)196;
+		}
+		cout << (char)197;
+	}
+	cout << (char)196 << (char)196 << (char)196<< (char)182<<endl;
 }
