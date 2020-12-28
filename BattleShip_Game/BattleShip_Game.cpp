@@ -22,6 +22,7 @@
 using namespace std;
 
 const int MIDDLE_CONSOLE = 60;
+const int FIELD_SIZE = 10; 
 
 void startGameOption();
 void exitOption();
@@ -35,9 +36,42 @@ void randomArrangementOption();
 void playersArrangementOption();
 void returnOption();
 
+
+// 0 - empty field
+// 1 - field that had been shoted at but empty
+// 2 - ship
+// 3 - shoted ship
+
+void fillBattlefield(int array[FIELD_SIZE][FIELD_SIZE])
+{
+	for (int i = 0; i < FIELD_SIZE; i++)
+	{
+		for (int j = 0; j < FIELD_SIZE; j++)
+		{
+			switch (array[i][j])
+			{
+			case 0: {
+				cout << "  "; break;
+			}
+			case 1: {
+				cout << "•"; break;
+			}
+			case 2: {
+				cout << (char)219; break;
+			}
+			case 3: {
+				cout << (char)176; break;
+			}
+			default: break;
+			}
+		}
+		cout << endl;
+	}
+}
+
 int main()
 {
-	int actionCode = 0;
+	/*int actionCode = 0;
 	actionCode = startingMenu();
 	//ADD ---chose player option---
 	while (actionCode == 1)
@@ -62,7 +96,21 @@ int main()
 		}
 		default: break;
 		}
-	}
+	}*/
+	int field[FIELD_SIZE][FIELD_SIZE] =
+	{
+		{2,2,0,2,0,0,2,2,2,2},
+		{0,0,0,1,0,0,0,0,0,0},
+		{2,0,0,2,0,2,2,2,0,2},
+		{2,0,1,0,0,0,0,0,0,2},
+		{2,0,0,0,0,1,1,0,0,0},
+		{2,1,0,0,0,2,0,1,0,3},
+		{0,0,0,1,0,2,0,0,0,3},
+		{3,3,0,0,0,0,0,1,0,2},
+		{0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,2,2,2,2,2,2}
+	};
+	fillBattlefield(field);
 }
 
 void setWhiteSpacesLength(string firstLine, string secondLine, int& whiteSpacesFirst, int& whiteSpacesSecond)
