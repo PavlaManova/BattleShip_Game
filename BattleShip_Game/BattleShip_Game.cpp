@@ -22,14 +22,9 @@
 
 using namespace std;
 
-// 0 - empty field
-// 1 - field that had been shoted at but empty
-// 2 - ship
-// 3 - shoted ship
-
 int main()
 {
-	int actionCode = 0;
+	/*int actionCode = 0;
 	actionCode = startingMenu();
 	//ADD ---choose player option---
 	while (actionCode == 1)
@@ -54,8 +49,8 @@ int main()
 		}
 		default: break;
 		}
-	}
-	/*int field[FIELD_SIZE][FIELD_SIZE] =
+	}*/
+	int field[FIELD_SIZE][FIELD_SIZE] =
 	{
 		{2,2,0,2,0,0,2,2,2,2},
 		{0,0,0,1,0,0,0,0,0,0},
@@ -67,10 +62,10 @@ int main()
 		{3,3,0,0,0,0,0,1,0,2},
 		{0,0,0,0,0,0,0,0,0,0},
 		{0,0,0,0,2,2,2,2,2,2}
-	};*/
-	//fillBattlefield(field);
+	};
+	fillBattlefield(field);
 
-	//drawEmptyField();
+	//printEmptyField();
 }
 
 

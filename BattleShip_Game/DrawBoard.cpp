@@ -19,40 +19,47 @@
 
 using namespace std;
 
+void printPlayerOne()
+{
+	system("CLS");
+	cout << endl;
+	for (int i = 0; i < 17; i++)
+		cout << DOUBLE_HORIZONTAL_LINE;
+	cout << " Player 1 ";
+	for (int i = 0; i < 18; i++)
+		cout << DOUBLE_HORIZONTAL_LINE;
+	cout << endl;
+}
+
+void printPlayerTwo()
+{
+	system("CLS");
+	cout << endl;
+	for (int i = 0; i < 17; i++)
+		cout << DOUBLE_HORIZONTAL_LINE;
+	cout << " Player 2 ";
+	for (int i = 0; i < 18; i++)
+		cout << DOUBLE_HORIZONTAL_LINE;
+	cout << endl;
+}
+
 void fillBattlefield(int array[FIELD_SIZE][FIELD_SIZE])
 {
-	for (int i = 0; i < FIELD_SIZE; i++)
-	{
-		for (int j = 0; j < FIELD_SIZE; j++)
-		{
-			switch (array[i][j])
-			{
-			case 0: {
-				cout << "  "; break;
-			}
-			case 1: {
-				cout << "•"; break;
-			}
-			case 2: {
-				cout << (char)219; break;
-			}
-			case 3: {
-				cout << (char)176; break;
-			}
-			default: break;
-			}
-		}
-		cout << endl;
-	}
+	printPlayerOne();
+	printFirstLine();
+	printLines(array);
+	printLastLine(array);
 }
 
-void drawEmptyField()
+void printEmptyField()
 {
-	firstLine();
+	printPlayerOne();
+	printFirstLine();
 	printLines();
+	printLastLine();
 }
 
-void firstLine()
+void printFirstLine()
 {
 	cout << LEFT_UPPER_CORNER << DOUBLE_HORIZONTAL_LINE << DOUBLE_HORIZONTAL_LINE << DOUBLE_HORIZONTAL_LINE;
 	cout << DOUBLE_T << DOUBLE_HORIZONTAL_LINE << DOUBLE_HORIZONTAL_LINE << DOUBLE_HORIZONTAL_LINE;
@@ -85,33 +92,34 @@ void printLines()
 	//Lines with numbers from 1 to 9
 	for (int i = 1; i < FIELD_SIZE; i++)
 	{
-		cout << DOUBLE_VERTICAL_LINE << " " << i << " " << DOUBLE_VERTICAL_LINE << "   ";
+		cout << DOUBLE_VERTICAL_LINE << " " << i << " " << DOUBLE_VERTICAL_LINE << EMPTY_SPACE;
 
 		for (int j = 0; j < FIELD_SIZE - 1; j++)
 		{
-			cout << VERTICAL_LINE << "   ";
+			cout << VERTICAL_LINE << EMPTY_SPACE;
 		}
 
 		cout << DOUBLE_VERTICAL_LINE << endl;
 		printHorizontalLines();
 	}
+}
 
-	//Line 10
-	cout << DOUBLE_VERTICAL_LINE << FIELD_SIZE << " " << DOUBLE_VERTICAL_LINE << "   ";
-
-	for (int j = 0; j < FIELD_SIZE - 1; j++)
-	{
-		cout << VERTICAL_LINE << "   ";
-	}
-
-	cout << DOUBLE_VERTICAL_LINE << endl;
-
-	cout << LEFT_LOWER_CORNER << DOUBLE_HORIZONTAL_LINE << DOUBLE_HORIZONTAL_LINE << DOUBLE_HORIZONTAL_LINE
-		<< DOUBLE_T_ROTATED << DOUBLE_HORIZONTAL_LINE << DOUBLE_HORIZONTAL_LINE << DOUBLE_HORIZONTAL_LINE;
+void printLines(int array[FIELD_SIZE][FIELD_SIZE])
+{
 	for (int i = 0; i < FIELD_SIZE - 1; i++)
-		cout << T_DOUBLE_UPPER_ROTATED << DOUBLE_HORIZONTAL_LINE << DOUBLE_HORIZONTAL_LINE << DOUBLE_HORIZONTAL_LINE;
-	cout << RIGHT_LOWER_CORNER << endl;
+	{
+		cout << DOUBLE_VERTICAL_LINE << " " << i + 1 << " " << DOUBLE_VERTICAL_LINE;
+		symbol(array[i][0]);
 
+		for (int j = 0; j < FIELD_SIZE - 1; j++)
+		{
+			cout << VERTICAL_LINE;
+			symbol(array[i][j + 1]);
+		}
+
+		cout << DOUBLE_VERTICAL_LINE << endl;
+		printHorizontalLines();
+	}
 }
 
 void printHorizontalLines()
@@ -126,4 +134,77 @@ void printHorizontalLines()
 		cout << CROSS;
 	}
 	cout << HORIZONTAL_LINE << HORIZONTAL_LINE << HORIZONTAL_LINE << T_DOUBLE_UPPER_RIGHT << endl;
+}
+
+void symbol(int code)
+{
+	char output[SINGLE_FIELD_SIZE + 1] = { 0 };
+	output[SINGLE_FIELD_SIZE] = '\0';
+	switch (code)
+	{
+	case 0: {
+		cout << EMPTY_SPACE;
+		break;
+	}
+	case 1: {
+		output[0] = ' ';
+		output[2] = ' ';
+		output[1] = 'o';
+		cout << output;
+		break;
+	}
+	case 2: {
+		for (int i = 0; i < SINGLE_FIELD_SIZE; i++)
+			output[i] = (char)219;
+		cout << output;
+		break;
+	}
+	case 3: {
+		output[0] = ' ';
+		output[2] = ' ';
+		output[1] = 'X';
+		cout << output;
+		break;
+	}
+	default:break;
+	}
+}
+
+void printLastLine()
+{
+	cout << DOUBLE_VERTICAL_LINE << FIELD_SIZE << " " << DOUBLE_VERTICAL_LINE << EMPTY_SPACE;
+
+	for (int j = 0; j < FIELD_SIZE - 1; j++)
+	{
+		cout << VERTICAL_LINE << EMPTY_SPACE;
+	}
+
+	cout << DOUBLE_VERTICAL_LINE << endl;
+
+	printLowerBorder();
+}
+
+void printLastLine(int array[FIELD_SIZE][FIELD_SIZE])
+{
+	cout << DOUBLE_VERTICAL_LINE << FIELD_SIZE << " " << DOUBLE_VERTICAL_LINE;
+	symbol(array[FIELD_SIZE - 1][0]);
+
+	for (int j = 0; j < FIELD_SIZE - 1; j++)
+	{
+		cout << VERTICAL_LINE;
+		symbol(array[FIELD_SIZE - 1][j + 1]);
+	}
+
+	cout << DOUBLE_VERTICAL_LINE << endl;
+
+	printLowerBorder();
+}
+
+void printLowerBorder()
+{
+	cout << LEFT_LOWER_CORNER << DOUBLE_HORIZONTAL_LINE << DOUBLE_HORIZONTAL_LINE << DOUBLE_HORIZONTAL_LINE
+		<< DOUBLE_T_ROTATED << DOUBLE_HORIZONTAL_LINE << DOUBLE_HORIZONTAL_LINE << DOUBLE_HORIZONTAL_LINE;
+	for (int i = 0; i < FIELD_SIZE - 1; i++)
+		cout << T_DOUBLE_UPPER_ROTATED << DOUBLE_HORIZONTAL_LINE << DOUBLE_HORIZONTAL_LINE << DOUBLE_HORIZONTAL_LINE;
+	cout << RIGHT_LOWER_CORNER << endl;
 }

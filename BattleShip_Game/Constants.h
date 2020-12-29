@@ -14,10 +14,15 @@
 */
 
 #pragma once
+#include <iostream>
+
+using namespace std;
 
 const int FIELD_SIZE = 10;
 
 const int MIDDLE_CONSOLE = 60;
+
+const int SINGLE_FIELD_SIZE = 3;
 
 const char DOUBLE_VERTICAL_LINE = (char)186,
 		   DOUBLE_HORIZONTAL_LINE = (char)205,
@@ -39,4 +44,6 @@ const char DOUBLE_VERTICAL_LINE = (char)186,
 		   CROSS_DOUBLE_VERTICAL = (char)215,
 		   CROSS = (char)197,
 		   T_DOUBLE_UPPER_RIGHT = (char)182;
+
+const string EMPTY_SPACE = "   ";
 
