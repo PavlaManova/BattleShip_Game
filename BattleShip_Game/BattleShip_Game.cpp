@@ -23,6 +23,26 @@ using namespace std;
 
 const int MIDDLE_CONSOLE = 60;
 const int FIELD_SIZE = 10;
+const char DOUBLE_VERTICAL_LINE = (char)186,
+DOUBLE_HORIZONTAL_LINE = (char)205,
+RIGHT_UPPER_CORNER = (char)187,
+LEFT_UPPER_CORNER = (char)201,
+LEFT_LOWER_CORNER = (char)200,
+RIGHT_LOWER_CORNER = (char)188,
+HORIZONTAL_LINE = (char)196,
+VERTICAL_LINE = (char)179,
+DOUBLE_T = (char)203,
+T_DOUBLE_UPPER = (char)209,
+DOUBLE_T_LEFT = (char)204,
+DOUBLE_CROSS = (char)206,
+CROSS_DOUBLE_HORIZONRAL = (char)216,
+DOUBLE_T_RIGHT = (char)185,
+DOUBLE_T_ROTATED = (char)202,
+T_DOUBLE_UPPER_ROTATED = (char)207,
+T_DOUBLE_UPPER_LEFT = (char)199,
+CROSS_DOUBLE_VERTICAL = (char)215,
+CROSS = (char)197,
+T_DOUBLE_UPPER_RIGHT = (char)182;
 
 void startGameOption();
 void exitOption();
@@ -44,7 +64,10 @@ void returnOption();
 
 void fillBattlefield(int array[FIELD_SIZE][FIELD_SIZE]);
 void drawEmptyField();
-void printLine();
+void printHorizontalLines();
+void firstLine();
+void printLines();
+
 
 int main()
 {
@@ -289,62 +312,82 @@ void fillBattlefield(int array[FIELD_SIZE][FIELD_SIZE])
 
 void drawEmptyField()
 {
-	//first line
-	cout << (char)201 << (char)205 << (char)205 << (char)205;
-	for (int i = 0; i < FIELD_SIZE; i++)
-		cout << (char)209 << (char)205 << (char)205 << (char)205;
-	cout << (char)187 << endl;
-
-	//second line
-	cout << (char)186 << " \\ ";
-	for (int i = 65; i < 65 + FIELD_SIZE; i++)
-	{
-		cout << (char)179 << " " << (char)i << " ";
-	}
-	cout << (char)186 << endl;
-
-	//print line
-	printLine();
-
-	for (int i = 1; i < FIELD_SIZE; i++)
-	{
-		cout << (char)186 << " " << i << " ";
-
-		for (int j = 0; j < FIELD_SIZE; j++)
-		{
-			cout << (char)179 << "   ";
-		}
-
-		cout << (char)186 << endl;
-		printLine();
-	}
-
-
-	cout << (char)186 << FIELD_SIZE << " ";
-
-	for (int j = 0; j < FIELD_SIZE; j++)
-	{
-		cout << (char)179 << "   ";
-	}
-
-	cout << (char)186 << endl;
-
-	cout << (char)200 << (char)205 << (char)205 << (char)205;
-	for (int i = 0; i < FIELD_SIZE; i++)
-		cout << (char)207 << (char)205 << (char)205 << (char)205;
-	cout << (char)188 << endl;
+	firstLine();
+	printLines();
 }
 
-void printLine()
+void firstLine()
 {
-	cout << (char)199;
-	for (int i = 0; i < FIELD_SIZE * 3 ; i+=3)
+	cout << LEFT_UPPER_CORNER << DOUBLE_HORIZONTAL_LINE << DOUBLE_HORIZONTAL_LINE << DOUBLE_HORIZONTAL_LINE;
+	cout << DOUBLE_T << DOUBLE_HORIZONTAL_LINE << DOUBLE_HORIZONTAL_LINE << DOUBLE_HORIZONTAL_LINE;
+
+	for (int i = 0; i < FIELD_SIZE - 1; i++)
+		cout << T_DOUBLE_UPPER << DOUBLE_HORIZONTAL_LINE << DOUBLE_HORIZONTAL_LINE << DOUBLE_HORIZONTAL_LINE;
+	cout << RIGHT_UPPER_CORNER << endl;
+
+	cout << DOUBLE_VERTICAL_LINE << " \\ " << DOUBLE_VERTICAL_LINE << " " << (char)65 << " ";
+	for (int i = 66; i < 65 + FIELD_SIZE; i++)
+	{
+		cout << VERTICAL_LINE << " " << (char)i << " ";
+	}
+	cout << DOUBLE_VERTICAL_LINE << endl;
+
+	cout << DOUBLE_T_LEFT << DOUBLE_HORIZONTAL_LINE << DOUBLE_HORIZONTAL_LINE << DOUBLE_HORIZONTAL_LINE << DOUBLE_CROSS;
+	for (int i = 0; i < FIELD_SIZE * 3 - 4; i += 3)
 	{
 		for (int j = 0; j < 3; j++)
 		{
-			cout << (char)196;
+			cout << DOUBLE_HORIZONTAL_LINE;
 		}
-		cout << (char)197;
+		cout << CROSS_DOUBLE_HORIZONRAL;
 	}
-	cout << (char)196 << (char)196 << (char)196<< (char)182<<endl;
+	cout << DOUBLE_HORIZONTAL_LINE << DOUBLE_HORIZONTAL_LINE << DOUBLE_HORIZONTAL_LINE << DOUBLE_T_RIGHT << endl;
+}
+
+void printLines()
+{
+	//Lines with numbers from 1 to 9
+	for (int i = 1; i < FIELD_SIZE; i++)
+	{
+		cout << DOUBLE_VERTICAL_LINE << " " << i << " " << DOUBLE_VERTICAL_LINE << "   ";
+
+		for (int j = 0; j < FIELD_SIZE - 1; j++)
+		{
+			cout << VERTICAL_LINE << "   ";
+		}
+
+		cout << DOUBLE_VERTICAL_LINE << endl;
+		printHorizontalLines();
+	}
+
+	//Line 10
+	cout << DOUBLE_VERTICAL_LINE << FIELD_SIZE << " " << DOUBLE_VERTICAL_LINE << "   ";
+
+	for (int j = 0; j < FIELD_SIZE - 1; j++)
+	{
+		cout << VERTICAL_LINE << "   ";
+	}
+
+	cout << DOUBLE_VERTICAL_LINE << endl;
+
+	cout << LEFT_LOWER_CORNER << DOUBLE_HORIZONTAL_LINE << DOUBLE_HORIZONTAL_LINE << DOUBLE_HORIZONTAL_LINE
+		<< DOUBLE_T_ROTATED << DOUBLE_HORIZONTAL_LINE << DOUBLE_HORIZONTAL_LINE << DOUBLE_HORIZONTAL_LINE;
+	for (int i = 0; i < FIELD_SIZE - 1; i++)
+		cout << T_DOUBLE_UPPER_ROTATED << DOUBLE_HORIZONTAL_LINE << DOUBLE_HORIZONTAL_LINE << DOUBLE_HORIZONTAL_LINE;
+	cout << RIGHT_LOWER_CORNER << endl;
+
+}
+
+void printHorizontalLines()
+{
+	cout << T_DOUBLE_UPPER_LEFT << HORIZONTAL_LINE << HORIZONTAL_LINE << HORIZONTAL_LINE << CROSS_DOUBLE_VERTICAL;
+	for (int i = 0; i < (FIELD_SIZE - 1) * 3; i += 3)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			cout << HORIZONTAL_LINE;
+		}
+		cout << CROSS;
+	}
+	cout << HORIZONTAL_LINE << HORIZONTAL_LINE << HORIZONTAL_LINE << T_DOUBLE_UPPER_RIGHT << endl;
 }
