@@ -21,12 +21,10 @@ void fillBattlefield(int array[FIELD_SIZE][FIELD_SIZE]);
 void printEmptyField();
 void printHorizontalLines();
 void printFirstLine();
-void printLines();
 void printLines(int array[FIELD_SIZE][FIELD_SIZE]);
 void printPlayerOne();
 void printPlayerTwo();
 void symbol(int code);
-void printLastLine();
 void printLastLine(int array[FIELD_SIZE][FIELD_SIZE]);
 void printLowerBorder();
 

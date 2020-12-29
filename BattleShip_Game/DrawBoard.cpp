@@ -53,10 +53,11 @@ void fillBattlefield(int array[FIELD_SIZE][FIELD_SIZE])
 
 void printEmptyField()
 {
+	int array[FIELD_SIZE][FIELD_SIZE] = { 0 };
 	printPlayerOne();
 	printFirstLine();
-	printLines();
-	printLastLine();
+	printLines(array);
+	printLastLine(array);
 }
 
 void printFirstLine()
@@ -85,23 +86,6 @@ void printFirstLine()
 		cout << CROSS_DOUBLE_HORIZONRAL;
 	}
 	cout << DOUBLE_HORIZONTAL_LINE << DOUBLE_HORIZONTAL_LINE << DOUBLE_HORIZONTAL_LINE << DOUBLE_T_RIGHT << endl;
-}
-
-void printLines()
-{
-	//Lines with numbers from 1 to 9
-	for (int i = 1; i < FIELD_SIZE; i++)
-	{
-		cout << DOUBLE_VERTICAL_LINE << " " << i << " " << DOUBLE_VERTICAL_LINE << EMPTY_SPACE;
-
-		for (int j = 0; j < FIELD_SIZE - 1; j++)
-		{
-			cout << VERTICAL_LINE << EMPTY_SPACE;
-		}
-
-		cout << DOUBLE_VERTICAL_LINE << endl;
-		printHorizontalLines();
-	}
 }
 
 void printLines(int array[FIELD_SIZE][FIELD_SIZE])
@@ -160,20 +144,6 @@ void symbol(int code)
 	}
 	default:break;
 	}
-}
-
-void printLastLine()
-{
-	cout << DOUBLE_VERTICAL_LINE << FIELD_SIZE << " " << DOUBLE_VERTICAL_LINE << EMPTY_SPACE;
-
-	for (int j = 0; j < FIELD_SIZE - 1; j++)
-	{
-		cout << VERTICAL_LINE << EMPTY_SPACE;
-	}
-
-	cout << DOUBLE_VERTICAL_LINE << endl;
-
-	printLowerBorder();
 }
 
 void printLastLine(int array[FIELD_SIZE][FIELD_SIZE])
