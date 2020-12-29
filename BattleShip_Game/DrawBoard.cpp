@@ -147,23 +147,15 @@ void symbol(int code)
 		break;
 	}
 	case 1: {
-		output[0] = ' ';
-		output[2] = ' ';
-		output[1] = 'o';
-		cout << output;
+		cout << MISSED_SQUARE;
 		break;
 	}
 	case 2: {
-		for (int i = 0; i < SINGLE_FIELD_SIZE; i++)
-			output[i] = (char)219;
-		cout << output;
+		cout << SHIP_SQUARE;
 		break;
 	}
 	case 3: {
-		output[0] = ' ';
-		output[2] = ' ';
-		output[1] = 'X';
-		cout << output;
+		cout << HIT_SHIP_SQUARE;
 		break;
 	}
 	default:break;

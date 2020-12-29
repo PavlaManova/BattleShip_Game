@@ -43,7 +43,13 @@ const char DOUBLE_VERTICAL_LINE = (char)186,
 		   T_DOUBLE_UPPER_LEFT = (char)199,
 		   CROSS_DOUBLE_VERTICAL = (char)215,
 		   CROSS = (char)197,
-		   T_DOUBLE_UPPER_RIGHT = (char)182;
+		   T_DOUBLE_UPPER_RIGHT = (char)182,
+		   SOLID_RECTANGLE = (char)219;
 
 const string EMPTY_SPACE = "   ";
+
+const char SHIP_SQUARE[] = { SOLID_RECTANGLE, SOLID_RECTANGLE, SOLID_RECTANGLE },
+		   MISSED_SQUARE[] = { ' ','o',' ' },
+		   HIT_SHIP_SQUARE[] = { ' ','X',' ' };
+
 
