@@ -1,5 +1,3 @@
-#pragma once
-
 /**
 *
 * Solution to course project #5
@@ -15,8 +13,8 @@
 *
 */
 
+#pragma once
 #include "Constants.h"
-
 
 void fillBattlefield(int array[FIELD_SIZE][FIELD_SIZE]);
 void drawEmptyField();
