@@ -19,11 +19,9 @@
 #include <stdlib.h>
 #include <iomanip>
 #include "drawBoard.h"
+#include "Constants.h"
 
 using namespace std;
-
-const int MIDDLE_CONSOLE = 60;
-const int FIELD_SIZE = 10;
 
 void startGameOption();
 void exitOption();
