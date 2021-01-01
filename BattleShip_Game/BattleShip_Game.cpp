@@ -15,42 +15,19 @@
 
 
 #include <iostream>
-//#include <stdlib.h>
-#include "drawBoard.h"
-#include "Constants.h"
-#include "Menu.h"
+//#include "drawBoard.h"
+//#include "Constants.h"
+//#include "Menu.h"
+#include "GameLogic.h"
 
 using namespace std;
 
 int main()
 {
-	/*int actionCode = 0;
-	actionCode = startingMenu();
-	//ADD ---choose player option---
-	while (actionCode == 1)
-	{
-		actionCode = arrangeShipsMenu();
-		switch (actionCode)
-		{
-		case 0:
-		{
-			//ADD ---reading positions from file---
-			break;
-		}
-		case 1:
-		{
-			//ADD ---arrange yourself---
-			break;
-		}
-		case 2:
-		{
-			actionCode=startingMenu(); //Option "Return"
-			break;
-		}
-		default: break;
-		}
-	}*/
-	int field[FIELD_SIZE][FIELD_SIZE] =
+
+	startGame();
+
+	/*int field[FIELD_SIZE][FIELD_SIZE] =
 	{
 		{2,2,0,2,0,0,2,2,2,2},
 		{0,0,0,1,0,0,0,0,0,0},
@@ -63,9 +40,10 @@ int main()
 		{0,0,0,0,0,0,0,0,0,0},
 		{0,0,0,0,2,2,2,2,2,2}
 	};
-	//fillBattlefield(field);
 
-	printEmptyField();
+	
+	
+	fillBattlefield(field);*/
 }
 
 

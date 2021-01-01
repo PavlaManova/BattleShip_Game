@@ -18,7 +18,6 @@
 #include <conio.h>
 #include <iomanip>
 
-
 void setWhiteSpacesLength(string firstLine, string secondLine, int& whiteSpacesFirst, int& whiteSpacesSecond)
 {
 	whiteSpacesFirst = MIDDLE_CONSOLE + (firstLine.size() / 2);
@@ -80,13 +79,19 @@ int startingMenu()
 	system("CLS");
 	startGameOption();
 
+	//_getch(); //ignore code 224 that getch() returns first - "introduction code"
 	int choice = _getch(),
 		temp = 0;
 
+	if (choice == 224)
+		choice = _getch();
+
 	bool endGame = false;
+
+
 	while (choice != 13) // Enter - choice is made
 	{
-		if (choice == 80)
+		if (choice == 75)
 			temp++;
 		else
 			temp--;
@@ -105,6 +110,8 @@ int startingMenu()
 		}
 
 		choice = _getch();
+		if (choice == 224)
+			choice = _getch();
 	}
 
 	if (endGame)
@@ -121,6 +128,9 @@ int arrangeShipsMenu() //ADD ---return option---
 		temp = 0,
 		chosenActionCode = 0;
 
+	if (choice == 224)
+		choice = _getch();
+
 	while (choice != 13) // Enter - choice is made
 	{
 		if (choice == 80)
@@ -128,13 +138,13 @@ int arrangeShipsMenu() //ADD ---return option---
 		else
 			temp--;
 
-		if (temp % 3 == 0)
+		if (abs(temp) % 3 == 0)
 		{
 			system("CLS");
 			chosenActionCode = 0;
 			randomArrangementOption();
 		}
-		else if (temp % 3 == 1)
+		else if (abs(temp) % 3 == 1)
 		{
 			system("CLS");
 			chosenActionCode = 1;
@@ -148,6 +158,8 @@ int arrangeShipsMenu() //ADD ---return option---
 		}
 
 		choice = _getch();
+		if (choice == 224)
+			choice = _getch();
 	}
 	return chosenActionCode;
 }

@@ -24,6 +24,8 @@ const int MIDDLE_CONSOLE = 60;
 
 const int SINGLE_FIELD_SIZE = 3;
 
+const int BOARD_WIDTH = 45;
+
 const char DOUBLE_VERTICAL_LINE = (char)186,
 		   DOUBLE_HORIZONTAL_LINE = (char)205,
 		   RIGHT_UPPER_CORNER = (char)187,

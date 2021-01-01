@@ -19,33 +19,26 @@
 
 using namespace std;
 
-void printPlayerOne()
+void printTextAboveField(string text)
 {
-	system("CLS");
 	cout << endl;
-	for (int i = 0; i < 17; i++)
+	int sameCharacters=(BOARD_WIDTH-text.size())/2; //=
+	for (int i = 0; i < sameCharacters; i++)
 		cout << DOUBLE_HORIZONTAL_LINE;
-	cout << " Player 1 ";
-	for (int i = 0; i < 18; i++)
-		cout << DOUBLE_HORIZONTAL_LINE;
-	cout << endl;
-}
 
-void printPlayerTwo()
-{
-	system("CLS");
-	cout << endl;
-	for (int i = 0; i < 17; i++)
-		cout << DOUBLE_HORIZONTAL_LINE;
-	cout << " Player 2 ";
-	for (int i = 0; i < 18; i++)
+	cout << " " << text << " ";
+
+	if (text.size() % 2 == 0)
+		sameCharacters--;
+
+	for (int i = 0; i < sameCharacters; i++)
 		cout << DOUBLE_HORIZONTAL_LINE;
 	cout << endl;
 }
 
 void fillBattlefield(int array[FIELD_SIZE][FIELD_SIZE])
 {
-	printPlayerOne();
+	system("CLS");
 	printFirstLine();
 	printLines(array);
 	printLastLine(array);
@@ -53,8 +46,9 @@ void fillBattlefield(int array[FIELD_SIZE][FIELD_SIZE])
 
 void printEmptyField()
 {
+	system("CLS");
 	int array[FIELD_SIZE][FIELD_SIZE] = { 0 };
-	printPlayerOne();
+	printTextAboveField("Player 1");
 	printFirstLine();
 	printLines(array);
 	printLastLine(array);
@@ -69,7 +63,7 @@ void printFirstLine()
 		cout << T_DOUBLE_UPPER << DOUBLE_HORIZONTAL_LINE << DOUBLE_HORIZONTAL_LINE << DOUBLE_HORIZONTAL_LINE;
 	cout << RIGHT_UPPER_CORNER << endl;
 
-	cout << DOUBLE_VERTICAL_LINE << " \\ " << DOUBLE_VERTICAL_LINE << " " << (char)65 << " ";
+	cout << DOUBLE_VERTICAL_LINE <<EMPTY_SPACE<< DOUBLE_VERTICAL_LINE << " " << (char)65 << " ";
 	for (int i = 66; i < 65 + FIELD_SIZE; i++)
 	{
 		cout << VERTICAL_LINE << " " << (char)i << " ";

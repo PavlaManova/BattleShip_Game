@@ -17,7 +17,7 @@
 #include "Constants.h"
 
 void fillBattlefield(int array[FIELD_SIZE][FIELD_SIZE]);
-//void drawField(int array[FIELD_SIZE][FIELD_SIZE]);
+void printTextAboveField(string text);
 void printEmptyField();
 void printHorizontalLines();
 void printFirstLine();
