@@ -16,6 +16,7 @@
 #include "GameLogic.h"
 #include "Menu.h"
 #include "drawBoard.h"
+#include "Constants.h"
 
 /*enum Ship
 {
@@ -82,8 +83,8 @@ void arrangeYourself()
 	int field[FIELD_SIZE][FIELD_SIZE] = { 0 };
 	int countShips = 0;
 
-	while (countShips < 5)
-	{
+	//while (countShips < 5)
+	//{
 		printBattlefield(field, "Your field");
 		cout << "Chose one of the following options:" << endl;
 		cout << "1) place next ship\n2) change position of some of your ships" << endl;//the third option - view board, is shown the whole time
@@ -102,12 +103,23 @@ void arrangeYourself()
 		if (choice == '1')
 		{
 			printBattlefield(field, "Place your ship");
-			cout << "Choose starting field ";
-			//placeShip(field);
+			placeShip(field);
 		}
 
 		/*else
 			changeShip(field);*/
-	}
+	//}
+
+}
+
+void placeShip(int field[FIELD_SIZE][FIELD_SIZE])
+{
+	cout << "\"I want to place a ship with width:\"" << endl;
+	int shipSize;
+	cin >> shipSize;
+
+	cout << "Choose starting field:";
+	string startingField;
+	char orientation;
 
 }

@@ -22,14 +22,15 @@ using namespace std;
 void printTextAboveField(string text)
 {
 	cout << endl;
+	text = ' ' + text + ' '; //append text for better visualization
+
 	int sameCharacters=(BOARD_WIDTH-text.size())/2; //=
 	for (int i = 0; i < sameCharacters; i++)
 		cout << DOUBLE_HORIZONTAL_LINE;
-
-	cout << " " << text << " ";
+	cout << text;
 
 	if (text.size() % 2 == 0)
-		sameCharacters--;
+		sameCharacters++;
 
 	for (int i = 0; i < sameCharacters; i++)
 		cout << DOUBLE_HORIZONTAL_LINE;
