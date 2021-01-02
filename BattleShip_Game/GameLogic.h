@@ -15,5 +15,9 @@
 
 #pragma once
 
+#include "Constants.h"
+
 void startGame();
 void arrangeYourself();
+void placeShip(int field[FIELD_SIZE][FIELD_SIZE]);
+void changeShip(int field[FIELD_SIZE][FIELD_SIZE]);

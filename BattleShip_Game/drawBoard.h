@@ -16,14 +16,12 @@
 #pragma once
 #include "Constants.h"
 
-void fillBattlefield(int array[FIELD_SIZE][FIELD_SIZE]);
+void printBattlefield(int array[FIELD_SIZE][FIELD_SIZE], string text);
 void printTextAboveField(string text);
 void printEmptyField();
 void printHorizontalLines();
 void printFirstLine();
 void printLines(int array[FIELD_SIZE][FIELD_SIZE]);
-void printPlayerOne();
-void printPlayerTwo();
 void symbol(int code);
 void printLastLine(int array[FIELD_SIZE][FIELD_SIZE]);
 void printLowerBorder();

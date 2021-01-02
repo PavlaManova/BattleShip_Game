@@ -36,9 +36,10 @@ void printTextAboveField(string text)
 	cout << endl;
 }
 
-void fillBattlefield(int array[FIELD_SIZE][FIELD_SIZE])
+void printBattlefield(int array[FIELD_SIZE][FIELD_SIZE], string text)
 {
 	system("CLS");
+	printTextAboveField(text);
 	printFirstLine();
 	printLines(array);
 	printLastLine(array);
@@ -48,10 +49,7 @@ void printEmptyField()
 {
 	system("CLS");
 	int array[FIELD_SIZE][FIELD_SIZE] = { 0 };
-	printTextAboveField("Player 1");
-	printFirstLine();
-	printLines(array);
-	printLastLine(array);
+	printBattlefield(array, "Player 1");
 }
 
 void printFirstLine()
