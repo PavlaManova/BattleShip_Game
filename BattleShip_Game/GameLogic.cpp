@@ -17,6 +17,7 @@
 #include "Menu.h"
 #include "drawBoard.h"
 #include "Constants.h"
+#include "Validation.h"
 
 /*enum Ship
 {
@@ -85,41 +86,52 @@ void arrangeYourself()
 
 	//while (countShips < 5)
 	//{
-		printBattlefield(field, "Your field");
-		cout << "Chose one of the following options:" << endl;
-		cout << "1) place next ship\n2) change position of some of your ships" << endl;//the third option - view board, is shown the whole time
+	printBattlefield(field, "Your field");
+	cout << "Chose one of the following options:" << endl;
+	cout << "1) place next ship\n2) change position of some of your ships" << endl;//the third option - view board, is shown the whole time
+	cout << "Choice: ";
+
+	char choice;
+	cin >> choice;
+
+	while (choice != '1' && choice != '2')
+	{
+		cout << "Wrong input. Try again, choose between 1 or 2." << endl;
 		cout << "Choice: ";
-
-		char choice;
 		cin >> choice;
+	}
 
-		while (choice != '1' && choice != '2')
-		{
-			cout << "Wrong input. Try again, choose between 1 or 2." << endl;
-			cout << "Choice: ";
-			cin >> choice;
-		}
+	if (choice == '1')
+	{
+		printBattlefield(field, "Place your ship");
+		placeShip(field);
+	}
 
-		if (choice == '1')
-		{
-			printBattlefield(field, "Place your ship");
-			placeShip(field);
-		}
-
-		/*else
-			changeShip(field);*/
-	//}
+	/*else
+		changeShip(field);*/
+		//}
 
 }
 
 void placeShip(int field[FIELD_SIZE][FIELD_SIZE])
 {
-	cout << "\"I want to place a ship with width:\"" << endl;
+	string input,startingField;
 	int shipSize;
-	cin >> shipSize;
-
-	cout << "Choose starting field:";
-	string startingField;
 	char orientation;
+
+	cout << "Choose the size of the ship:";
+	cin >> input;
+	shipSize = validateShipSizeInput(input);
+	cout << shipSize << endl;
+	//---ADD check if shipSize is still allowed---
+	cout << "Choose starting field (letter then number of field):";
+	cin >> input;
+	startingField = validateStartingFieldInput(input);
+	cout << startingField << endl;
+	//---ADD check if field is used
+	cout << "Choose a direction for the ship. Choose between (U)p, (D)own, (L)eft, (R)ight:";
+	cin >> input;
+	orientation= validateOrientationInput(input);
+	cout << orientation << endl;
 
 }

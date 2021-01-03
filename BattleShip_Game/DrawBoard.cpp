@@ -24,7 +24,7 @@ void printTextAboveField(string text)
 	cout << endl;
 	text = ' ' + text + ' '; //append text for better visualization
 
-	int sameCharacters=(BOARD_WIDTH-text.size())/2; //=
+	int sameCharacters = (BOARD_WIDTH - text.size()) / 2; //=
 	for (int i = 0; i < sameCharacters; i++)
 		cout << DOUBLE_HORIZONTAL_LINE;
 	cout << text;
@@ -62,7 +62,7 @@ void printFirstLine()
 		cout << T_DOUBLE_UPPER << DOUBLE_HORIZONTAL_LINE << DOUBLE_HORIZONTAL_LINE << DOUBLE_HORIZONTAL_LINE;
 	cout << RIGHT_UPPER_CORNER << endl;
 
-	cout << DOUBLE_VERTICAL_LINE <<EMPTY_SPACE<< DOUBLE_VERTICAL_LINE << " " << (char)65 << " ";
+	cout << DOUBLE_VERTICAL_LINE << EMPTY_SPACE << DOUBLE_VERTICAL_LINE << " " << (char)65 << " ";
 	for (int i = 66; i < 65 + FIELD_SIZE; i++)
 	{
 		cout << VERTICAL_LINE << " " << (char)i << " ";

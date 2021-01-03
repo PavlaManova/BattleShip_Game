@@ -143,12 +143,14 @@
     <ClCompile Include="DrawBoard.cpp" />
     <ClCompile Include="GameLogic.cpp" />
     <ClCompile Include="menu.cpp" />
+    <ClCompile Include="Validation.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Constants.h" />
     <ClInclude Include="drawBoard.h" />
     <ClInclude Include="GameLogic.h" />
     <ClInclude Include="Menu.h" />
+    <ClInclude Include="Validation.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
