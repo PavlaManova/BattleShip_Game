@@ -16,6 +16,7 @@
 #pragma once
 
 #include <iostream>
+#include "Constants.h"
 
 using namespace std;
 
@@ -23,3 +24,5 @@ int validateShipSizeInput(string input);
 string validateStartingFieldInput(string input);
 char validateOrientationInput(string input);
 bool wrongFieldInput(string input);
+bool positionIsPossible(int positions[FIELD_SIZE+2][FIELD_SIZE+2], int shipSize, char orientation, int x, int y);
+bool canPlaceShipThisSize(int shipSize);

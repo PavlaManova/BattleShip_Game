@@ -9,15 +9,12 @@
 * @idnumber 62613
 * @compiler VC
 *
-* <предназначение на файла>
+* <file with main function>
 *
 */
 
 
 #include <iostream>
-//#include "drawBoard.h"
-//#include "Constants.h"
-//#include "Menu.h"
 #include "GameLogic.h"
 
 using namespace std;

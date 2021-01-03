@@ -13,8 +13,10 @@
 *
 */
 
-#include "Validation.h"
 #include <iostream>
+#include "Validation.h"
+#include "GameLogic.h"
+#include "Constants.h"
 
 using namespace std;
 
@@ -40,6 +42,45 @@ int validateShipSizeInput(string input)
 	return (int)input[0] - 48; //returns the int value of the input '2' -> 2
 }
 
+bool canPlaceShipThisSize(int shipSize)
+{
+	switch (shipSize)
+	{
+	case 2:
+	{
+		if (smallShips == 0)
+			return false;
+		else
+			return true;
+		break;
+	}
+	case 3:
+	{
+		if(midiumShips==0)
+			return false;
+		else
+			return true;
+		break;
+	}
+	case 4:
+	{
+		if (bigShips == 0)
+			return false;
+		else
+			return true;
+		break;
+	}
+	case 6:
+	{
+		if (cruiserShips == 0)
+			return false;
+		else
+			return true;
+		break;
+	}
+	}
+}
+
 string validateStartingFieldInput(string input)
 {
 	//---make bool function that returns true if all three are correct - input size is 2; first char is letter; second char is number 
@@ -52,6 +93,9 @@ string validateStartingFieldInput(string input)
 		cout << "Incorect input. Try again with something like J3:";
 		cin >> input;
 	}
+
+	if (input[0] >= 'a' || input[0] <= 'j')
+		input[0] -= 32;
 
 	return input;
 
@@ -100,5 +144,14 @@ char validateOrientationInput(string input)
 		}
 	}
 
+	if (input[0] == 'u' || input[0] == 'd' || input[0] == 'l' || input[0] == 'r') //return upper letter for easier work
+		input[0] -= 32;
 	return input[0];
+}
+
+bool positionIsPossible(int positions[FIELD_SIZE+2][FIELD_SIZE+2], int shipSize, char orientation, int x, int y)
+{
+	if (allShips > MAX_SHIPS_COUNT)
+		return false;
+
 }

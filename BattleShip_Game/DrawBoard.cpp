@@ -124,11 +124,11 @@ void symbol(int code)
 		break;
 	}
 	case 1: {
-		cout << MISSED_SQUARE;
+		cout << SHIP_SQUARE;
 		break;
 	}
-	case 2: {
-		cout << SHIP_SQUARE;
+	case 2: {		
+		cout << MISSED_SQUARE;
 		break;
 	}
 	case 3: {
