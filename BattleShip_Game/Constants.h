@@ -18,17 +18,23 @@
 
 using namespace std;
 
-const int FIELD_SIZE = 10;
+const int FIELD_SIZE = 10,
 
-const int POSITIONS_FIELD_SIZE = FIELD_SIZE + 2;
+		  POSITIONS_FIELD_SIZE = FIELD_SIZE + 2,
 
-const int MIDDLE_CONSOLE = 60;
+		  MIDDLE_CONSOLE = 60,
 
-const int SINGLE_FIELD_SIZE = 3;
+		  SINGLE_FIELD_SIZE = 3,
 
-const int BOARD_WIDTH = 45;
+		  BOARD_WIDTH = 45,
 
-const int MAX_SHIPS_COUNT = 10;
+		  MAX_SHIPS_COUNT = 10,
+
+		  ARROW_UP_KEY = 72,
+
+		  ARROW_DOWN_KEY = 80;
+
+
 
 const char DOUBLE_VERTICAL_LINE = (char)186,
 		   DOUBLE_HORIZONTAL_LINE = (char)205,

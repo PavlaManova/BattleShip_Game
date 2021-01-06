@@ -18,6 +18,96 @@
 #include <conio.h>
 #include <iomanip>
 
+int startingMenu()
+{
+	system("CLS");
+	startGameOption();
+
+	//_getch(); //ignore code 224 that getch() returns first - "introduction code"
+	int choice = _getch(),
+		temp = 0;
+
+	if (choice == 224)
+		choice = _getch();
+
+	bool endGame = false;
+
+
+	while (choice != 13) // Enter - choice is made
+	{
+		if (choice == ARROW_DOWN_KEY)
+			temp++;
+		else if(choice == ARROW_UP_KEY)
+			temp--;
+
+		if (temp % 2 == 0)
+		{
+			system("CLS");
+			startGameOption();
+			endGame = false;
+		}
+		else
+		{
+			system("CLS");
+			exitOption();
+			endGame = true;
+		}
+
+		choice = _getch();
+		if (choice == 224)
+			choice = _getch();
+	}
+
+	if (endGame)
+		exit(-1);
+	else
+		return 1;
+}
+
+int arrangeShipsMenu() //ADD ---return option---
+{
+	system("CLS");
+	randomArrangementOption();
+	int choice = _getch(),
+		temp = 0,
+		chosenActionCode = 0;
+
+	if (choice == 224)
+		choice = _getch();
+
+	while (choice != 13) // Enter - choice is made
+	{
+		if (choice == ARROW_DOWN_KEY)
+			temp++;
+		else if(choice == ARROW_UP_KEY)
+			temp--;
+
+		if (abs(temp) % 3 == 0)
+		{
+			system("CLS");
+			chosenActionCode = 0;
+			randomArrangementOption();
+		}
+		else if (abs(temp) % 3 == 1)
+		{
+			system("CLS");
+			chosenActionCode = 1;
+			playersArrangementOption();
+		}
+		else
+		{
+			system("CLS");
+			chosenActionCode = 2;
+			returnOption();
+		}
+
+		choice = _getch();
+		if (choice == 224)
+			choice = _getch();
+	}
+	return chosenActionCode;
+}
+
 void setWhiteSpacesLength(string firstLine, string secondLine, int& whiteSpacesFirst, int& whiteSpacesSecond)
 {
 	whiteSpacesFirst = MIDDLE_CONSOLE + (firstLine.size() / 2);
@@ -72,96 +162,6 @@ void startGameOption()
 void exitOption()
 {
 	printOptions("New Game", ">Exit<");
-}
-
-int startingMenu()
-{
-	system("CLS");
-	startGameOption();
-
-	//_getch(); //ignore code 224 that getch() returns first - "introduction code"
-	int choice = _getch(),
-		temp = 0;
-
-	if (choice == 224)
-		choice = _getch();
-
-	bool endGame = false;
-
-
-	while (choice != 13) // Enter - choice is made
-	{
-		if (choice == 75)
-			temp++;
-		else
-			temp--;
-
-		if (temp % 2 == 0)
-		{
-			system("CLS");
-			startGameOption();
-			endGame = false;
-		}
-		else
-		{
-			system("CLS");
-			exitOption();
-			endGame = true;
-		}
-
-		choice = _getch();
-		if (choice == 224)
-			choice = _getch();
-	}
-
-	if (endGame)
-		exit(-1);
-	else
-		return 1;
-}
-
-int arrangeShipsMenu() //ADD ---return option---
-{
-	system("CLS");
-	randomArrangementOption();
-	int choice = _getch(),
-		temp = 0,
-		chosenActionCode = 0;
-
-	if (choice == 224)
-		choice = _getch();
-
-	while (choice != 13) // Enter - choice is made
-	{
-		if (choice == 80)
-			temp++;
-		else
-			temp--;
-
-		if (abs(temp) % 3 == 0)
-		{
-			system("CLS");
-			chosenActionCode = 0;
-			randomArrangementOption();
-		}
-		else if (abs(temp) % 3 == 1)
-		{
-			system("CLS");
-			chosenActionCode = 1;
-			playersArrangementOption();
-		}
-		else
-		{
-			system("CLS");
-			chosenActionCode = 2;
-			returnOption();
-		}
-
-		choice = _getch();
-		if (choice == 224)
-			choice = _getch();
-	}
-	return chosenActionCode;
 }
 
 void randomArrangementOption()
