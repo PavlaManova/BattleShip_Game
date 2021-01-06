@@ -20,6 +20,8 @@ using namespace std;
 
 const int FIELD_SIZE = 10;
 
+const int POSITIONS_FIELD_SIZE = FIELD_SIZE + 2;
+
 const int MIDDLE_CONSOLE = 60;
 
 const int SINGLE_FIELD_SIZE = 3;

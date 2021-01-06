@@ -59,13 +59,31 @@ void startGame()
 
 void arrangeYourself()
 {
-	int field[FIELD_SIZE][FIELD_SIZE] = { 0 };
-	//int countShips = 0;
+	int field[FIELD_SIZE][FIELD_SIZE] =
+	{
+	{1, 1, 0, 1, 0, 0, 1, 1, 1, 1},
+	{ 0,0,0,1,0,0,0,0,0,0 },
+	{ 1,0,0,1,0,1,1,1,0,1 },
+	{ 1,0,0,0,0,0,0,0,0,1 },
+	{ 1,0,0,0,0,0,0,0,0,0 },
+	{ 1,0,0,0,0,1,0,0,0,1 },
+	{ 0,0,0,0,0,1,0,0,0,1 },
+	{ 0,0,0,0,0,0,0,0,0,1 },
+	{ 0,0,0,0,0,0,0,0,0,0 },
+	{ 0,0,0,0,1,1,1,1,1,1 }
+	};
+
+	int positions[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE] = { 0 };
+
+	fillPossiblePositions(positions,field);
 
 	//Place first ship
 	printBattlefield(field, "Place your ship");
-	placeShip(field);
+
+	placeShip(field,positions);
+
 	printBattlefield(field, "Your field");
+
 
 	/*
 	//while (countShips < 5)
@@ -98,18 +116,18 @@ void arrangeYourself()
 
 }
 
-void placeShip(int field[FIELD_SIZE][FIELD_SIZE])
+void placeShip(int field[FIELD_SIZE][FIELD_SIZE], int possiblePositions[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE])
 {
 	int shipSize, x, y;
 	string startingField;
 	char orientation;
 
-	int possiblePositions[FIELD_SIZE + 2][FIELD_SIZE + 2] = { 0 }; //make one size bigger square to miss the checks for going outside of the array
+	//int possiblePositions[FIELD_SIZE + 2][FIELD_SIZE + 2] = { 0 }; //make one size bigger square to miss the checks for going outside of the array
 
 	getShipInformation(shipSize, startingField, orientation, field);
 	getShipCoordinates(startingField, x, y);
 
-	while (!positionIsPossible(possiblePositions, shipSize, orientation, x, y, fleet))
+	while (!positionIsPossible(possiblePositions, shipSize, orientation, x, y))
 	{
 		cout << "This position is not possible. Try again." << endl;
 		getShipInformation(shipSize, startingField, orientation, field);
@@ -158,14 +176,11 @@ void placeShip(int field[FIELD_SIZE][FIELD_SIZE])
 		exit(-1);
 	}
 	}
-
-
 }
 
 void getShipInformation(int& shipSize, string& startingField, char& orientation, int field[FIELD_SIZE][FIELD_SIZE])
 {
 	string input;
-	//---CHANGE the possible ships sizes according to what has left---
 	cout << "Choose the size of the ship (2, 3, 4 or 6):";
 	cin >> input;
 	shipSize = validateShipSizeInput(input);
@@ -173,7 +188,7 @@ void getShipInformation(int& shipSize, string& startingField, char& orientation,
 	while (!canPlaceShipThisSize(shipSize, fleet))
 	{
 		cout << "There are no more ships with this size you can place. Try again with another ship." << endl;
-		cout << "Choose the size of the ship (2, 3, 4 or 6):";
+		cout << "Choose the size of the ship:";
 		cin >> input;
 		shipSize = validateShipSizeInput(input);
 	}
@@ -210,26 +225,24 @@ void getShipCoordinates(string field, int& x, int& y)
 		x = 9;
 }
 
-void fillPossiblePositions(int positions[FIELD_SIZE + 2][FIELD_SIZE + 2], int field[FIELD_SIZE][FIELD_SIZE])
+void fillPossiblePositions(int positions[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE], int field[FIELD_SIZE][FIELD_SIZE])
 {
-	int temp[FIELD_SIZE + 2][FIELD_SIZE + 2];
-	for (int i = 0; i)
-		for (int i = 1; i < FIELD_SIZE + 1; i++)
+	for (int i = 1; i < FIELD_SIZE + 1; i++)
+	{
+		for (int j = 1; j < FIELD_SIZE + 1; j++)
 		{
-			for (int j = 1; j < FIELD_SIZE + 1; j++)
+			if (field[i - 1][j - 1] == 1) //there is ship
 			{
-				if (field[i - 1][j - 1] == 1) //there is ship
-				{
-					positions[i - 1][j - 1] = 1;
-					positions[i - 1][j] = 1;
-					positions[i - 1][j + 1] = 1;
-					positions[i][j - 1] = 1;
-					positions[i][j] = 1;
-					positions[i][j + 1] = 1;
-					positions[i + 1][j - 1] = 1;
-					positions[i + 1][j] = 1;
-					positions[i + 1][j + 1] = 1;
-				}
+				positions[i - 1][j - 1] = 1;
+				positions[i - 1][j] = 1;
+				positions[i - 1][j + 1] = 1;
+				positions[i][j - 1] = 1;
+				positions[i][j] = 1;
+				positions[i][j + 1] = 1;
+				positions[i + 1][j - 1] = 1;
+				positions[i + 1][j] = 1;
+				positions[i + 1][j + 1] = 1;
 			}
 		}
+	}
 }

@@ -17,6 +17,7 @@
 #include "Validation.h"
 #include "GameLogic.h"
 #include "Constants.h"
+#include "AuxiliaryFunctions.h"
 
 using namespace std;
 
@@ -42,8 +43,11 @@ int validateShipSizeInput(string input)
 	return (int)input[0] - 48; //returns the int value of the input '2' -> 2
 }
 
-bool canPlaceShipThisSize(int shipSize, Fleet &fleet)
+bool canPlaceShipThisSize(int shipSize, Fleet& fleet)
 {
+	if (fleet.allShips > MAX_SHIPS_COUNT)
+		return false;
+
 	switch (shipSize)
 	{
 	case 2:
@@ -79,14 +83,12 @@ bool canPlaceShipThisSize(int shipSize, Fleet &fleet)
 		break;
 	}
 	}
+
 }
 
 string validateStartingFieldInput(string input)
 {
-	//---make bool function that returns true if all three are correct - input size is 2; first char is letter; second char is number 
-	//---EXCEPTION when field is 10
-	//---while the bool function is false cin input - one or more is incorect and call the function again
-	//ADD validation with space between letter and number
+	//---ADD validation with space between letter and number---
 
 	while (wrongFieldInput(input))
 	{
@@ -149,54 +151,92 @@ char validateOrientationInput(string input)
 	return input[0];
 }
 
-bool positionIsPossible(int positions[FIELD_SIZE + 2][FIELD_SIZE + 2], int shipSize, char orientation, int x, int y, Fleet &fleet)
+/*bool shipFitsInField(int fieldl[FIELD_SIZE][FIELD_SIZE], int shipSize, char orientation, int x, int y)
 {
-	if (fleet.allShips > MAX_SHIPS_COUNT)
-		return false;
+	if(x)
+}
+*/
+bool positionIsPossible(int positions[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE], int shipSize, char orientation, int x, int y)
+{
+	/*if (!shipFitsTheField(positions,))
+		return false;*/
 
+	//When a ship is placed it forms a rectangular arount itself with field that are not possible for placing another ship
 
-
-
-
-
+	//coordinates of this forbbiden area
+	int width = 0,
+		heigth = 0,
+		startingPointX = 0,
+		startingPointY = 0;
 
 	switch (orientation)
 	{
 	case 'U':
 	{
-		if ((x - shipSize + 1) < 0)
-			return false;
-		for (int i = x - shipSize + 1; i <= x; i++)
+		width = 3;
+		heigth = shipSize + 2;
+		startingPointX = x - shipSize + 1;
+		startingPointY = y;
+
+		for (int i = startingPointX; i < heigth + startingPointY; i++)
 		{
-			if (positions[i + 1][y + 1] == 1)//plus 1 because the positions array is one time bigger square
-				return false;
+			for (int j = startingPointY; j < width + startingPointX; j++)
+			{
+				if (positions[i][j] == 1)
+					return false;
+			}
 		}
+
 		break;
 	}
 	case 'D':
 	{
-		if ((x +shipSize) >)
-			return false;
-		for (int i = x; i < x + shipSize; i++)
+		width = 3;
+		heigth = shipSize + 2;
+		startingPointX = x;
+		startingPointY = y;
+
+		for (int i = startingPointX; i < heigth + startingPointY; i++)
 		{
-			if (positions[i + 1][y + 1] == 1)
-				return false;
+			for (int j = startingPointY; j < width + startingPointX; j++)
+			{
+				if (positions[i][j] == 1)
+					return false;
+			}
 		}
 		break;
 	}
 	case 'L':
 	{
-		for (int j = y - shipSize + 1; j <= y; j++)
-			if (positions[x + 1][j + 1] == 1)
-				return false;
+		width = shipSize + 2;
+		heigth = 3;
+		startingPointX = x;
+		startingPointY = y - shipSize + 1;
+
+		for (int i = startingPointX; i < heigth + startingPointY; i++)
+		{
+			for (int j = startingPointY; j < width + startingPointX; j++)
+			{
+				if (positions[i][j] == 1)
+					return false;
+			}
+		}
 		break;
 	}
 	case 'R':
 	{
-		for (int j = y; j < y + shipSize; j++)
+		width = shipSize + 2;
+		heigth = 3;
+		startingPointX = x;
+		startingPointY = y;
+
+		for (int i = startingPointX; i < heigth + startingPointY; i++)
 		{
-			if (positions[x + 1][j + 1] == 1)
-				return false;
+			for (int j = startingPointY; j < width + startingPointX; j++)
+			{
+				if (positions[i][j] == 1)
+					return false;
+			}
 		}
 		break;
 	}
@@ -206,7 +246,4 @@ bool positionIsPossible(int positions[FIELD_SIZE + 2][FIELD_SIZE + 2], int shipS
 		exit(-1);
 	}
 	}
-
-
-
 }

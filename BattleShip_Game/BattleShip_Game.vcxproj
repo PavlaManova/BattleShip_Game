@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AuxiliaryFunctions.cpp" />
     <ClCompile Include="BattleShip_Game.cpp" />
     <ClCompile Include="DrawBoard.cpp" />
     <ClCompile Include="GameLogic.cpp" />
@@ -146,6 +147,7 @@
     <ClCompile Include="Validation.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AuxiliaryFunctions.h" />
     <ClInclude Include="Constants.h" />
     <ClInclude Include="drawBoard.h" />
     <ClInclude Include="GameLogic.h" />
