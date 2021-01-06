@@ -42,13 +42,13 @@ int validateShipSizeInput(string input)
 	return (int)input[0] - 48; //returns the int value of the input '2' -> 2
 }
 
-bool canPlaceShipThisSize(int shipSize)
+bool canPlaceShipThisSize(int shipSize, Fleet &fleet)
 {
 	switch (shipSize)
 	{
 	case 2:
 	{
-		if (smallShips == 0)
+		if (fleet.smallShips == 0)
 			return false;
 		else
 			return true;
@@ -56,7 +56,7 @@ bool canPlaceShipThisSize(int shipSize)
 	}
 	case 3:
 	{
-		if(midiumShips==0)
+		if (fleet.midiumShips == 0)
 			return false;
 		else
 			return true;
@@ -64,7 +64,7 @@ bool canPlaceShipThisSize(int shipSize)
 	}
 	case 4:
 	{
-		if (bigShips == 0)
+		if (fleet.bigShips == 0)
 			return false;
 		else
 			return true;
@@ -72,7 +72,7 @@ bool canPlaceShipThisSize(int shipSize)
 	}
 	case 6:
 	{
-		if (cruiserShips == 0)
+		if (fleet.cruiserShips == 0)
 			return false;
 		else
 			return true;
@@ -149,9 +149,64 @@ char validateOrientationInput(string input)
 	return input[0];
 }
 
-bool positionIsPossible(int positions[FIELD_SIZE+2][FIELD_SIZE+2], int shipSize, char orientation, int x, int y)
+bool positionIsPossible(int positions[FIELD_SIZE + 2][FIELD_SIZE + 2], int shipSize, char orientation, int x, int y, Fleet &fleet)
 {
-	if (allShips > MAX_SHIPS_COUNT)
+	if (fleet.allShips > MAX_SHIPS_COUNT)
 		return false;
+
+
+
+
+
+
+
+	switch (orientation)
+	{
+	case 'U':
+	{
+		if ((x - shipSize + 1) < 0)
+			return false;
+		for (int i = x - shipSize + 1; i <= x; i++)
+		{
+			if (positions[i + 1][y + 1] == 1)//plus 1 because the positions array is one time bigger square
+				return false;
+		}
+		break;
+	}
+	case 'D':
+	{
+		if ((x +shipSize) >)
+			return false;
+		for (int i = x; i < x + shipSize; i++)
+		{
+			if (positions[i + 1][y + 1] == 1)
+				return false;
+		}
+		break;
+	}
+	case 'L':
+	{
+		for (int j = y - shipSize + 1; j <= y; j++)
+			if (positions[x + 1][j + 1] == 1)
+				return false;
+		break;
+	}
+	case 'R':
+	{
+		for (int j = y; j < y + shipSize; j++)
+		{
+			if (positions[x + 1][j + 1] == 1)
+				return false;
+		}
+		break;
+	}
+	default:
+	{
+		cout << "Something went wrong." << endl;
+		exit(-1);
+	}
+	}
+
+
 
 }

@@ -19,6 +19,7 @@
 #include "Constants.h"
 #include "Validation.h"
 
+Fleet fleet;
 
 void startGame()
 {
@@ -59,7 +60,7 @@ void startGame()
 void arrangeYourself()
 {
 	int field[FIELD_SIZE][FIELD_SIZE] = { 0 };
-	int countShips = 0;
+	//int countShips = 0;
 
 	//Place first ship
 	printBattlefield(field, "Place your ship");
@@ -105,13 +106,13 @@ void placeShip(int field[FIELD_SIZE][FIELD_SIZE])
 
 	int possiblePositions[FIELD_SIZE + 2][FIELD_SIZE + 2] = { 0 }; //make one size bigger square to miss the checks for going outside of the array
 
-	getShipInformation(shipSize, startingField, orientation);
+	getShipInformation(shipSize, startingField, orientation, field);
 	getShipCoordinates(startingField, x, y);
 
-	while (!positionIsPossible(possiblePositions, shipSize, orientation, x, y))
+	while (!positionIsPossible(possiblePositions, shipSize, orientation, x, y, fleet))
 	{
 		cout << "This position is not possible. Try again." << endl;
-		getShipInformation(shipSize, startingField, orientation);
+		getShipInformation(shipSize, startingField, orientation, field);
 		getShipCoordinates(startingField, x, y);
 	}
 
@@ -119,7 +120,7 @@ void placeShip(int field[FIELD_SIZE][FIELD_SIZE])
 	{
 	case 'U':
 	{
-		for (int i = (x - shipSize + 1); i <= x; i++)
+		for (int i = x - shipSize + 1; i <= x; i++)
 		{
 			field[i][y] = 1;
 		}
@@ -151,33 +152,48 @@ void placeShip(int field[FIELD_SIZE][FIELD_SIZE])
 		fillPossiblePositions(possiblePositions, field);
 		break;
 	}
-	default: break;
+	default:
+	{
+		cout << "Something went wrong." << endl;
+		exit(-1);
+	}
 	}
 
 
 }
 
-void getShipInformation(int& shipSize, string& startingField, char& orientation)
+void getShipInformation(int& shipSize, string& startingField, char& orientation, int field[FIELD_SIZE][FIELD_SIZE])
 {
 	string input;
 	//---CHANGE the possible ships sizes according to what has left---
 	cout << "Choose the size of the ship (2, 3, 4 or 6):";
 	cin >> input;
 	shipSize = validateShipSizeInput(input);
-	
-	while (!canPlaceShipThisSize(shipSize))
+
+	while (!canPlaceShipThisSize(shipSize, fleet))
 	{
-		cout << "There are no more ships with this size. Try again with another ship." << endl;
+		cout << "There are no more ships with this size you can place. Try again with another ship." << endl;
 		cout << "Choose the size of the ship (2, 3, 4 or 6):";
 		cin >> input;
 		shipSize = validateShipSizeInput(input);
 	}
 
-	//---ADD check if shipSize is still allowed---
 	cout << "Choose starting field (letter then number of field):";
 	cin >> input;
 	startingField = validateStartingFieldInput(input);
-	//---ADD check if field is used---
+
+	int x, y;
+	getShipCoordinates(startingField, x, y);
+
+	while (field[x][y] == 1)
+	{
+		cout << "This field is already used. Try again." << endl;
+		cout << "Choose starting field (letter then number of field):";
+		cin >> input;
+		startingField = validateStartingFieldInput(input);
+		getShipCoordinates(startingField, x, y);
+	}
+
 	cout << "Choose a direction for the ship. Choose between (U)p, (D)own, (L)eft, (R)ight:";
 	cin >> input;
 	orientation = validateOrientationInput(input);
@@ -196,23 +212,24 @@ void getShipCoordinates(string field, int& x, int& y)
 
 void fillPossiblePositions(int positions[FIELD_SIZE + 2][FIELD_SIZE + 2], int field[FIELD_SIZE][FIELD_SIZE])
 {
-	int x = 1, y = 1;
-	for (int i = 1; i < FIELD_SIZE+1; i++)
-	{
-		for (int j = 1; j < FIELD_SIZE+1; j++)
+	int temp[FIELD_SIZE + 2][FIELD_SIZE + 2];
+	for (int i = 0; i)
+		for (int i = 1; i < FIELD_SIZE + 1; i++)
 		{
-			if (field[i-1][j-1] == 1) //there is ship
+			for (int j = 1; j < FIELD_SIZE + 1; j++)
 			{
-				positions[i-1][j-1] = 1;
-				positions[i-1][j] = 1;
-				positions[i - 1][j + 1] = 1;
-				positions[i ][j - 1] = 1;
-				positions[i][j] = 1;
-				positions[i][j + 1] = 1;
-				positions[i + 1][j - 1] = 1;
-				positions[i + 1][j] = 1;
-				positions[i + 1][j + 1] = 1;
+				if (field[i - 1][j - 1] == 1) //there is ship
+				{
+					positions[i - 1][j - 1] = 1;
+					positions[i - 1][j] = 1;
+					positions[i - 1][j + 1] = 1;
+					positions[i][j - 1] = 1;
+					positions[i][j] = 1;
+					positions[i][j + 1] = 1;
+					positions[i + 1][j - 1] = 1;
+					positions[i + 1][j] = 1;
+					positions[i + 1][j + 1] = 1;
+				}
 			}
 		}
-	}
 }
