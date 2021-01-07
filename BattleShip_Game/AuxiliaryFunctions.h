@@ -17,3 +17,5 @@
 #include "Constants.h"
 
 void getValue(int source[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE], int destination[FIELD_SIZE][FIELD_SIZE]);
+
+void print(int source[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE]);

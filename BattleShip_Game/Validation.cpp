@@ -151,18 +151,8 @@ char validateOrientationInput(string input)
 	return input[0];
 }
 
-/*bool shipFitsInField(int fieldl[FIELD_SIZE][FIELD_SIZE], int shipSize, char orientation, int x, int y)
-{
-	if(x)
-}
-*/
 bool positionIsPossible(int positions[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE], int shipSize, char orientation, int x, int y)
 {
-	/*if (!shipFitsTheField(positions,))
-		return false;*/
-
-	//When a ship is placed it forms a rectangular arount itself with field that are not possible for placing another ship
-
 	//coordinates of this forbbiden area
 	int width = 0,
 		heigth = 0,
@@ -178,15 +168,14 @@ bool positionIsPossible(int positions[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE
 		startingPointX = x - shipSize + 1;
 		startingPointY = y;
 
-		for (int i = startingPointX; i < heigth + startingPointY; i++)
+		for (int i = startingPointX; i < heigth + startingPointX; i++)
 		{
-			for (int j = startingPointY; j < width + startingPointX; j++)
+			for (int j = startingPointY; j < width + startingPointY; j++)
 			{
 				if (positions[i][j] == 1)
 					return false;
 			}
 		}
-
 		break;
 	}
 	case 'D':
@@ -196,9 +185,9 @@ bool positionIsPossible(int positions[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE
 		startingPointX = x;
 		startingPointY = y;
 
-		for (int i = startingPointX; i < heigth + startingPointY; i++)
+		for (int i = startingPointX; i < heigth + startingPointX; i++)
 		{
-			for (int j = startingPointY; j < width + startingPointX; j++)
+			for (int j = startingPointY; j < width + startingPointY; j++)
 			{
 				if (positions[i][j] == 1)
 					return false;
@@ -213,9 +202,9 @@ bool positionIsPossible(int positions[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE
 		startingPointX = x;
 		startingPointY = y - shipSize + 1;
 
-		for (int i = startingPointX; i < heigth + startingPointY; i++)
+		for (int i = startingPointX; i < heigth + startingPointX; i++)
 		{
-			for (int j = startingPointY; j < width + startingPointX; j++)
+			for (int j = startingPointY; j < width + startingPointY; j++)
 			{
 				if (positions[i][j] == 1)
 					return false;
@@ -230,9 +219,9 @@ bool positionIsPossible(int positions[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE
 		startingPointX = x;
 		startingPointY = y;
 
-		for (int i = startingPointX; i < heigth + startingPointY; i++)
+		for (int i = startingPointX; i < heigth + startingPointX; i++)
 		{
-			for (int j = startingPointY; j < width + startingPointX; j++)
+			for (int j = startingPointY; j < width + startingPointY; j++)
 			{
 				if (positions[i][j] == 1)
 					return false;
@@ -241,9 +230,48 @@ bool positionIsPossible(int positions[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE
 		break;
 	}
 	default:
+		break;
+	}
+	return true;
+}
+
+bool shipFitsInField(int field[FIELD_SIZE][FIELD_SIZE], int shipSize, char orientation, int x, int y)
+{
+	int start = 0,
+		end=0;
+
+	switch (orientation)
 	{
-		cout << "Something went wrong." << endl;
-		exit(-1);
+	case 'U':
+	{
+		start = x  - shipSize +1;
+		if (start < 0)
+			return false;
+		break;
 	}
+	case 'D':
+	{
+		end = x + shipSize;
+		if (end > FIELD_SIZE) 
+			return false;
+		break;
 	}
+	case 'L':
+	{
+		start = y - shipSize + 1;
+		if (start < 0)
+			return false;
+		break;
+	}
+	case 'R':
+	{
+		end = y + shipSize;
+		if (end > FIELD_SIZE)
+			return false;
+		break;
+	}
+	default:
+		break;
+	}
+	return true;
 }

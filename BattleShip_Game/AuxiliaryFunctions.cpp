@@ -31,3 +31,15 @@ void getValue(int source[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE], int destin
 		l = 0;
 	}
 }
+
+void print(int source[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE])
+{
+	for (int i = 0; i < POSITIONS_FIELD_SIZE; i++)
+	{
+		for (int j = 0; j < POSITIONS_FIELD_SIZE; j++)
+		{
+			cout << source[i][j];
+		}
+		cout << endl;
+	}
+}

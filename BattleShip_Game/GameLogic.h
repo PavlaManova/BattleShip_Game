@@ -22,10 +22,11 @@ using namespace std;
 void startGame();
 void arrangeYourself();
 void placeShip(int field[FIELD_SIZE][FIELD_SIZE], int possiblePositions[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE]);
-void fillPossiblePositions(int positions[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE], int field[FIELD_SIZE][FIELD_SIZE]);
+void fillImpossiblePositions(int positions[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE], int field[FIELD_SIZE][FIELD_SIZE]);
 void changeShip(int field[FIELD_SIZE][FIELD_SIZE]);
 void getShipInformation(int& shipSize, string& startingField, char& orientation, int field[FIELD_SIZE][FIELD_SIZE]);
 void getShipCoordinates(string field, int& x, int& y);
+
 
 struct Fleet
 {

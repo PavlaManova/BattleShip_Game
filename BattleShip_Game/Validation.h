@@ -27,3 +27,4 @@ char validateOrientationInput(string input);
 bool wrongFieldInput(string input);
 bool positionIsPossible(int positions[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE], int shipSize, char orientation, int x, int y);
 bool canPlaceShipThisSize(int shipSize, Fleet& fleet);
+bool shipFitsInField(int field[FIELD_SIZE][FIELD_SIZE], int shipSize, char orientation, int x, int y);

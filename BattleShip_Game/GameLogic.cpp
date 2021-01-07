@@ -18,6 +18,7 @@
 #include "drawBoard.h"
 #include "Constants.h"
 #include "Validation.h"
+#include "AuxiliaryFunctions.h"
 
 Fleet fleet;
 
@@ -59,8 +60,8 @@ void startGame()
 
 void arrangeYourself()
 {
-	int field[FIELD_SIZE][FIELD_SIZE] =
-	{
+	int field[FIELD_SIZE][FIELD_SIZE] = { 0 };
+	/*{
 	{1, 1, 0, 1, 0, 0, 1, 1, 1, 1},
 	{ 0,0,0,1,0,0,0,0,0,0 },
 	{ 1,0,0,1,0,1,1,1,0,1 },
@@ -71,24 +72,26 @@ void arrangeYourself()
 	{ 0,0,0,0,0,0,0,0,0,1 },
 	{ 0,0,0,0,0,0,0,0,0,0 },
 	{ 0,0,0,0,1,1,1,1,1,1 }
-	};
+	};*/
 
-	int positions[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE] = { 0 };
+	//When a ship is placed it forms a rectangular arount itself with field that are not possible for placing another ship
 
-	fillPossiblePositions(positions,field);
+	int possiblePositions[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE] = { 0 };  //made one size bigger square to miss the checks for going outside of the array
+
+	//fillImpossiblePositions(possiblePositions,field);
 
 	//Place first ship
 	printBattlefield(field, "Place your ship");
 
-	placeShip(field,positions);
+	placeShip(field,possiblePositions);
 
 	printBattlefield(field, "Your field");
 
 
-	/*
+	
 	//while (countShips < 5)
 	//{
-	printBattlefield(field, "Your field");
+	//printBattlefield(field, "Your field");
 	cout << "Chose one of the following options:" << endl;
 	cout << "1) place next ship\n2) change position of some of your ships" << endl;//the third option - view board, is shown the whole time
 	cout << "Choice: ";
@@ -106,10 +109,10 @@ void arrangeYourself()
 	if (choice == '1')
 	{
 		printBattlefield(field, "Place your ship");
-		placeShip(field);
+		placeShip(field,possiblePositions);
 		printBattlefield(field, "Your field");
 	}
-	*/
+	
 	/*else
 		changeShip(field);*/
 		//}
@@ -122,12 +125,10 @@ void placeShip(int field[FIELD_SIZE][FIELD_SIZE], int possiblePositions[POSITION
 	string startingField;
 	char orientation;
 
-	//int possiblePositions[FIELD_SIZE + 2][FIELD_SIZE + 2] = { 0 }; //make one size bigger square to miss the checks for going outside of the array
-
 	getShipInformation(shipSize, startingField, orientation, field);
 	getShipCoordinates(startingField, x, y);
 
-	while (!positionIsPossible(possiblePositions, shipSize, orientation, x, y))
+	while (!positionIsPossible(possiblePositions, shipSize, orientation, x, y) || !shipFitsInField(field, shipSize,orientation,x,y))
 	{
 		cout << "This position is not possible. Try again." << endl;
 		getShipInformation(shipSize, startingField, orientation, field);
@@ -142,7 +143,7 @@ void placeShip(int field[FIELD_SIZE][FIELD_SIZE], int possiblePositions[POSITION
 		{
 			field[i][y] = 1;
 		}
-		fillPossiblePositions(possiblePositions, field);
+		fillImpossiblePositions(possiblePositions, field);
 		break;
 	}
 	case 'D':
@@ -151,14 +152,14 @@ void placeShip(int field[FIELD_SIZE][FIELD_SIZE], int possiblePositions[POSITION
 		{
 			field[i][y] = 1;
 		}
-		fillPossiblePositions(possiblePositions, field);
+		fillImpossiblePositions(possiblePositions, field);
 		break;
 	}
 	case 'L':
 	{
 		for (int j = y - shipSize + 1; j <= y; j++)
 			field[x][j] = 1;
-		fillPossiblePositions(possiblePositions, field);
+		fillImpossiblePositions(possiblePositions, field);
 		break;
 	}
 	case 'R':
@@ -167,14 +168,11 @@ void placeShip(int field[FIELD_SIZE][FIELD_SIZE], int possiblePositions[POSITION
 		{
 			field[x][j] = 1;
 		}
-		fillPossiblePositions(possiblePositions, field);
+		fillImpossiblePositions(possiblePositions, field);
 		break;
 	}
-	default:
-	{
-		cout << "Something went wrong." << endl;
-		exit(-1);
-	}
+	default: 
+		break;
 	}
 }
 
@@ -225,7 +223,7 @@ void getShipCoordinates(string field, int& x, int& y)
 		x = 9;
 }
 
-void fillPossiblePositions(int positions[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE], int field[FIELD_SIZE][FIELD_SIZE])
+void fillImpossiblePositions(int positions[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE], int field[FIELD_SIZE][FIELD_SIZE])
 {
 	for (int i = 1; i < FIELD_SIZE + 1; i++)
 	{
@@ -233,6 +231,7 @@ void fillPossiblePositions(int positions[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_S
 		{
 			if (field[i - 1][j - 1] == 1) //there is ship
 			{
+				//make an area with impossible fields to place another ship
 				positions[i - 1][j - 1] = 1;
 				positions[i - 1][j] = 1;
 				positions[i - 1][j + 1] = 1;
