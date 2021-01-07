@@ -22,9 +22,11 @@
 using namespace std;
 
 int validateShipSizeInput(string input);
+void checkIfShipThisSizeCanBePlaced(int shipSize, const Fleet& fleet);
+bool canPlaceShipThisSize(int shipSize,const Fleet& fleet);
 string validateStartingFieldInput(string input);
-char validateOrientationInput(string input);
 bool wrongFieldInput(string input);
+void checkIfFieldIsUsed(int field[FIELD_SIZE][FIELD_SIZE], int& x, int& y, string& startingField);
+char validateOrientationInput(string input);
 bool positionIsPossible(int positions[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE], int shipSize, char orientation, int x, int y);
-bool canPlaceShipThisSize(int shipSize, Fleet& fleet);
 bool shipFitsInField(int field[FIELD_SIZE][FIELD_SIZE], int shipSize, char orientation, int x, int y);

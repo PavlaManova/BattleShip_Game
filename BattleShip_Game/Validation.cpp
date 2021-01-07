@@ -43,10 +43,22 @@ int validateShipSizeInput(string input)
 	return (int)input[0] - 48; //returns the int value of the input '2' -> 2
 }
 
-bool canPlaceShipThisSize(int shipSize, Fleet& fleet)
+void checkIfShipThisSizeCanBePlaced(int shipSize,const Fleet &fleet)
 {
-	if (fleet.allShips > MAX_SHIPS_COUNT)
-		return false;
+	string input;
+	while (!canPlaceShipThisSize(shipSize, fleet))
+	{
+		cout << "There are no more ships with this size you can place. Try again with another ship." << endl;
+		cout << "Choose the size of the ship:";
+		cin >> input;
+		shipSize = validateShipSizeInput(input);
+	}
+}
+
+bool canPlaceShipThisSize(int shipSize,const Fleet& fleet)
+{
+	/*if (fleet.allShips > MAX_SHIPS_COUNT)
+		return false;*/
 
 	switch (shipSize)
 	{
@@ -82,8 +94,11 @@ bool canPlaceShipThisSize(int shipSize, Fleet& fleet)
 			return true;
 		break;
 	}
+	default:
+		break;
 	}
 
+	return false;
 }
 
 string validateStartingFieldInput(string input)
@@ -151,11 +166,21 @@ char validateOrientationInput(string input)
 	return input[0];
 }
 
+void checkIfFieldIsUsed(int field[FIELD_SIZE][FIELD_SIZE], int &x, int &y, string &startingField)
+{
+	string input;
+	while (field[x][y] == 1)
+	{
+		cout << "This field is already used. Try again." << endl;
+		cout << "Choose starting field (letter then number of field):";
+		cin >> input;
+		startingField = validateStartingFieldInput(input);
+		getShipCoordinates(startingField, x, y);
+	}
+}
+
 bool positionIsPossible(int positions[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE], int shipSize, char orientation, int x, int y)
 {
-	print(positions);
-	system("Pause");
-	//coordinates of this forbbiden area
 	int startPosition = 0;
 
 	switch (orientation)

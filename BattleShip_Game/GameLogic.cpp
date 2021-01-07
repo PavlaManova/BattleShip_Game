@@ -61,40 +61,23 @@ void startGame()
 void arrangeYourself()
 {
 	int field[FIELD_SIZE][FIELD_SIZE] = { 0 };
-	/*{
-	{1, 1, 0, 1, 0, 0, 1, 1, 1, 1},
-	{ 0,0,0,1,0,0,0,0,0,0 },
-	{ 1,0,0,1,0,1,1,1,0,1 },
-	{ 1,0,0,0,0,0,0,0,0,1 },
-	{ 1,0,0,0,0,0,0,0,0,0 },
-	{ 1,0,0,0,0,1,0,0,0,1 },
-	{ 0,0,0,0,0,1,0,0,0,1 },
-	{ 0,0,0,0,0,0,0,0,0,1 },
-	{ 0,0,0,0,0,0,0,0,0,0 },
-	{ 0,0,0,0,1,1,1,1,1,1 }
-	};*/
+	char choice;
 
 	//When a ship is placed it forms a rectangular arount itself with field that are not possible for placing another ship
 
-	int possiblePositions[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE] = { 0 };  //made one size bigger square to miss the checks for going outside of the array
+	int possiblePositions[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE] = { 0 }; //made one size bigger square to miss the checks for going outside of the array
 
 	//Place first ship
 	printBattlefield(field, "Place your ship");
-	placeShip(field,possiblePositions);
-	//printBattlefield(field, "Your field");
+	placeShip(field, possiblePositions);
+	printBattlefield(field, "Your field");
 
-
-	
-	//while (countShips < 5)
-	//{
-	while (fleet.allShips <= 5)
+	while (fleet.allShips < 5) //the game can start with minimum of 5 ships 
 	{
-		printBattlefield(field, "Your field");
-		cout << "Chose one of the following options:" << endl;
-		cout << "1) place next ship\n2) change position of some of your ships" << endl;//the third option - view board, is shown the whole time
+		cout << "\nChose one of the following options:" << endl;
+		cout << "1) place next ship\n2) change position of some of your ships" << endl; //the third option - view board, is shown the whole time
 		cout << "Choice: ";
 
-		char choice;
 		cin >> choice;
 
 		while (choice != '1' && choice != '2')
@@ -115,6 +98,42 @@ void arrangeYourself()
 			changeShip(field);*/
 			//}
 	}
+
+	while (fleet.allShips < MAX_SHIPS_COUNT)
+	{
+		cout << "\nYou have enough ships to start the game now." << endl;
+		cout << "\nChose one of the following options:" << endl;
+		cout << "1) place next ship\n2) change position of some of your ships\n3)start game" << endl;
+		cout << "Choice: ";
+
+		cin >> choice;
+
+		while (choice != '1' && choice != '2' && choice != '3')
+		{
+			cout << "Wrong input. Try again, choose between 1, 2 or 3." << endl;
+			cout << "Choice: ";
+			cin >> choice;
+		}
+
+		switch (choice)
+		{
+		case 1:
+		{
+			printBattlefield(field, "Place your ship");
+			placeShip(field, possiblePositions);
+			printBattlefield(field, "Your field");
+			break;
+		}
+		case 2:
+		{
+			break;
+		}
+		case 3:
+		{
+			break;
+		}
+		}
+	}
 }
 
 void placeShip(int field[FIELD_SIZE][FIELD_SIZE], int possiblePositions[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE])
@@ -123,15 +142,13 @@ void placeShip(int field[FIELD_SIZE][FIELD_SIZE], int possiblePositions[POSITION
 	string startingField;
 	char orientation;
 
-	getShipInformation(shipSize, startingField, orientation, field);
+	getShipInformation(shipSize, startingField, orientation, field, fleet);
 	getShipCoordinates(startingField, x, y);
 
-	//cout << boolalpha << positionIsPossible(possiblePositions, shipSize, orientation, x, y) << " and " << shipFitsInField(field, shipSize, orientation, x, y) << endl;
-
-	while (!positionIsPossible(possiblePositions, shipSize, orientation, x, y) || !shipFitsInField(field, shipSize,orientation,x,y))
+	while (!positionIsPossible(possiblePositions, shipSize, orientation, x, y) || !shipFitsInField(field, shipSize, orientation, x, y))
 	{
 		cout << "This position is not possible. Try again." << endl;
-		getShipInformation(shipSize, startingField, orientation, field);
+		getShipInformation(shipSize, startingField, orientation, field, fleet);
 		getShipCoordinates(startingField, x, y);
 	}
 
@@ -171,105 +188,9 @@ void placeShip(int field[FIELD_SIZE][FIELD_SIZE], int possiblePositions[POSITION
 		fillImpossiblePositions(possiblePositions, field);
 		break;
 	}
-	default: 
-		break;
-	}
-
-	switch (shipSize)
-	{
-	case 2:
-	{
-		fleet.smallShips--;
-		break;
-	}
-	case 3:
-	{
-		fleet.midiumShips--;
-		break;
-	}
-	case 4:
-	{
-		fleet.bigShips--;
-		break;
-	}
-	case 6:
-	{
-		fleet.cruiserShips--;
-		break;
-	}
 	default:
 		break;
 	}
 
-	fleet.allShips++;
-}
-
-void getShipInformation(int& shipSize, string& startingField, char& orientation, int field[FIELD_SIZE][FIELD_SIZE])
-{
-	string input;
-	cout << "Choose the size of the ship (2, 3, 4 or 6):";
-	cin >> input;
-	shipSize = validateShipSizeInput(input);
-
-	while (!canPlaceShipThisSize(shipSize, fleet))
-	{
-		cout << "There are no more ships with this size you can place. Try again with another ship." << endl;
-		cout << "Choose the size of the ship:";
-		cin >> input;
-		shipSize = validateShipSizeInput(input);
-	}
-
-	cout << "Choose starting field (letter then number of field):";
-	cin >> input;
-	startingField = validateStartingFieldInput(input);
-
-	int x, y;
-	getShipCoordinates(startingField, x, y);
-
-	while (field[x][y] == 1)
-	{
-		cout << "This field is already used. Try again." << endl;
-		cout << "Choose starting field (letter then number of field):";
-		cin >> input;
-		startingField = validateStartingFieldInput(input);
-		getShipCoordinates(startingField, x, y);
-	}
-
-	cout << "Choose a direction for the ship. Choose between (U)p, (D)own, (L)eft, (R)ight:";
-	cin >> input;
-	orientation = validateOrientationInput(input);
-}
-
-void getShipCoordinates(string field, int& x, int& y)
-{
-	y = field[0] - 65;
-	if (field.size() == 2)
-	{
-		x = field[1] - 49;
-	}
-	else
-		x = 9;
-}
-
-void fillImpossiblePositions(int positions[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE], int field[FIELD_SIZE][FIELD_SIZE])
-{
-	for (int i = 1; i < FIELD_SIZE + 1; i++)
-	{
-		for (int j = 1; j < FIELD_SIZE + 1; j++)
-		{
-			if (field[i - 1][j - 1] == 1) //there is ship
-			{
-				//make an area with impossible fields to place another ship
-				positions[i - 1][j - 1] = 1;
-				positions[i - 1][j] = 1;
-				positions[i - 1][j + 1] = 1;
-				positions[i][j - 1] = 1;
-				positions[i][j] = 1;
-				positions[i][j + 1] = 1;
-				positions[i + 1][j - 1] = 1;
-				positions[i + 1][j] = 1;
-				positions[i + 1][j + 1] = 1;
-			}
-		}
-	}
+	addShipToFleed(shipSize, fleet);
 }
