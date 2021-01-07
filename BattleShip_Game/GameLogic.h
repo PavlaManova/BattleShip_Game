@@ -30,9 +30,9 @@ void getShipCoordinates(string field, int& x, int& y);
 
 struct Fleet
 {
-	int smallShips = 2,
+	int smallShips = 4,
 		midiumShips = 3,
-		bigShips = 4,
-		cruiserShips = 6,
+		bigShips = 2,
+		cruiserShips = 1,
 		allShips = 0;
 };

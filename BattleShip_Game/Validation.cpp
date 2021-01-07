@@ -153,80 +153,57 @@ char validateOrientationInput(string input)
 
 bool positionIsPossible(int positions[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE], int shipSize, char orientation, int x, int y)
 {
+	print(positions);
+	system("Pause");
 	//coordinates of this forbbiden area
-	int width = 0,
-		heigth = 0,
-		startingPointX = 0,
-		startingPointY = 0;
+	int startPosition = 0;
 
 	switch (orientation)
 	{
 	case 'U':
 	{
-		width = 3;
-		heigth = shipSize + 2;
-		startingPointX = x - shipSize + 1;
-		startingPointY = y;
+		startPosition = x - shipSize + 2;
 
-		for (int i = startingPointX; i < heigth + startingPointX; i++)
+		for (int i = startPosition; i < shipSize + startPosition; i++)
 		{
-			for (int j = startingPointY; j < width + startingPointY; j++)
-			{
-				if (positions[i][j] == 1)
-					return false;
-			}
+			if (positions[i][y + 1] == 1)
+				return false;
 		}
 		break;
 	}
 	case 'D':
 	{
-		width = 3;
-		heigth = shipSize + 2;
-		startingPointX = x;
-		startingPointY = y;
+		startPosition = x + 1;
 
-		for (int i = startingPointX; i < heigth + startingPointX; i++)
+		for (int i = startPosition; i < shipSize + startPosition; i++)
 		{
-			for (int j = startingPointY; j < width + startingPointY; j++)
-			{
-				if (positions[i][j] == 1)
-					return false;
-			}
+			if (positions[i][y + 1] == 1)
+				return false;
 		}
 		break;
 	}
 	case 'L':
 	{
-		width = shipSize + 2;
-		heigth = 3;
-		startingPointX = x;
-		startingPointY = y - shipSize + 1;
+		startPosition = y - shipSize + 2;
 
-		for (int i = startingPointX; i < heigth + startingPointX; i++)
+		for (int j = startPosition; j < shipSize + startPosition; j++)
 		{
-			for (int j = startingPointY; j < width + startingPointY; j++)
-			{
-				if (positions[i][j] == 1)
-					return false;
-			}
+			if (positions[x + 1][j] == 1)
+				return false;
 		}
+
 		break;
 	}
 	case 'R':
 	{
-		width = shipSize + 2;
-		heigth = 3;
-		startingPointX = x;
-		startingPointY = y;
+		startPosition = y + 1;
 
-		for (int i = startingPointX; i < heigth + startingPointX; i++)
+		for (int j = startPosition; j < shipSize + startPosition; j++)
 		{
-			for (int j = startingPointY; j < width + startingPointY; j++)
-			{
-				if (positions[i][j] == 1)
-					return false;
-			}
+			if (positions[x + 1][j] == 1)
+				return false;
 		}
+
 		break;
 	}
 	default:
@@ -238,13 +215,13 @@ bool positionIsPossible(int positions[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE
 bool shipFitsInField(int field[FIELD_SIZE][FIELD_SIZE], int shipSize, char orientation, int x, int y)
 {
 	int start = 0,
-		end=0;
+		end = 0;
 
 	switch (orientation)
 	{
 	case 'U':
 	{
-		start = x  - shipSize +1;
+		start = x - shipSize + 1;
 		if (start < 0)
 			return false;
 		break;
@@ -252,7 +229,7 @@ bool shipFitsInField(int field[FIELD_SIZE][FIELD_SIZE], int shipSize, char orien
 	case 'D':
 	{
 		end = x + shipSize;
-		if (end > FIELD_SIZE) 
+		if (end > FIELD_SIZE)
 			return false;
 		break;
 	}

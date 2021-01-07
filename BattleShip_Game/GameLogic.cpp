@@ -78,45 +78,43 @@ void arrangeYourself()
 
 	int possiblePositions[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE] = { 0 };  //made one size bigger square to miss the checks for going outside of the array
 
-	//fillImpossiblePositions(possiblePositions,field);
-
 	//Place first ship
 	printBattlefield(field, "Place your ship");
-
 	placeShip(field,possiblePositions);
-
-	printBattlefield(field, "Your field");
+	//printBattlefield(field, "Your field");
 
 
 	
 	//while (countShips < 5)
 	//{
-	//printBattlefield(field, "Your field");
-	cout << "Chose one of the following options:" << endl;
-	cout << "1) place next ship\n2) change position of some of your ships" << endl;//the third option - view board, is shown the whole time
-	cout << "Choice: ";
-
-	char choice;
-	cin >> choice;
-
-	while (choice != '1' && choice != '2')
+	while (fleet.allShips <= 5)
 	{
-		cout << "Wrong input. Try again, choose between 1 or 2." << endl;
-		cout << "Choice: ";
-		cin >> choice;
-	}
-
-	if (choice == '1')
-	{
-		printBattlefield(field, "Place your ship");
-		placeShip(field,possiblePositions);
 		printBattlefield(field, "Your field");
-	}
-	
-	/*else
-		changeShip(field);*/
-		//}
+		cout << "Chose one of the following options:" << endl;
+		cout << "1) place next ship\n2) change position of some of your ships" << endl;//the third option - view board, is shown the whole time
+		cout << "Choice: ";
 
+		char choice;
+		cin >> choice;
+
+		while (choice != '1' && choice != '2')
+		{
+			cout << "Wrong input. Try again, choose between 1 or 2." << endl;
+			cout << "Choice: ";
+			cin >> choice;
+		}
+
+		if (choice == '1')
+		{
+			printBattlefield(field, "Place your ship");
+			placeShip(field, possiblePositions);
+			printBattlefield(field, "Your field");
+		}
+
+		/*else
+			changeShip(field);*/
+			//}
+	}
 }
 
 void placeShip(int field[FIELD_SIZE][FIELD_SIZE], int possiblePositions[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE])
@@ -127,6 +125,8 @@ void placeShip(int field[FIELD_SIZE][FIELD_SIZE], int possiblePositions[POSITION
 
 	getShipInformation(shipSize, startingField, orientation, field);
 	getShipCoordinates(startingField, x, y);
+
+	//cout << boolalpha << positionIsPossible(possiblePositions, shipSize, orientation, x, y) << " and " << shipFitsInField(field, shipSize, orientation, x, y) << endl;
 
 	while (!positionIsPossible(possiblePositions, shipSize, orientation, x, y) || !shipFitsInField(field, shipSize,orientation,x,y))
 	{
@@ -174,6 +174,34 @@ void placeShip(int field[FIELD_SIZE][FIELD_SIZE], int possiblePositions[POSITION
 	default: 
 		break;
 	}
+
+	switch (shipSize)
+	{
+	case 2:
+	{
+		fleet.smallShips--;
+		break;
+	}
+	case 3:
+	{
+		fleet.midiumShips--;
+		break;
+	}
+	case 4:
+	{
+		fleet.bigShips--;
+		break;
+	}
+	case 6:
+	{
+		fleet.cruiserShips--;
+		break;
+	}
+	default:
+		break;
+	}
+
+	fleet.allShips++;
 }
 
 void getShipInformation(int& shipSize, string& startingField, char& orientation, int field[FIELD_SIZE][FIELD_SIZE])
