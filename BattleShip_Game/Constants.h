@@ -22,7 +22,7 @@ const int FIELD_SIZE = 10,
 
 		  POSITIONS_FIELD_SIZE = FIELD_SIZE + 2,
 
-		  MIDDLE_CONSOLE = 60,
+		  //MIDDLE_CONSOLE = 60,
 
 		  SINGLE_FIELD_SIZE = 3,
 
@@ -32,10 +32,12 @@ const int FIELD_SIZE = 10,
 
 		  ARROW_UP_KEY = 72,
 
-		  ARROW_DOWN_KEY = 80;
+		  ARROW_DOWN_KEY = 80,
+		  
+		  INTRODUCTION_CODE=224;
 
 
-
+//char codes used for drawing the board
 const char DOUBLE_VERTICAL_LINE = (char)186,
 		   DOUBLE_HORIZONTAL_LINE = (char)205,
 		   RIGHT_UPPER_CORNER = (char)187,
@@ -60,8 +62,11 @@ const char DOUBLE_VERTICAL_LINE = (char)186,
 
 const string EMPTY_SPACE = "   ";
 
+//char arrays used for drawing the fields on the board
 const char SHIP_SQUARE[] = { SOLID_RECTANGLE, SOLID_RECTANGLE, SOLID_RECTANGLE },
 		   MISSED_SQUARE[] = { ' ','o',' ' },
 		   HIT_SHIP_SQUARE[] = { ' ','X',' ' };
+
+//int MIDDLE_CONSOLE = 0;
 
 

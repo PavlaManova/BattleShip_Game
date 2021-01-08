@@ -17,21 +17,20 @@
 #include "Constants.h"
 #include <conio.h>
 #include <iomanip>
+#include "AuxiliaryFunctions.h" //for MIDDLE_CONSOLE
 
 int startingMenu()
 {
 	system("CLS");
 	startGameOption();
 
-	//_getch(); //ignore code 224 that getch() returns first - "introduction code"
 	int choice = _getch(),
 		temp = 0;
 
-	if (choice == 224)
+	if (choice == INTRODUCTION_CODE) //ignore code 224 ("introduction code") that _getch() returns first when arrow key is pressed
 		choice = _getch();
 
 	bool endGame = false;
-
 
 	while (choice != 13) // Enter - choice is made
 	{
@@ -54,7 +53,7 @@ int startingMenu()
 		}
 
 		choice = _getch();
-		if (choice == 224)
+		if (choice == INTRODUCTION_CODE)
 			choice = _getch();
 	}
 
@@ -110,7 +109,7 @@ int arrangeShipsMenu() //ADD ---return option---
 
 void setWhiteSpacesLength(string firstLine, string secondLine, int& whiteSpacesFirst, int& whiteSpacesSecond)
 {
-	whiteSpacesFirst = MIDDLE_CONSOLE + (firstLine.size() / 2);
+	whiteSpacesFirst = getConsoleMiddleWidth() + (firstLine.size() / 2);
 
 	int temp = firstLine.size() - secondLine.size();
 	if (secondLine.size() % 2 == 1)
@@ -121,7 +120,7 @@ void setWhiteSpacesLength(string firstLine, string secondLine, int& whiteSpacesF
 
 void setWhiteSpacesLength(string firstLine, string secondLine, string thirdLine, int& whiteSpacesFirst, int& whiteSpacesSecond, int& whiteSpacesThird)
 {
-	whiteSpacesFirst = MIDDLE_CONSOLE + (firstLine.size() / 2);
+	whiteSpacesFirst = getConsoleMiddleWidth() + (firstLine.size() / 2);
 
 	int temp = firstLine.size() - secondLine.size();
 	if (secondLine.size() % 2 == 1)

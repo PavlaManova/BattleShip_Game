@@ -19,6 +19,9 @@
 #include "Validation.h"
 #include <Windows.h> //for positioning the console window
 
+int consoleWidth = 0;
+int consoleHeight = 0;
+
 void positionConsoleWindow()
 {
 	//Finding the user's screen resolution
@@ -26,15 +29,22 @@ void positionConsoleWindow()
 	int screenHeight = GetSystemMetrics(SM_CYSCREEN);
 
 	//the new sizes of console window -> proportional
-	int consoleWidth = 9 * screenWidth / 10; 
-	int consoleHeight = 4 * screenHeight / 5; 
+	consoleWidth = 9 * screenWidth / 10;
+	consoleHeight = 4 * screenHeight / 5;
+
+	//MIDDLE_CONSOLE = consoleWidth / 2;
 
 	//centrate window by adding equal indentation on all four sides of the screen
-	int identWidth = (screenWidth - consoleWidth) / 2; 
+	int identWidth = (screenWidth - consoleWidth) / 2;
 	int identHeight = (screenHeight - consoleHeight) / 2;
 
 	HWND hwnd = GetConsoleWindow();
 	MoveWindow(hwnd, identWidth, identHeight, consoleWidth, consoleHeight, TRUE);
+}
+
+int getConsoleMiddleWidth()
+{
+	return consoleWidth / 2;
 }
 
 void getShipInformation(int& shipSize, string& startingField, char& orientation, int field[FIELD_SIZE][FIELD_SIZE], const Fleet& fleet)
@@ -54,7 +64,7 @@ void getShipInformation(int& shipSize, string& startingField, char& orientation,
 	int x, y;
 	getShipCoordinates(startingField, x, y);
 
-	checkIfFieldIsUsed(field,x,y,startingField);
+	checkIfFieldIsUsed(field, x, y, startingField);
 
 	cout << "Choose a direction for the ship. Choose between (U)p, (D)own, (L)eft, (R)ight:";
 	cin >> input;

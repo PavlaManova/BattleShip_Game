@@ -17,7 +17,10 @@
 #include "Constants.h"
 #include "GameLogic.h"
 
+//int MIDDLE_CONSOLE = 0;
+
 void positionConsoleWindow();
+int getConsoleMiddleWidth();
 void getShipInformation(int& shipSize, string& startingField, char& orientation, int field[FIELD_SIZE][FIELD_SIZE], const Fleet& fleet);
 void getShipCoordinates(string field, int& x, int& y);
 void addShipToFleed(int shipSize, Fleet& fleet);
