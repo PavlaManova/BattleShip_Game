@@ -19,6 +19,7 @@
 
 void positionConsoleWindow();
 int getConsoleWidth();
+int getConsoleHeight();
 void getShipInformation(int& shipSize, string& startingField, char& orientation, int field[FIELD_SIZE][FIELD_SIZE], const Fleet& fleet);
 void getShipCoordinates(string field, int& x, int& y);
 void addShipToFleed(int shipSize, Fleet& fleet);

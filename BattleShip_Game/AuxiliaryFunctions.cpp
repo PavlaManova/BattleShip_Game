@@ -47,6 +47,11 @@ int getConsoleWidth()
 	return consoleWidth%1000; //returns the size in characters
 }
 
+int getConsoleHeight()
+{
+	return consoleHeight /20;
+}
+
 void getShipInformation(int& shipSize, string& startingField, char& orientation, int field[FIELD_SIZE][FIELD_SIZE], const Fleet& fleet)
 {
 	string input;

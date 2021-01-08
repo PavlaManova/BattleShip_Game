@@ -71,7 +71,7 @@ int arrangeShipsMenu() //ADD ---return option---
 		temp = 0,
 		chosenActionCode = 0;
 
-	if (choice == 224)
+	if (choice == INTRODUCTION_CODE)
 		choice = _getch();
 
 	while (choice != 13) // Enter - choice is made
@@ -101,7 +101,7 @@ int arrangeShipsMenu() //ADD ---return option---
 		}
 
 		choice = _getch();
-		if (choice == 224)
+		if (choice == INTRODUCTION_CODE)
 			choice = _getch();
 	}
 	return chosenActionCode;
@@ -109,7 +109,7 @@ int arrangeShipsMenu() //ADD ---return option---
 
 void setWhiteSpacesLength(string firstLine, string secondLine, int& whiteSpacesFirst, int& whiteSpacesSecond)
 {
-	whiteSpacesFirst = getConsoleWidth()/ 2; +(firstLine.size() / 2);
+	whiteSpacesFirst = getConsoleWidth() / 2 + (firstLine.size() / 2);
 
 	int temp = firstLine.size() - secondLine.size();
 	if (secondLine.size() % 2 == 1)
@@ -120,7 +120,7 @@ void setWhiteSpacesLength(string firstLine, string secondLine, int& whiteSpacesF
 
 void setWhiteSpacesLength(string firstLine, string secondLine, string thirdLine, int& whiteSpacesFirst, int& whiteSpacesSecond, int& whiteSpacesThird)
 {
-	whiteSpacesFirst = getConsoleWidth()/2 + (firstLine.size() / 2);
+	whiteSpacesFirst = getConsoleWidth() / 2 + (firstLine.size() / 2);
 
 	int temp = firstLine.size() - secondLine.size();
 	if (secondLine.size() % 2 == 1)
@@ -136,20 +136,23 @@ void setWhiteSpacesLength(string firstLine, string secondLine, string thirdLine,
 
 void printOptions(string firstOption, string secondOption)
 {
-	cout << "\n\n\n\n\n\n\n\n\n";
+	for (int i = 0; i < getConsoleHeight() / 2; i++)
+		cout << endl;
+
 	int whiteSpacesFirst = 0, whiteSpacesSecond = 0;
 	setWhiteSpacesLength(firstOption, secondOption, whiteSpacesFirst, whiteSpacesSecond);
-	cout << setw(whiteSpacesFirst) << firstOption << endl;
+	cout << setw(whiteSpacesFirst) << firstOption << endl << endl;
 	cout << setw(whiteSpacesSecond) << secondOption << endl;
 }
 
 void printOptions(string firstOption, string secondOption, string thirdOption)
 {
-	cout << "\n\n\n\n\n\n\n\n\n";
+	for (int i = 0; i < getConsoleHeight() / 2; i++)
+		cout << endl;
 	int whiteSpacesFirst = 0, whiteSpacesSecond = 0, whiteSpacesThird = 0;
 	setWhiteSpacesLength(firstOption, secondOption, thirdOption, whiteSpacesFirst, whiteSpacesSecond, whiteSpacesThird);
-	cout << setw(whiteSpacesFirst) << firstOption << endl;
-	cout << setw(whiteSpacesSecond) << secondOption << endl;
+	cout << setw(whiteSpacesFirst) << firstOption << endl << endl;
+	cout << setw(whiteSpacesSecond) << secondOption << endl << endl;
 	cout << setw(whiteSpacesThird) << thirdOption << endl;
 }
 
@@ -180,7 +183,7 @@ void returnOption()
 
 void printArrangementOptions(int options)
 {
-	if(options==4)
+	if (options == 4)
 		cout << "You have enough ships to start the game now.\n" << endl;
 	cout << "Chose one of the following options:" << endl;
 	cout << "1) place next ship" << endl;
