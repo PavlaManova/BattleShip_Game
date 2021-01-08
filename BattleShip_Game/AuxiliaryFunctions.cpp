@@ -87,7 +87,7 @@ void addShipToFleed(int shipSize, Fleet& fleet)
 	}
 	case 3:
 	{
-		fleet.midiumShips--;
+		fleet.mediumShips--;
 		break;
 	}
 	case 4:

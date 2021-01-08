@@ -19,16 +19,18 @@
 
 using namespace std;
 
-void startGame();
-void arrangeYourself();
-void placeShip(int field[FIELD_SIZE][FIELD_SIZE], int possiblePositions[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE]);
-void changeShip(int field[FIELD_SIZE][FIELD_SIZE]);
-
 struct Fleet
 {
 	int smallShips = 4,
-		midiumShips = 3,
+		mediumShips = 3,
 		bigShips = 2,
 		cruiserShips = 1,
 		allShips = 0;
 };
+
+void startGame();
+void arrangeYourself();
+void placeShip(int field[FIELD_SIZE][FIELD_SIZE], int possiblePositions[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE]);
+void changeShip(int field[FIELD_SIZE][FIELD_SIZE]);
+void printUnusedShips(Fleet &fleet);
+

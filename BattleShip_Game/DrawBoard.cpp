@@ -127,7 +127,7 @@ void symbol(int code)
 		cout << SHIP_SQUARE;
 		break;
 	}
-	case 2: {		
+	case 2: {
 		cout << MISSED_SQUARE;
 		break;
 	}

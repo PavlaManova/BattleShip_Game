@@ -74,29 +74,41 @@ void arrangeYourself()
 
 	while (fleet.allShips < 5) //the game can start with minimum of 5 ships 
 	{
+		system("CLS");
+		printBattlefield(field, "Your filed");
 		cout << "Chose one of the following options:" << endl;
-		cout << "1) place next ship\n2) change position of some of your ships" << endl; //the third option - view board, is shown the whole time
+		cout << "1) place next ship\n2) change position of some of your ships\n3)check how many ships you have left to place on the board" << endl; //the fourth option - view board, is shown the whole time
 		cout << "Choice: ";
 
 		cin >> choice;
 
-		while (choice != '1' && choice != '2')
+		while (choice != '1' && choice != '2' && choice != '3')
 		{
-			cout << "Wrong input. Try again, choose between 1 or 2." << endl;
+			cout << "Wrong input. Try again, choose between 1, 2 or 3." << endl;
 			cout << "Choice: ";
 			cin >> choice;
 		}
 
-		if (choice == '1')
+		switch (choice)
+		{
+		case '1':
 		{
 			printBattlefield(field, "Place your ship");
 			placeShip(field, possiblePositions);
-			printBattlefield(field, "Your field");
+			break;
 		}
-
-		/*else
-			changeShip(field);*/
-			//}
+		case '2':
+		{
+			//changeShip(field);
+			break;
+		}
+		case '3':
+		{
+			printBattlefield(field, "Your field");
+			printUnusedShips(fleet);
+			break;
+		}
+		}
 	}
 
 	while (fleet.allShips < MAX_SHIPS_COUNT)
@@ -134,6 +146,7 @@ void arrangeYourself()
 		}
 		}
 	}
+
 }
 
 void placeShip(int field[FIELD_SIZE][FIELD_SIZE], int possiblePositions[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE])
@@ -193,4 +206,33 @@ void placeShip(int field[FIELD_SIZE][FIELD_SIZE], int possiblePositions[POSITION
 	}
 
 	addShipToFleed(shipSize, fleet);
+}
+
+void printUnusedShips(Fleet& fleet)
+{
+	cout << "You can place:" << endl;
+	if (fleet.smallShips != 0)
+	{
+		cout << fleet.smallShips << " small ships with size 2" << endl;
+	}
+	if (fleet.mediumShips != 0)
+	{
+		cout << fleet.mediumShips << " medium ships with size 3" << endl;
+	}
+	if (fleet.bigShips != 0)
+	{
+		cout << fleet.bigShips << " big ships with size 4" << endl;
+	}
+	if (fleet.cruiserShips != 0)
+	{
+		cout << fleet.bigShips << " cruiser ship with size 6" << endl;
+	}
+
+	int total = MAX_SHIPS_COUNT - fleet.allShips;
+	if (total == 1)
+		cout << "Total of " << total << " ship left." << endl;
+	else
+		cout << "Total of " << total << " ships left." << endl;
+
+	system("Pause");
 }

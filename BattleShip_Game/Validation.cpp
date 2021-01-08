@@ -72,7 +72,7 @@ bool canPlaceShipThisSize(int shipSize,const Fleet& fleet)
 	}
 	case 3:
 	{
-		if (fleet.midiumShips == 0)
+		if (fleet.mediumShips == 0)
 			return false;
 		else
 			return true;
