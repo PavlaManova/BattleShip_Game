@@ -43,7 +43,7 @@ int validateShipSizeInput(string input)
 	return (int)input[0] - 48; //returns the int value of the input '2' -> 2
 }
 
-void checkIfShipThisSizeCanBePlaced(int shipSize,const Fleet &fleet)
+void checkIfShipThisSizeCanBePlaced(int shipSize, const Fleet& fleet)
 {
 	string input;
 	while (!canPlaceShipThisSize(shipSize, fleet))
@@ -55,7 +55,7 @@ void checkIfShipThisSizeCanBePlaced(int shipSize,const Fleet &fleet)
 	}
 }
 
-bool canPlaceShipThisSize(int shipSize,const Fleet& fleet)
+bool canPlaceShipThisSize(int shipSize, const Fleet& fleet)
 {
 	switch (shipSize)
 	{
@@ -163,7 +163,7 @@ char validateOrientationInput(string input)
 	return input[0];
 }
 
-void checkIfFieldIsUsed(int field[FIELD_SIZE][FIELD_SIZE], int &x, int &y, string &startingField)
+void checkIfFieldIsUsed(int field[FIELD_SIZE][FIELD_SIZE], int& x, int& y, string& startingField)
 {
 	string input;
 	while (field[x][y] == 1)
@@ -273,4 +273,40 @@ bool shipFitsInField(int field[FIELD_SIZE][FIELD_SIZE], int shipSize, char orien
 		break;
 	}
 	return true;
+}
+
+char validateChoice(int options)
+{
+	string choice;
+
+	cin >> choice;
+
+	while (choice[1] != '\0')
+	{
+		if (options == 3)
+			cout << "Wrong input. Try again, choose between 1, 2 or 3." << endl << "Choice: ";
+		else
+			cout << "Wrong input. Try again, choose between 1, 2, 3 or 4." << endl << "Choice: ";
+		cin >> choice;
+	}
+
+	if (options == 3)
+	{
+		while (choice[0] != '1' && choice[0] != '2' && choice[0] != '3')
+		{
+			cout << "Wrong input. Try again, choose between 1, 2 or 3." << endl;
+			cout << "Choice: ";
+			cin >> choice;
+		}
+	}
+	else
+	{
+		while (choice[0] != '1' && choice[0] != '2' && choice[0] != '3' && choice[0] != '4')
+		{
+			cout << "Wrong input. Try again, choose between 1, 2, 3 or 4." << endl;
+			cout << "Choice: ";
+			cin >> choice;
+		}
+	}
+	return choice[0];
 }

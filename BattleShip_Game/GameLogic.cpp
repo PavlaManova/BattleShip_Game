@@ -74,18 +74,10 @@ void arrangeYourself()
 
 	while (fleet.allShips < 5) //the game can start with minimum of 5 ships 
 	{
-		//system("CLS");
 		printBattlefield(field, "Your filed");
 		printArrangementOptions(3);
 		
-		cin >> choice;
-
-		while (choice != '1' && choice != '2' && choice != '3')
-		{
-			cout << "Wrong input. Try again, choose between 1, 2 or 3." << endl;
-			cout << "Choice: ";
-			cin >> choice;
-		}
+		choice = validateChoice(3);
 
 		switch (choice)
 		{
@@ -115,14 +107,8 @@ void arrangeYourself()
 	{
 		printBattlefield(field, "Your filed");
 		printArrangementOptions(4);
-		cin >> choice;
 
-		while (choice != '1' && choice != '2' && choice != '3' && choice != '4')
-		{
-			cout << "Wrong input. Try again, choose between 1, 2, 3 or 4." << endl;
-			cout << "Choice: ";
-			cin >> choice;
-		}
+		choice = validateChoice(4);		
 
 		switch (choice)
 		{
