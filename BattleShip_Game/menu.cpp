@@ -17,7 +17,7 @@
 #include "Constants.h"
 #include <conio.h>
 #include <iomanip>
-#include "AuxiliaryFunctions.h" //for MIDDLE_CONSOLE
+#include "AuxiliaryFunctions.h" //for concole window height and width
 
 int startingMenu()
 {
