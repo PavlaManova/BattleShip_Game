@@ -74,12 +74,10 @@ void arrangeYourself()
 
 	while (fleet.allShips < 5) //the game can start with minimum of 5 ships 
 	{
-		system("CLS");
+		//system("CLS");
 		printBattlefield(field, "Your filed");
-		cout << "Chose one of the following options:" << endl;
-		cout << "1) place next ship\n2) change position of some of your ships\n3)check how many ships you have left to place on the board" << endl; //the fourth option - view board, is shown the whole time
-		cout << "Choice: ";
-
+		printArrangementOptions(3);
+		
 		cin >> choice;
 
 		while (choice != '1' && choice != '2' && choice != '3')
@@ -108,21 +106,20 @@ void arrangeYourself()
 			printUnusedShips(fleet);
 			break;
 		}
+		default:
+			break;
 		}
 	}
 
 	while (fleet.allShips < MAX_SHIPS_COUNT)
 	{
-		cout << "You have enough ships to start the game now." << endl;
-		cout << "\nChose one of the following options:" << endl;
-		cout << "1) place next ship\n2) change position of some of your ships\n3)start game" << endl;
-		cout << "Choice: ";
-
+		printBattlefield(field, "Your filed");
+		printArrangementOptions(4);
 		cin >> choice;
 
-		while (choice != '1' && choice != '2' && choice != '3')
+		while (choice != '1' && choice != '2' && choice != '3' && choice != '4')
 		{
-			cout << "Wrong input. Try again, choose between 1, 2 or 3." << endl;
+			cout << "Wrong input. Try again, choose between 1, 2, 3 or 4." << endl;
 			cout << "Choice: ";
 			cin >> choice;
 		}
@@ -138,12 +135,19 @@ void arrangeYourself()
 		}
 		case '2':
 		{
+			//changeShip(field);
 			break;
 		}
 		case '3':
 		{
 			break;
 		}
+		case '4':
+		{
+			break;
+		}
+		default:
+			break;
 		}
 	}
 

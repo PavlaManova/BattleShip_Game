@@ -57,9 +57,6 @@ void checkIfShipThisSizeCanBePlaced(int shipSize,const Fleet &fleet)
 
 bool canPlaceShipThisSize(int shipSize,const Fleet& fleet)
 {
-	/*if (fleet.allShips > MAX_SHIPS_COUNT)
-		return false;*/
-
 	switch (shipSize)
 	{
 	case 2:
