@@ -109,7 +109,7 @@ int arrangeShipsMenu() //ADD ---return option---
 
 void setWhiteSpacesLength(string firstLine, string secondLine, int& whiteSpacesFirst, int& whiteSpacesSecond)
 {
-	whiteSpacesFirst = getConsoleMiddleWidth() + (firstLine.size() / 2);
+	whiteSpacesFirst = getConsoleWidth()/ 2; +(firstLine.size() / 2);
 
 	int temp = firstLine.size() - secondLine.size();
 	if (secondLine.size() % 2 == 1)
@@ -120,7 +120,7 @@ void setWhiteSpacesLength(string firstLine, string secondLine, int& whiteSpacesF
 
 void setWhiteSpacesLength(string firstLine, string secondLine, string thirdLine, int& whiteSpacesFirst, int& whiteSpacesSecond, int& whiteSpacesThird)
 {
-	whiteSpacesFirst = getConsoleMiddleWidth() + (firstLine.size() / 2);
+	whiteSpacesFirst = getConsoleWidth()/2 + (firstLine.size() / 2);
 
 	int temp = firstLine.size() - secondLine.size();
 	if (secondLine.size() % 2 == 1)

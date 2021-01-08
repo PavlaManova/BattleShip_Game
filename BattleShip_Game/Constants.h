@@ -22,8 +22,6 @@ const int FIELD_SIZE = 10,
 
 		  POSITIONS_FIELD_SIZE = FIELD_SIZE + 2,
 
-		  //MIDDLE_CONSOLE = 60,
-
 		  SINGLE_FIELD_SIZE = 3,
 
 		  BOARD_WIDTH = 45,
@@ -66,7 +64,5 @@ const string EMPTY_SPACE = "   ";
 const char SHIP_SQUARE[] = { SOLID_RECTANGLE, SOLID_RECTANGLE, SOLID_RECTANGLE },
 		   MISSED_SQUARE[] = { ' ','o',' ' },
 		   HIT_SHIP_SQUARE[] = { ' ','X',' ' };
-
-//int MIDDLE_CONSOLE = 0;
 
 

@@ -42,9 +42,9 @@ void positionConsoleWindow()
 	MoveWindow(hwnd, identWidth, identHeight, consoleWidth, consoleHeight, TRUE);
 }
 
-int getConsoleMiddleWidth()
+int getConsoleWidth()
 {
-	return consoleWidth / 2;
+	return consoleWidth%1000; //returns the size in characters
 }
 
 void getShipInformation(int& shipSize, string& startingField, char& orientation, int field[FIELD_SIZE][FIELD_SIZE], const Fleet& fleet)
