@@ -74,7 +74,7 @@ void arrangeYourself()
 
 	while (fleet.allShips < 5) //the game can start with minimum of 5 ships 
 	{
-		cout << "\nChose one of the following options:" << endl;
+		cout << "Chose one of the following options:" << endl;
 		cout << "1) place next ship\n2) change position of some of your ships" << endl; //the third option - view board, is shown the whole time
 		cout << "Choice: ";
 
@@ -101,7 +101,7 @@ void arrangeYourself()
 
 	while (fleet.allShips < MAX_SHIPS_COUNT)
 	{
-		cout << "\nYou have enough ships to start the game now." << endl;
+		cout << "You have enough ships to start the game now." << endl;
 		cout << "\nChose one of the following options:" << endl;
 		cout << "1) place next ship\n2) change position of some of your ships\n3)start game" << endl;
 		cout << "Choice: ";
@@ -117,18 +117,18 @@ void arrangeYourself()
 
 		switch (choice)
 		{
-		case 1:
+		case '1':
 		{
 			printBattlefield(field, "Place your ship");
 			placeShip(field, possiblePositions);
 			printBattlefield(field, "Your field");
 			break;
 		}
-		case 2:
+		case '2':
 		{
 			break;
 		}
-		case 3:
+		case '3':
 		{
 			break;
 		}
