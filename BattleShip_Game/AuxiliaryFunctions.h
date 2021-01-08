@@ -17,10 +17,7 @@
 #include "Constants.h"
 #include "GameLogic.h"
 
-void getValue(int source[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE], int destination[FIELD_SIZE][FIELD_SIZE]);
-
-void print(int source[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE]);
-
+void positionConsoleWindow();
 void getShipInformation(int& shipSize, string& startingField, char& orientation, int field[FIELD_SIZE][FIELD_SIZE], const Fleet& fleet);
 void getShipCoordinates(string field, int& x, int& y);
 void addShipToFleed(int shipSize, Fleet& fleet);

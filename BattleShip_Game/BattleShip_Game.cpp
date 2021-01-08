@@ -16,12 +16,13 @@
 
 #include <iostream>
 #include "GameLogic.h"
+#include "AuxiliaryFunctions.h"
 
 using namespace std;
 
 int main()
 {
-
+	positionConsoleWindow();
 	startGame();
 
 	/*int field[FIELD_SIZE][FIELD_SIZE] =

@@ -17,6 +17,25 @@
 #include "Constants.h"
 #include "GameLogic.h"
 #include "Validation.h"
+#include <Windows.h> //for positioning the console window
+
+void positionConsoleWindow()
+{
+	//Finding the user's screen resolution
+	int screenWidth = GetSystemMetrics(SM_CXSCREEN);
+	int screenHeight = GetSystemMetrics(SM_CYSCREEN);
+
+	//the new sizes of console window -> proportional
+	int consoleWidth = 9 * screenWidth / 10; 
+	int consoleHeight = 4 * screenHeight / 5; 
+
+	//centrate window by adding equal indentation on all four sides of the screen
+	int identWidth = (screenWidth - consoleWidth) / 2; 
+	int identHeight = (screenHeight - consoleHeight) / 2;
+
+	HWND hwnd = GetConsoleWindow();
+	MoveWindow(hwnd, identWidth, identHeight, consoleWidth, consoleHeight, TRUE);
+}
 
 void getShipInformation(int& shipSize, string& startingField, char& orientation, int field[FIELD_SIZE][FIELD_SIZE], const Fleet& fleet)
 {
@@ -105,16 +124,4 @@ void addShipToFleed(int shipSize, Fleet& fleet)
 	}
 
 	fleet.allShips++;
-}
-
-void print(int source[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE])
-{
-	for (int i = 0; i < POSITIONS_FIELD_SIZE; i++)
-	{
-		for (int j = 0; j < POSITIONS_FIELD_SIZE; j++)
-		{
-			cout << source[i][j];
-		}
-		cout << endl;
-	}
 }

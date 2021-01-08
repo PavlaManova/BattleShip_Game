@@ -126,6 +126,8 @@ void arrangeYourself()
 		}
 		case '3':
 		{
+			printBattlefield(field, "Your field");
+			printUnusedShips(fleet);
 			break;
 		}
 		case '4':
