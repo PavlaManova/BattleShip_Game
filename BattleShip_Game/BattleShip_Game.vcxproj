@@ -144,6 +144,7 @@
     <ClCompile Include="DrawBoard.cpp" />
     <ClCompile Include="GameLogic.cpp" />
     <ClCompile Include="menu.cpp" />
+    <ClCompile Include="ReadFromFile.cpp" />
     <ClCompile Include="Validation.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -152,6 +153,7 @@
     <ClInclude Include="drawBoard.h" />
     <ClInclude Include="GameLogic.h" />
     <ClInclude Include="Menu.h" />
+    <ClInclude Include="ReadFromFile.h" />
     <ClInclude Include="Validation.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

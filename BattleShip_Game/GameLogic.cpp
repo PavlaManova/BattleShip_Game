@@ -19,6 +19,7 @@
 #include "Constants.h"
 #include "Validation.h"
 #include "AuxiliaryFunctions.h"
+#include <fstream>
 
 Fleet fleet;
 
@@ -36,14 +37,12 @@ void startGame()
 		{
 			//ADD ---reading positions from file---
 			system("CLS");
-			printEmptyField();
+			chooseReadyArrangement();
 			break;
 		}
 		case 1:
 		{
-			//ADD ---arrange yourself---
 			arrangeYourself();
-			//printEmptyField();
 			actionCode = 0;
 			break;
 		}
@@ -227,4 +226,20 @@ void printUnusedShips(Fleet& fleet)
 		cout << "Total of " << total << " ships left." << endl;
 
 	system("Pause");
+}
+
+void chooseReadyArrangement()
+{
+	ifstream myFile;
+	char fileName[] = "shipsArrangements.txt";
+	myFile.open(fileName);
+
+	readArrangementsFromFile();
+
+
+
+
+
+
+	myFile.close();
 }
