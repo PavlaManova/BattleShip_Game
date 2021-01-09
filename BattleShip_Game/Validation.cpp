@@ -46,7 +46,7 @@ int validateShipSizeInput(string input)
 void checkIfShipThisSizeCanBePlaced(int shipSize, const Fleet& fleet)
 {
 	string input;
-	while (!canPlaceShipThisSize(shipSize, fleet))
+	while (!thisNumberOfShipsIsNotFull(shipSize, fleet))
 	{
 		cout << "There are no more ships with this size you can place. Try again with another ship." << endl;
 		cout << "Choose the size of the ship:";
@@ -55,7 +55,7 @@ void checkIfShipThisSizeCanBePlaced(int shipSize, const Fleet& fleet)
 	}
 }
 
-bool canPlaceShipThisSize(int shipSize, const Fleet& fleet)
+bool thisNumberOfShipsIsNotFull(int shipSize, const Fleet& fleet)
 {
 	switch (shipSize)
 	{

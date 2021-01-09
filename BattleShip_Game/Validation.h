@@ -23,7 +23,7 @@ using namespace std;
 
 int validateShipSizeInput(string input);
 void checkIfShipThisSizeCanBePlaced(int shipSize, const Fleet& fleet);
-bool canPlaceShipThisSize(int shipSize,const Fleet& fleet);
+bool thisNumberOfShipsIsNotFull(int shipSize,const Fleet& fleet);
 string validateStartingFieldInput(string input);
 bool wrongFieldInput(string input);
 void checkIfFieldIsUsed(int field[FIELD_SIZE][FIELD_SIZE], int& x, int& y, string& startingField);
