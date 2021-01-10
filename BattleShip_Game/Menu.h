@@ -18,7 +18,7 @@
 #include <iostream>
 using namespace std;
 
-int startingMenu();
+void startingMenu();
 void startGameOption();
 void exitOption();
 void setWhiteSpacesLength(string firstLine, string secondLine, int& whiteSpacesFirst, int& whiteSpacesSecond);

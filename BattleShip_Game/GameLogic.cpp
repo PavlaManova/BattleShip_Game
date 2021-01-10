@@ -29,7 +29,10 @@ bool canStartGame = false;
 
 void startGame()
 {
-	int actionCode = startingMenu();
+	int actionCode;
+
+	startingMenu();
+
 	while (!canStartGame)
 	{
 		actionCode = arrangeShipsMenu();
@@ -37,7 +40,6 @@ void startGame()
 		{
 		case 0:
 		{
-			//system("CLS");
 			chooseReadyArrangement();
 			break;
 		}
@@ -48,7 +50,7 @@ void startGame()
 		}
 		case 2:
 		{
-			actionCode = startingMenu(); //Option "Return"
+			startingMenu(); //Option "Return"
 			break;
 		}
 		default:

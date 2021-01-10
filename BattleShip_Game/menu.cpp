@@ -19,7 +19,7 @@
 #include <iomanip>
 #include "AuxiliaryFunctions.h" //for concole window height and width
 
-int startingMenu()
+void startingMenu()
 {
 	system("CLS");
 	startGameOption();
@@ -60,7 +60,7 @@ int startingMenu()
 	if (endGame)
 		exit(0);
 	else
-		return 1;
+		return;
 }
 
 int arrangeShipsMenu() //ADD ---return option---
