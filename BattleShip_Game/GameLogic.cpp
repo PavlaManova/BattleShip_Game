@@ -89,7 +89,8 @@ void arrangeYourself()
 		}
 		case '2':
 		{
-			//changeShip(field);
+			printBattlefield(field, "Change ship's position");
+			changeShip(field, possiblePositions);
 			break;
 		}
 		case '3':
@@ -121,7 +122,8 @@ void arrangeYourself()
 		}
 		case '2':
 		{
-			//changeShip(field);
+			printBattlefield(field, "Change ship's position");
+			changeShip(field, possiblePositions);
 			break;
 		}
 		case '3':
@@ -147,13 +149,13 @@ void placeShip(int field[FIELD_SIZE][FIELD_SIZE], int possiblePositions[POSITION
 	string startingField;
 	char orientation;
 
-	getShipInformation(shipSize, startingField, orientation, field, fleet);
+	getPlaceShipInfo(shipSize, startingField, orientation, field, fleet);
 	getShipCoordinates(startingField, x, y);
 
 	while (!positionIsPossible(possiblePositions, shipSize, orientation, x, y) || !shipFitsInField(field, shipSize, orientation, x, y))
 	{
 		cout << "This position is not possible. Try again." << endl;
-		getShipInformation(shipSize, startingField, orientation, field, fleet);
+		getPlaceShipInfo(shipSize, startingField, orientation, field, fleet);
 		getShipCoordinates(startingField, x, y);
 	}
 
@@ -198,6 +200,14 @@ void placeShip(int field[FIELD_SIZE][FIELD_SIZE], int possiblePositions[POSITION
 	}
 
 	addShipToFleed(shipSize, fleet);
+}
+
+void changeShip(int field[FIELD_SIZE][FIELD_SIZE], int possiblePositions[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE])
+{
+	int x, y;
+	getChangeShipInfo(field, fleet, x, y);
+
+
 }
 
 void printUnusedShips(Fleet& fleet)
@@ -263,5 +273,6 @@ void chooseReadyArrangement()
 	}
 
 	//start game
+	fleet.allShips = MAX_SHIPS_COUNT;
 	file.close();
 }

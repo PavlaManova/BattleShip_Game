@@ -50,7 +50,7 @@ int getConsoleHeight()
 	return consoleHeight / 20; //returns the size in characters (console height 20 ~ 1 char height)
 }
 
-void getShipInformation(int& shipSize, string& startingField, char& orientation, int field[FIELD_SIZE][FIELD_SIZE], const Fleet& fleet)
+void getPlaceShipInfo(int& shipSize, string& startingField, char& orientation, int field[FIELD_SIZE][FIELD_SIZE], const Fleet& fleet)
 {
 	string input;
 	cout << "Choose the size of the ship (2, 3, 4 or 6):";
@@ -83,6 +83,26 @@ void getShipCoordinates(string field, int& x, int& y)
 	}
 	else
 		x = 9;
+}
+
+void getChangeShipInfo(int field[FIELD_SIZE][FIELD_SIZE], const Fleet& fleet, int &x, int &y)
+{
+	string shipField, input;
+	int x, y;
+
+	cout << "Choose one field from the ship you want to change (letter then number of field):";
+	cin >> input;
+	shipField = validateStartingFieldInput(input);
+
+	getShipCoordinates(shipField, x, y);
+
+	while (!(field[x][y] == 1))
+	{
+		cout << "There is no ship on this position. Try again." << endl;
+		cin >> input;
+		shipField = validateStartingFieldInput(input);
+		getShipCoordinates(shipField, x, y);
+	}
 }
 
 void fillImpossiblePositions(int positions[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE], int field[FIELD_SIZE][FIELD_SIZE])
