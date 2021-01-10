@@ -29,39 +29,33 @@ bool canStartGame = false;
 
 void startGame()
 {
-	int actionCode = 0;
-	actionCode = startingMenu();
+	int actionCode = startingMenu();
 	while (!canStartGame)
 	{
-		while (actionCode == 1)
+		actionCode = arrangeShipsMenu();
+		switch (actionCode)
 		{
-			actionCode = arrangeShipsMenu();
-			switch (actionCode)
-			{
-			case 0:
-			{
-				//ADD ---reading positions from file---
-				system("CLS");
-				chooseReadyArrangement();
-				break;
-			}
-			case 1:
-			{
-				arrangeYourself();
-				actionCode = 0;
-				break;
-			}
-			case 2:
-			{
-				actionCode = startingMenu(); //Option "Return"
-				break;
-			}
-			default: break;
-			}
-			if (!canStartGame)
-				actionCode = 1;
+		case 0:
+		{
+			//system("CLS");
+			chooseReadyArrangement();
+			break;
+		}
+		case 1:
+		{
+			arrangeYourself();
+			break;
+		}
+		case 2:
+		{
+			actionCode = startingMenu(); //Option "Return"
+			break;
+		}
+		default:
+			break;
 		}
 	}
+
 	startPlaying();
 }
 
@@ -155,9 +149,10 @@ void arrangeYourself()
 			{
 				secondPlayer.hasChosenBoard = true;
 				getArrayValue(field, secondPlayer.field);
-				firstPlayer.fleet = fleet;
+				secondPlayer.fleet = fleet;
 				canStartGame = true;
 			}
+			return;
 			break;
 		}
 		default:
@@ -165,24 +160,27 @@ void arrangeYourself()
 		}
 	}
 
-	if (!firstPlayer.hasChosenBoard)
+	if (fleet.allShips == MAX_SHIPS_COUNT)
 	{
-		firstPlayer.hasChosenBoard = true;
-		getArrayValue(field, firstPlayer.field);
-		firstPlayer.fleet = fleet;
+		if (!firstPlayer.hasChosenBoard)
+		{
 
-		//restart fleet for second player
-		Fleet tempFleet;
-		fleet = tempFleet;
-	}
-	else
-	{
-		secondPlayer.hasChosenBoard = true;
-		getArrayValue(field, secondPlayer.field);
-		firstPlayer.fleet = fleet;
-		canStartGame = true;
-	}
+			firstPlayer.hasChosenBoard = true;
+			getArrayValue(field, firstPlayer.field);
+			firstPlayer.fleet = fleet;
 
+			//restart fleet for second player
+			Fleet tempFleet;
+			fleet = tempFleet;
+		}
+		else
+		{
+			secondPlayer.hasChosenBoard = true;
+			getArrayValue(field, secondPlayer.field);
+			secondPlayer.fleet = fleet;
+			canStartGame = true;
+		}
+	}
 }
 
 void placeShip(int field[FIELD_SIZE][FIELD_SIZE], int possiblePositions[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE])
@@ -271,7 +269,7 @@ void printUnusedShips(Fleet& fleet)
 	}
 	if (fleet.cruiserShips != 0)
 	{
-		cout << fleet.bigShips << " cruiser ship with size 6" << endl;
+		cout << fleet.cruiserShips << " cruiser ship with size 6" << endl;
 	}
 
 	int total = MAX_SHIPS_COUNT - fleet.allShips;
@@ -333,7 +331,7 @@ void chooseReadyArrangement()
 	{
 		secondPlayer.hasChosenBoard = true;
 		getArrayValue(field, secondPlayer.field);
-		firstPlayer.fleet = fleet;
+		secondPlayer.fleet = tempFleet;
 		canStartGame = true;
 	}
 	file.close();
@@ -342,6 +340,5 @@ void chooseReadyArrangement()
 void startPlaying()
 {
 	system("CLS");
-	cout << "Stana" << endl;
-	system("Pause");
+	printBattlefield(secondPlayer.field, "First player's turn");
 }

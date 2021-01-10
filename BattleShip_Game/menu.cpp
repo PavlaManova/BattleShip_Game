@@ -1,4 +1,4 @@
-/**
+	/**
 *
 * Solution to course project #5
 * Introduction to programming course
@@ -58,7 +58,7 @@ int startingMenu()
 	}
 
 	if (endGame)
-		exit(-1);
+		exit(0);
 	else
 		return 1;
 }
