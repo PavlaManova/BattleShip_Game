@@ -147,19 +147,19 @@ void placeShip(int field[FIELD_SIZE][FIELD_SIZE], int possiblePositions[POSITION
 {
 	int shipSize, x, y;
 	string startingField;
-	char orientation;
+	char direction;
 
-	getPlaceShipInfo(shipSize, startingField, orientation, field, fleet);
+	getPlaceShipInfo(shipSize, startingField, direction, field, fleet);
 	getShipCoordinates(startingField, x, y);
 
-	while (!positionIsPossible(possiblePositions, shipSize, orientation, x, y) || !shipFitsInField(field, shipSize, orientation, x, y))
+	while (!positionIsPossible(possiblePositions, shipSize, direction, x, y) || !shipFitsInField(field, shipSize, direction, x, y))
 	{
 		cout << "This position is not possible. Try again." << endl;
-		getPlaceShipInfo(shipSize, startingField, orientation, field, fleet);
+		getPlaceShipInfo(shipSize, startingField, direction, field, fleet);
 		getShipCoordinates(startingField, x, y);
 	}
 
-	switch (orientation)
+	switch (direction)
 	{
 	case 'U':
 	{
@@ -206,8 +206,7 @@ void changeShip(int field[FIELD_SIZE][FIELD_SIZE], int possiblePositions[POSITIO
 {
 	int x, y;
 	getChangeShipInfo(field, fleet, x, y);
-
-
+	clearShip(field, possiblePositions,x,y);
 }
 
 void printUnusedShips(Fleet& fleet)

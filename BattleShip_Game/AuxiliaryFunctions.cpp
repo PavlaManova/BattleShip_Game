@@ -50,7 +50,7 @@ int getConsoleHeight()
 	return consoleHeight / 20; //returns the size in characters (console height 20 ~ 1 char height)
 }
 
-void getPlaceShipInfo(int& shipSize, string& startingField, char& orientation, int field[FIELD_SIZE][FIELD_SIZE], const Fleet& fleet)
+void getPlaceShipInfo(int& shipSize, string& startingField, char& direction, int field[FIELD_SIZE][FIELD_SIZE], const Fleet& fleet)
 {
 	string input;
 	cout << "Choose the size of the ship (2, 3, 4 or 6):";
@@ -71,7 +71,7 @@ void getPlaceShipInfo(int& shipSize, string& startingField, char& orientation, i
 
 	cout << "Choose a direction for the ship. Choose between (U)p, (D)own, (L)eft, (R)ight:";
 	cin >> input;
-	orientation = validateOrientationInput(input);
+	direction = validateDirectionInput(input);
 }
 
 void getShipCoordinates(string field, int& x, int& y)
@@ -157,4 +157,9 @@ void addShipToFleed(int shipSize, Fleet& fleet)
 	}
 
 	fleet.allShips++;
+}
+
+void clearShip(int field[FIELD_SIZE][FIELD_SIZE], int possiblePositions[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE], const int x, const int y)
+{
+	char direction
 }

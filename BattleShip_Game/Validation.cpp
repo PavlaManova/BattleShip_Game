@@ -139,7 +139,7 @@ bool wrongFieldInput(string input)
 		return false;
 }
 
-char validateOrientationInput(string input)
+char validateDirectionInput(string input)
 {
 	while (input.size() != 1)
 	{
@@ -176,11 +176,11 @@ void checkIfFieldIsUsed(int field[FIELD_SIZE][FIELD_SIZE], int& x, int& y, strin
 	}
 }
 
-bool positionIsPossible(int positions[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE], int shipSize, char orientation, int x, int y)
+bool positionIsPossible(int positions[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE], int shipSize, char direction, int x, int y)
 {
 	int startPosition = 0;
 
-	switch (orientation)
+	switch (direction)
 	{
 	case 'U':
 	{
@@ -234,12 +234,12 @@ bool positionIsPossible(int positions[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE
 	return true;
 }
 
-bool shipFitsInField(int field[FIELD_SIZE][FIELD_SIZE], int shipSize, char orientation, int x, int y)
+bool shipFitsInField(int field[FIELD_SIZE][FIELD_SIZE], int shipSize, char direction, int x, int y)
 {
 	int start = 0,
 		end = 0;
 
-	switch (orientation)
+	switch (direction)
 	{
 	case 'U':
 	{
