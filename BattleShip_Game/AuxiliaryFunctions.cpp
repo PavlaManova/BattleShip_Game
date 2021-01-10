@@ -279,3 +279,13 @@ void getArrayValue(int source[FIELD_SIZE][FIELD_SIZE], int destination[FIELD_SIZ
 		}
 	}
 }
+
+void getShipsCount(Fleet& fleet, Player& player)
+{
+	Fleet tempFleet;
+	player.fleet.smallShips = tempFleet.smallShips - fleet.smallShips;
+	player.fleet.mediumShips = tempFleet.mediumShips - fleet.mediumShips;
+	player.fleet.bigShips = tempFleet.bigShips - fleet.bigShips;
+	player.fleet.cruiserShips = tempFleet.cruiserShips - fleet.cruiserShips;
+	player.fleet.allShips = fleet.allShips;
+}

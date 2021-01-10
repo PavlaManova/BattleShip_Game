@@ -29,3 +29,4 @@ void fillImpossiblePositions(int positions[POSITIONS_FIELD_SIZE][POSITIONS_FIELD
 void clearShip(int field[FIELD_SIZE][FIELD_SIZE], int possiblePositions[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE], const int x, const int y);
 void getArrayValueWithSqaureOfZeroes(int source[FIELD_SIZE][FIELD_SIZE], int destination[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE]);
 void getArrayValue(int source[FIELD_SIZE][FIELD_SIZE], int destination[FIELD_SIZE][FIELD_SIZE]);
+void getShipsCount(Fleet &fleet, Player &player);

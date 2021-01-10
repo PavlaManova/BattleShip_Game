@@ -65,6 +65,7 @@ void arrangeYourself()
 {
 	int field[FIELD_SIZE][FIELD_SIZE] = { 0 };
 	char choice;
+	Fleet tempFleet;
 
 	//When a ship is placed it forms a rectangular arount itself with field that are not possible for placing another ship
 
@@ -141,17 +142,16 @@ void arrangeYourself()
 			{
 				firstPlayer.hasChosenBoard = true;
 				getArrayValue(field, firstPlayer.field);
-				firstPlayer.fleet = fleet;
+				getShipsCount(fleet, firstPlayer);
 
 				//restart fleet for second player
-				Fleet tempFleet;
 				fleet = tempFleet;
 			}
 			else
 			{
 				secondPlayer.hasChosenBoard = true;
 				getArrayValue(field, secondPlayer.field);
-				secondPlayer.fleet = fleet;
+				getShipsCount(fleet, secondPlayer);
 				canStartGame = true;
 			}
 			return;
@@ -172,7 +172,6 @@ void arrangeYourself()
 			firstPlayer.fleet = fleet;
 
 			//restart fleet for second player
-			Fleet tempFleet;
 			fleet = tempFleet;
 		}
 		else
@@ -342,5 +341,9 @@ void chooseReadyArrangement()
 void startPlaying()
 {
 	system("CLS");
-	printBattlefield(secondPlayer.field, "First player's turn");
+	cout << firstPlayer.fleet.smallShips << endl << firstPlayer.fleet.mediumShips << endl << firstPlayer.fleet.bigShips << endl << firstPlayer.fleet.cruiserShips << endl << firstPlayer.fleet.allShips << endl;
+	cout << secondPlayer.fleet.smallShips << endl << secondPlayer.fleet.mediumShips << endl << secondPlayer.fleet.bigShips << endl << secondPlayer.fleet.cruiserShips << endl << secondPlayer.fleet.allShips << endl;
+	//system("Pause");
+
+	//printBattlefield(secondPlayer.field, "First player's turn");
 }
