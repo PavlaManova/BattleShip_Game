@@ -16,8 +16,9 @@
 #pragma once
 
 #include <fstream>
+#include "Constants.h"
 
 using namespace std;
 
-void readArrangementFromFile(ifstream& file, int &indexOfOption);
+void readArrangementFromFile(ifstream& file, int &indexOfOption, int field[FIELD_SIZE][FIELD_SIZE]);
 int findAllRandomArrangements(ifstream& file);

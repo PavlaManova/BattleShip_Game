@@ -160,19 +160,15 @@ void addShipToFleed(int shipSize, Fleet& fleet)
 
 void clearShip(int field[FIELD_SIZE][FIELD_SIZE], int possiblePositions[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE], const int x, const int y)
 {
-	char direction;
 	int tempField[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE];
 	getArrayValueWithSqaureOfZeroes(field, tempField); // to eliminate the checks for going outside the array
 
 	int tempX = x + 1,
 		tempY = y + 1;
-	cout << x << " - " << y << endl;
 	field[x][y] = 0;
 
 	while (tempField[tempX - 1][y + 1] == 1 || tempField[tempX + 1][y + 1] == 1 || tempField[x + 1][tempY - 1] == 1 || tempField[x + 1][tempY + 1] == 1)
 	{
-		/*tempX = x + 1;
-		tempY = y + 1;*/
 
 		tempField[tempX][tempY] = 0;
 		field[x][y] = 0;
@@ -192,9 +188,6 @@ void clearShip(int field[FIELD_SIZE][FIELD_SIZE], int possiblePositions[POSITION
 		while (tempField[tempX - 1][y + 1] == 1)
 		{
 			field[tempX - 2][y] = 0;
-			/*possiblePositions[tempX - 1][y] = 0;
-			possiblePositions[tempX - 1][y + 1] = 0;
-			possiblePositions[tempX - 1][y + 2] = 0;*/
 
 			possiblePositions[tempX - 2][y] = 0;
 			possiblePositions[tempX - 2][y + 1] = 0;
@@ -238,7 +231,6 @@ void clearShip(int field[FIELD_SIZE][FIELD_SIZE], int possiblePositions[POSITION
 			possiblePositions[x + 3][tempY - 1] = 0;
 			tempField[x + 1][tempY - 1] == 0;
 			tempY--;
-			cout << 3;
 		}
 		tempY = y + 1;
 		while (tempField[x + 1][tempY + 1] == 1)
@@ -249,11 +241,12 @@ void clearShip(int field[FIELD_SIZE][FIELD_SIZE], int possiblePositions[POSITION
 			possiblePositions[x + 3][tempY + 1] = 0;
 			tempField[x + 1][tempY + 1] == 0;
 			tempY++;
-			cout << 4;
 		}
 		tempX = x + 1;
 		tempY = y + 1;
 	}
+
+	//removeShipFromFleed();
 }
 
 void getArrayValueWithSqaureOfZeroes(int source[FIELD_SIZE][FIELD_SIZE], int destination[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE])
@@ -272,6 +265,17 @@ void getArrayValueWithSqaureOfZeroes(int source[FIELD_SIZE][FIELD_SIZE], int des
 		for (int j = 0; j < FIELD_SIZE; j++)
 		{
 			destination[i + 1][j + 1] = source[i][j];
+		}
+	}
+}
+
+void getArrayValue(int source[FIELD_SIZE][FIELD_SIZE], int destination[FIELD_SIZE][FIELD_SIZE])
+{
+	for (int i = 0; i < FIELD_SIZE; i++)
+	{
+		for (int j = 0; j < FIELD_SIZE; j++)
+		{
+			destination[i][j] = source[i][j];
 		}
 	}
 }

@@ -23,39 +23,46 @@
 #include "ReadFromFile.h"
 
 Fleet fleet;
+Player firstPlayer;
+Player secondPlayer;
+bool canStartGame = false;
 
 void startGame()
 {
 	int actionCode = 0;
 	actionCode = startingMenu();
-	//ADD ---choose player option---
-	while (actionCode == 1)
+	while (!canStartGame)
 	{
-		actionCode = arrangeShipsMenu();
-		switch (actionCode)
+		while (actionCode == 1)
 		{
-		case 0:
-		{
-			//ADD ---reading positions from file---
-			system("CLS");
-			chooseReadyArrangement();
-			break;
+			actionCode = arrangeShipsMenu();
+			switch (actionCode)
+			{
+			case 0:
+			{
+				//ADD ---reading positions from file---
+				system("CLS");
+				chooseReadyArrangement();
+				break;
+			}
+			case 1:
+			{
+				arrangeYourself();
+				actionCode = 0;
+				break;
+			}
+			case 2:
+			{
+				actionCode = startingMenu(); //Option "Return"
+				break;
+			}
+			default: break;
+			}
+			if (!canStartGame)
+				actionCode = 1;
 		}
-		case 1:
-		{
-			arrangeYourself();
-			actionCode = 0;
-			break;
-		}
-		case 2:
-		{
-			actionCode = startingMenu(); //Option "Return"
-			break;
-		}
-		default: break;
-		}
-
 	}
+	startPlaying();
 }
 
 void arrangeYourself()
@@ -134,11 +141,46 @@ void arrangeYourself()
 		}
 		case '4':
 		{
+			if (!firstPlayer.hasChosenBoard)
+			{
+				firstPlayer.hasChosenBoard = true;
+				getArrayValue(field, firstPlayer.field);
+				firstPlayer.fleet = fleet;
+
+				//restart fleet for second player
+				Fleet tempFleet;
+				fleet = tempFleet;
+			}
+			else
+			{
+				secondPlayer.hasChosenBoard = true;
+				getArrayValue(field, secondPlayer.field);
+				firstPlayer.fleet = fleet;
+				canStartGame = true;
+			}
 			break;
 		}
 		default:
 			break;
 		}
+	}
+
+	if (!firstPlayer.hasChosenBoard)
+	{
+		firstPlayer.hasChosenBoard = true;
+		getArrayValue(field, firstPlayer.field);
+		firstPlayer.fleet = fleet;
+
+		//restart fleet for second player
+		Fleet tempFleet;
+		fleet = tempFleet;
+	}
+	else
+	{
+		secondPlayer.hasChosenBoard = true;
+		getArrayValue(field, secondPlayer.field);
+		firstPlayer.fleet = fleet;
+		canStartGame = true;
 	}
 
 }
@@ -206,8 +248,10 @@ void changeShip(int field[FIELD_SIZE][FIELD_SIZE], int possiblePositions[POSITIO
 {
 	int x, y;
 	getChangeShipInfo(field, fleet, x, y);
-	clearShip(field, possiblePositions,x,y);
+	clearShip(field, possiblePositions, x, y);
 	printBattlefield(field, "Place your ship");
+	placeShip(field, possiblePositions);
+	printBattlefield(field, "Your field");
 }
 
 void printUnusedShips(Fleet& fleet)
@@ -246,10 +290,13 @@ void chooseReadyArrangement()
 	file.open(fileName);
 
 	int option = FIRST_ARRANGEMENT_OPTION_INDEX,
-		choice;
+		choice,
+		field[FIELD_SIZE][FIELD_SIZE];
+
 
 	int sumArrangements = findAllRandomArrangements(file);
-	readArrangementFromFile(file, option);
+	readArrangementFromFile(file, option, field);
+	printBattlefield(field, "Random Field");
 	printChooseRandomArrangementOptions();
 
 	choice = chooseRandomArrangement();
@@ -267,12 +314,34 @@ void chooseReadyArrangement()
 			option = sumArrangements + 1;
 		}
 
-		readArrangementFromFile(file, option);
+		readArrangementFromFile(file, option, field);
+		printBattlefield(field, "Random Field");
 		printChooseRandomArrangementOptions();
 		choice = chooseRandomArrangement();
 	}
 
 	//start game
-	fleet.allShips = MAX_SHIPS_COUNT;
+	Fleet tempFleet;
+	tempFleet.allShips = MAX_SHIPS_COUNT;
+	if (!firstPlayer.hasChosenBoard)
+	{
+		firstPlayer.hasChosenBoard = true;
+		getArrayValue(field, firstPlayer.field);
+		firstPlayer.fleet = tempFleet;
+	}
+	else
+	{
+		secondPlayer.hasChosenBoard = true;
+		getArrayValue(field, secondPlayer.field);
+		firstPlayer.fleet = fleet;
+		canStartGame = true;
+	}
 	file.close();
+}
+
+void startPlaying()
+{
+	system("CLS");
+	cout << "Stana" << endl;
+	system("Pause");
 }

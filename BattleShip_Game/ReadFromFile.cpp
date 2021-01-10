@@ -45,12 +45,11 @@ int findAllRandomArrangements(ifstream& file)
 	return counter;
 }
 
-void readArrangementFromFile(ifstream& file, int &indexOfOption)
+void readArrangementFromFile(ifstream& file, int& indexOfOption, int field[FIELD_SIZE][FIELD_SIZE])
 {
 	int index;
-	int field[FIELD_SIZE][FIELD_SIZE] = { 0 };
 	bool optionFaund = false;
-	
+
 	//start reading file from beggining
 	file.clear();
 	file.seekg(0, ios::beg);
@@ -78,6 +77,6 @@ void readArrangementFromFile(ifstream& file, int &indexOfOption)
 			file.seekg(0, ios::beg);
 		}
 	} while (!optionFaund);
-	
-	printBattlefield(field, "Random Field");
+
+
 }
