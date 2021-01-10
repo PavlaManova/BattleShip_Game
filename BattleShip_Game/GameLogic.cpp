@@ -31,6 +31,8 @@ void startGame()
 {
 	int actionCode;
 
+	printPlayer("Player 1");
+
 	startingMenu();
 
 	while (!canStartGame)
@@ -55,6 +57,10 @@ void startGame()
 		}
 		default:
 			break;
+		}
+		if (firstPlayer.hasChosenBoard && !secondPlayer.hasChosenBoard)
+		{
+			printPlayer("Player 2");
 		}
 	}
 
@@ -284,6 +290,8 @@ void printUnusedShips(Fleet& fleet)
 
 void chooseReadyArrangement()
 {
+	//printPlayer(firstPlayer);
+
 	ifstream file;
 	char fileName[] = "shipsArrangements.txt";
 	file.open(fileName);
@@ -341,9 +349,6 @@ void chooseReadyArrangement()
 void startPlaying()
 {
 	system("CLS");
-	cout << firstPlayer.fleet.smallShips << endl << firstPlayer.fleet.mediumShips << endl << firstPlayer.fleet.bigShips << endl << firstPlayer.fleet.cruiserShips << endl << firstPlayer.fleet.allShips << endl;
-	cout << secondPlayer.fleet.smallShips << endl << secondPlayer.fleet.mediumShips << endl << secondPlayer.fleet.bigShips << endl << secondPlayer.fleet.cruiserShips << endl << secondPlayer.fleet.allShips << endl;
-	//system("Pause");
 
-	//printBattlefield(secondPlayer.field, "First player's turn");
+	printBattlefield(secondPlayer.field, "First player's turn");
 }

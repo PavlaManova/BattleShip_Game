@@ -17,6 +17,8 @@
 #include "Constants.h"
 #include "AuxiliaryFunctions.h"
 #include <iostream>
+#include <iomanip>
+#include <conio.h>
 
 using namespace std;
 
@@ -27,6 +29,26 @@ void printIndent()
 	{
 		cout << " ";
 	}
+}
+
+void printPlayer(string text)
+{
+	system("CLS");
+	int keyPressed;
+
+	for (int i = 0; i < getConsoleHeight() / 2; i++)
+		cout << endl;
+
+	int whiteSpaces = getConsoleWidth() / 2 + (text.size() / 2);
+
+	cout << setw(whiteSpaces) << text << endl << endl;
+
+	whiteSpaces = getConsoleWidth() / 2 + 11;
+	cout << setw(whiteSpaces) << "Press Enter To Continue" << endl;
+
+	keyPressed = _getch();
+	while (keyPressed != ENTER)
+		keyPressed = _getch();
 }
 
 void printTextAboveField(string text)
@@ -57,13 +79,13 @@ void printBattlefield(int array[FIELD_SIZE][FIELD_SIZE], string text)
 	printLastLine(array);
 }
 
-void printEmptyField()
+/*void printEmptyField()
 {
 	system("CLS");
 	int array[FIELD_SIZE][FIELD_SIZE] = { 0 };
 	printBattlefield(array, "Player 1");
 }
-
+*/
 void printFirstLine()
 {
 	printIndent();
