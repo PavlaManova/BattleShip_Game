@@ -85,10 +85,9 @@ void getShipCoordinates(string field, int& x, int& y)
 		x = 9;
 }
 
-void getChangeShipInfo(int field[FIELD_SIZE][FIELD_SIZE], const Fleet& fleet, int &x, int &y)
+void getChangeShipInfo(int field[FIELD_SIZE][FIELD_SIZE], const Fleet& fleet, int& x, int& y)
 {
 	string shipField, input;
-	int x, y;
 
 	cout << "Choose one field from the ship you want to change (letter then number of field):";
 	cin >> input;
@@ -161,5 +160,84 @@ void addShipToFleed(int shipSize, Fleet& fleet)
 
 void clearShip(int field[FIELD_SIZE][FIELD_SIZE], int possiblePositions[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE], const int x, const int y)
 {
-	char direction
+	char direction;
+	int tempField[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE];
+	getArrayValueWithSqaureOfZeroes(field, tempField); // to eliminate the checks for going outside the array
+
+	int tempX = x + 1,
+		tempY = y + 1;
+
+	field[x][y] = 0;
+
+	while (tempField[tempX - 1][y + 2] == 1 || tempField[tempX + 1][y + 2] == 1 || tempField[x + 2][tempY - 1] == 1 || tempField[x + 2][tempY + 1] == 1)
+	{
+		/*tempX = x + 1;
+		tempY = y + 1;*/
+		
+		while (tempField[tempX - 1][y + 2] == 1)
+		{
+			field[tempX - 1][y] = 0;
+			possiblePositions[tempX - 1][y+1] = 0;
+			possiblePositions[tempX - 1][y + 2] = 0;
+			possiblePositions[tempX - 1][y + 3] = 0;
+			tempField[tempX - 1][y + 2] == 0;
+			tempX--;
+			cout << 1;
+		}
+		tempX = x + 1;
+		while (tempField[tempX + 1][y + 2] == 1)
+		{
+			field[tempX][y] = 0;
+			possiblePositions[tempX + 1][y+1] = 0;
+			possiblePositions[tempX + 1][y + 2] = 0;
+			possiblePositions[tempX + 1][y + 3] = 0;
+			tempField[tempX + 1][y + 2] == 0;
+			tempX++;
+			cout << 2;
+		}
+
+		while (tempField[x + 2][tempY - 1] == 1)
+		{
+			field[x][tempY-1] = 0;
+			possiblePositions[x+1][tempY - 1] = 0;
+			possiblePositions[x +2][tempY - 1] = 0;
+			possiblePositions[x + 3][tempY - 1] = 0;
+			tempField[x + 2][tempY - 1] == 0;
+			tempY--;
+			cout << 3;
+		}
+		tempY = y + 1;
+		while (tempField[x + 2][tempY + 1] == 1)
+		{
+			field[x][tempY] = 0;
+			possiblePositions[x+1][tempY + 1] = 0;
+			possiblePositions[x +2][tempY + 1] = 0;
+			possiblePositions[x + 3][tempY + 1] = 0;
+			tempField[x + 2][tempY + 1] == 0;
+			tempY++;
+			cout << 4;
+		}
+		tempX = x + 1;
+		tempY = y + 1;
+	}
+}
+
+void getArrayValueWithSqaureOfZeroes(int source[FIELD_SIZE][FIELD_SIZE], int destination[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE])
+{
+	//make a frame of zeroes
+	for (int j = 0; j < POSITIONS_FIELD_SIZE; j++)
+	{
+		destination[0][j] = 0;
+		destination[POSITIONS_FIELD_SIZE - 1][j] = 0;
+		destination[j][0] = 0;
+		destination[j][POSITIONS_FIELD_SIZE - 1] = 0;
+	}
+
+	for (int i = 0; i < FIELD_SIZE; i++)
+	{
+		for (int j = 0; j < FIELD_SIZE; j++)
+		{
+			destination[i + 1][j + 1] = source[i][j];
+		}
+	}
 }

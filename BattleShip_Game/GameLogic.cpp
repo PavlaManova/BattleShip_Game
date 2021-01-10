@@ -207,6 +207,7 @@ void changeShip(int field[FIELD_SIZE][FIELD_SIZE], int possiblePositions[POSITIO
 	int x, y;
 	getChangeShipInfo(field, fleet, x, y);
 	clearShip(field, possiblePositions,x,y);
+	printBattlefield(field, "Place your ship");
 }
 
 void printUnusedShips(Fleet& fleet)
