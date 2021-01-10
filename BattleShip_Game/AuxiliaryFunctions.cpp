@@ -166,54 +166,88 @@ void clearShip(int field[FIELD_SIZE][FIELD_SIZE], int possiblePositions[POSITION
 
 	int tempX = x + 1,
 		tempY = y + 1;
-
+	cout << x << " - " << y << endl;
 	field[x][y] = 0;
 
-	while (tempField[tempX - 1][y + 2] == 1 || tempField[tempX + 1][y + 2] == 1 || tempField[x + 2][tempY - 1] == 1 || tempField[x + 2][tempY + 1] == 1)
+	while (tempField[tempX - 1][y + 1] == 1 || tempField[tempX + 1][y + 1] == 1 || tempField[x + 1][tempY - 1] == 1 || tempField[x + 1][tempY + 1] == 1)
 	{
 		/*tempX = x + 1;
 		tempY = y + 1;*/
-		
-		while (tempField[tempX - 1][y + 2] == 1)
+
+		tempField[tempX][tempY] = 0;
+		field[x][y] = 0;
+		possiblePositions[tempX - 1][y] = 0;
+		possiblePositions[tempX - 1][y + 1] = 0;
+		possiblePositions[tempX - 1][y + 2] = 0;
+		possiblePositions[x][tempY - 1] = 0;
+		possiblePositions[x + 1][tempY - 1] = 0;
+		possiblePositions[x + 2][tempY - 1] = 0;
+		possiblePositions[tempX + 1][y] = 0;
+		possiblePositions[tempX + 1][y + 1] = 0;
+		possiblePositions[tempX + 1][y + 2] = 0;
+		possiblePositions[x][tempY + 1] = 0;
+		possiblePositions[x + 1][tempY + 1] = 0;
+		possiblePositions[x + 2][tempY + 1] = 0;
+
+		while (tempField[tempX - 1][y + 1] == 1)
 		{
-			field[tempX - 1][y] = 0;
-			possiblePositions[tempX - 1][y+1] = 0;
-			possiblePositions[tempX - 1][y + 2] = 0;
-			possiblePositions[tempX - 1][y + 3] = 0;
-			tempField[tempX - 1][y + 2] == 0;
+			field[tempX - 2][y] = 0;
+			/*possiblePositions[tempX - 1][y] = 0;
+			possiblePositions[tempX - 1][y + 1] = 0;
+			possiblePositions[tempX - 1][y + 2] = 0;*/
+
+			possiblePositions[tempX - 2][y] = 0;
+			possiblePositions[tempX - 2][y + 1] = 0;
+			possiblePositions[tempX - 2][y + 2] = 0;
+
+			possiblePositions[tempX ][y] = 0;
+			possiblePositions[tempX ][y + 1] = 0;
+			possiblePositions[tempX ][y + 2] = 0;
+
+			possiblePositions[x][tempY - 1] = 0;
+			possiblePositions[x + 1][tempY - 1] = 0;
+			possiblePositions[x + 2][tempY - 1] = 0;
+			possiblePositions[x][tempY + 1] = 0;
+			possiblePositions[x + 1][tempY + 1] = 0;
+			possiblePositions[x + 2][tempY + 1] = 0;
+
+
+
+
+			tempField[tempX - 1][y + 1] == 0;
 			tempX--;
 			cout << 1;
 		}
 		tempX = x + 1;
-		while (tempField[tempX + 1][y + 2] == 1)
+		while (tempField[tempX + 1][y + 1] == 1)
 		{
-			field[tempX][y] = 0;
-			possiblePositions[tempX + 1][y+1] = 0;
+			field[tempX - 1][y] = 0;
+			possiblePositions[tempX + 1][y] = 0;
+			possiblePositions[tempX + 1][y + 1] = 0;
 			possiblePositions[tempX + 1][y + 2] = 0;
-			possiblePositions[tempX + 1][y + 3] = 0;
-			tempField[tempX + 1][y + 2] == 0;
+			tempField[tempX + 1][y + 1] == 0;
 			tempX++;
 			cout << 2;
 		}
 
-		while (tempField[x + 2][tempY - 1] == 1)
+		while (tempField[x + 1][tempY - 1] == 1)
 		{
-			field[x][tempY-1] = 0;
-			possiblePositions[x+1][tempY - 1] = 0;
-			possiblePositions[x +2][tempY - 1] = 0;
+			field[x][tempY - 1] = 0;
+			possiblePositions[x + 1][tempY - 1] = 0;
+			possiblePositions[x + 2][tempY - 1] = 0;
 			possiblePositions[x + 3][tempY - 1] = 0;
-			tempField[x + 2][tempY - 1] == 0;
+			tempField[x + 1][tempY - 1] == 0;
 			tempY--;
 			cout << 3;
 		}
 		tempY = y + 1;
-		while (tempField[x + 2][tempY + 1] == 1)
+		while (tempField[x + 1][tempY + 1] == 1)
 		{
 			field[x][tempY] = 0;
-			possiblePositions[x+1][tempY + 1] = 0;
-			possiblePositions[x +2][tempY + 1] = 0;
+			possiblePositions[x + 1][tempY + 1] = 0;
+			possiblePositions[x + 2][tempY + 1] = 0;
 			possiblePositions[x + 3][tempY + 1] = 0;
-			tempField[x + 2][tempY + 1] == 0;
+			tempField[x + 1][tempY + 1] == 0;
 			tempY++;
 			cout << 4;
 		}
