@@ -20,7 +20,6 @@ void printIndent();
 void printPlayer(string text);
 void printBattlefield(int array[FIELD_SIZE][FIELD_SIZE], string text);
 void printTextAboveField(string text);
-//void printEmptyField();
 void printHorizontalLines();
 void printFirstLine();
 void printLines(int array[FIELD_SIZE][FIELD_SIZE]);

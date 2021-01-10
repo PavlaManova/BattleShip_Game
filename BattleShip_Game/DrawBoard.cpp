@@ -79,13 +79,6 @@ void printBattlefield(int array[FIELD_SIZE][FIELD_SIZE], string text)
 	printLastLine(array);
 }
 
-/*void printEmptyField()
-{
-	system("CLS");
-	int array[FIELD_SIZE][FIELD_SIZE] = { 0 };
-	printBattlefield(array, "Player 1");
-}
-*/
 void printFirstLine()
 {
 	printIndent();
