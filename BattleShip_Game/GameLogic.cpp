@@ -21,6 +21,7 @@
 #include "AuxiliaryFunctions.h"
 #include <fstream>
 #include "ReadFromFile.h"
+#include <iomanip>
 
 using namespace std;
 
@@ -357,13 +358,14 @@ void chooseReadyArrangement()
 void startPlaying()
 {
 	cout << "\x1B[2J\x1B[H";
+
 	int x, y;
 	bool hit = true,
 		firstPlayerTurn = true,
-		endGame = false;
+		isEndGame = false;
 
-	while (!endGame)
-	{
+	while (!isEndGame)
+	{		
 		if (firstPlayerTurn)
 		{
 			while (hit)
@@ -381,10 +383,17 @@ void startPlaying()
 					hit = true;
 					if (shipIsSunk(secondPlayer, x, y))
 					{
-						cout << "You just sunk a ship of your enemy!" << endl;
-
-						printBattlefield(secondPlayer.firedField, "First player's turn");
-						system("Pause");
+						if (secondPlayer.fleet.allShips == 0)
+						{
+							isEndGame = true;
+							break;
+						}
+						else
+						{
+							cout << "You just sunk a ship of your enemy!" << endl;
+							printBattlefield(secondPlayer.firedField, "First player's turn");
+							system("Pause");
+						}
 					}
 					else
 					{
@@ -415,6 +424,8 @@ void startPlaying()
 
 		while (hit)
 		{
+			cout << firstPlayer.fleet.allShips << endl;
+			system("Pause");
 			printBattlefield(firstPlayer.firedField, "Second player's turn");
 			chooseFieldToShoot(x, y);
 			if (firstPlayer.field[x][y] == 1)
@@ -430,11 +441,14 @@ void startPlaying()
 				{
 					if (firstPlayer.fleet.allShips == 0)
 					{
-						endGame = true;
+						isEndGame = true;
 						break;
 					}
-					cout << "You just sunk a ship of your enemy!" << endl;
-					printBattlefield(firstPlayer.firedField, "Second player's turn");
+					else
+					{
+						cout << "You just sunk a ship of your enemy!" << endl;
+						printBattlefield(firstPlayer.firedField, "Second player's turn");
+					}
 				}
 				else
 				{
@@ -459,7 +473,7 @@ void startPlaying()
 		firstPlayerTurn = true;
 	}
 
-
+	endGame();
 }
 
 void chooseFieldToShoot(int& x, int& y)
@@ -506,6 +520,8 @@ bool shipIsSunk(Player& player, const int x, const int y)
 		{
 			if (player.firedField[i][y] != 3)
 			{
+				cout << 999999;
+				system("Pause");
 				isSunk = false;
 				break;
 			}
@@ -514,7 +530,7 @@ bool shipIsSunk(Player& player, const int x, const int y)
 	else
 	{
 		startIndex = y;
-		while (player.field[x][tempY] == 1)
+		while (player.field[x][tempY] == 1 && tempY>=0)
 		{
 			startIndex = tempY;
 			tempY--;
@@ -528,7 +544,12 @@ bool shipIsSunk(Player& player, const int x, const int y)
 		for (int i = startIndex; i < startIndex + shipLength; i++)
 		{
 			if (player.firedField[x][i] != 3)
+			{
 				isSunk = false;
+				cout << 999999;
+				system("Pause");
+				break;
+			}
 		}
 	}
 
@@ -543,4 +564,19 @@ bool shipIsSunk(Player& player, const int x, const int y)
 	}
 	else
 		return false;
+}
+
+void endGame()
+{
+	cout << "\x1B[2J\x1B[H";
+
+	for (int i = 0; i < getConsoleHeight() / 2; i++)
+		cout << endl;
+
+	int whiteSpaces = getConsoleWidth() / 2 + 8;
+
+	cout << setw(whiteSpaces) << "Congratulations!" << endl << endl;
+
+	whiteSpaces = getConsoleWidth() / 2 + 4;
+	cout << setw(whiteSpaces) << "You Won!" << endl;
 }
