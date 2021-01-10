@@ -33,6 +33,7 @@ struct Player
 	Fleet fleet;
 	bool hasChosenBoard = false;
 	int field[FIELD_SIZE][FIELD_SIZE] = { 0 };
+	int firedField[FIELD_SIZE][FIELD_SIZE] = { 0 };
 };
 
 void startGame();
@@ -42,4 +43,5 @@ void changeShip(int field[FIELD_SIZE][FIELD_SIZE], int possiblePositions[POSITIO
 void printUnusedShips(Fleet &fleet);
 void chooseReadyArrangement();
 void startPlaying();
+void chooseFieldToShoot(int& x, int& y);
 

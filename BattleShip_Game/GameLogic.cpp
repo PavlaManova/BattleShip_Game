@@ -31,6 +31,9 @@ void startGame()
 {
 	int actionCode;
 
+	firstPlayer.hasChosenBoard = false;
+	secondPlayer.hasChosenBoard = false;
+
 	printPlayer("Player 1");
 
 	startingMenu();
@@ -52,6 +55,9 @@ void startGame()
 		}
 		case 2:
 		{
+			firstPlayer.hasChosenBoard = false;
+			secondPlayer.hasChosenBoard = false;
+			printPlayer("Player 1");
 			startingMenu(); //Option "Return"
 			break;
 		}
@@ -349,6 +355,94 @@ void chooseReadyArrangement()
 void startPlaying()
 {
 	system("CLS");
+	int x, y;
+	bool hit = false;
 
-	printBattlefield(secondPlayer.field, "First player's turn");
+	printBattlefield(secondPlayer.firedField, "First player's turn");
+	chooseFieldToShoot(x, y);
+	if (secondPlayer.field[x][y] == 1)
+	{
+		secondPlayer.firedField[x][y] = 3;
+		hit = true;
+		printBattlefield(secondPlayer.firedField, "First player's turn");
+		cout << "You hit! It's your turn again." << endl;
+	}
+	else
+	{
+		secondPlayer.firedField[x][y] = 2;
+		hit = false;
+		printBattlefield(secondPlayer.firedField, "First player's turn");
+		cout << "You missed!" << endl;
+	}
+	system("Pause");
+
+	while (hit)
+	{
+		printBattlefield(secondPlayer.firedField, "First player's turn");
+		chooseFieldToShoot(x, y);
+		if (secondPlayer.field[x][y] == 1)
+		{
+			while (secondPlayer.firedField[x][y] != 0)
+			{
+				cout << "You have already shooted at this field. Try again." << endl;
+				chooseFieldToShoot(x, y);
+			}
+			secondPlayer.firedField[x][y] = 3;
+			hit = true;
+			printBattlefield(secondPlayer.firedField, "First player's turn");
+			cout << "You hit! It's your turn again." << endl;
+		}
+		else
+		{
+			while (secondPlayer.firedField[x][y] != 0)
+			{
+				cout << "You have already shooted at this field. Try again." << endl;
+				chooseFieldToShoot(x, y);
+			}
+			secondPlayer.firedField[x][y] = 2;
+			hit = false;
+			printBattlefield(secondPlayer.firedField, "First player's turn");
+			cout << "You missed!" << endl;
+		}
+		system("Pause");
+	}
+
+	printBattlefield(firstPlayer.firedField, "Second player's turn");
+	chooseFieldToShoot(x, y);
+	if (firstPlayer.field[x][y] == 1)
+	{
+		while (firstPlayer.firedField[x][y] != 0)
+		{
+			cout << "You have already shooted at this field. Try again." << endl;
+			chooseFieldToShoot(x, y);
+		}
+		firstPlayer.firedField[x][y] = 3;
+		hit = true;
+		printBattlefield(firstPlayer.firedField, "First player's turn");
+		cout << "You hit! It's your turn again." << endl;
+	}
+	else
+	{
+		while (firstPlayer.firedField[x][y] != 0)
+		{
+			cout << "You have already shooted at this field. Try again."<<endl;
+			chooseFieldToShoot(x, y);
+		}
+		firstPlayer.firedField[x][y] = 2;
+		hit = false;
+		printBattlefield(firstPlayer.firedField, "First player's turn");
+		cout << "You missed!" << endl;
+	}
+	system("Pause");
+}
+
+void chooseFieldToShoot(int& x, int& y)
+{
+	string chosedField, input;
+
+	cout << "Choose field and shoot (letter then number of field):";
+	cin >> input;
+
+	chosedField = validateStartingFieldInput(input);
+	getShipCoordinates(chosedField, x, y);
 }
