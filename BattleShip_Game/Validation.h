@@ -31,3 +31,4 @@ char validateDirectionInput(string input);
 bool positionIsPossible(int positions[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE], int shipSize, char direction, int x, int y);
 bool shipFitsInField(int field[FIELD_SIZE][FIELD_SIZE], int shipSize, char direction, int x, int y);
 char validateChoice(int options);
+void validateStream(ifstream& file);

@@ -22,6 +22,8 @@
 #include <fstream>
 #include "ReadFromFile.h"
 
+using namespace std;
+
 Fleet fleet;
 Player firstPlayer;
 Player secondPlayer;
@@ -30,9 +32,6 @@ bool canStartGame = false;
 void startGame()
 {
 	int actionCode;
-
-	firstPlayer.hasChosenBoard = false;
-	secondPlayer.hasChosenBoard = false;
 
 	printPlayer("Player 1");
 
@@ -257,9 +256,11 @@ void placeShip(int field[FIELD_SIZE][FIELD_SIZE], int possiblePositions[POSITION
 
 void changeShip(int field[FIELD_SIZE][FIELD_SIZE], int possiblePositions[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE])
 {
-	int x, y;
+	int x, y, shipLength = 0;
 	getChangeShipInfo(field, fleet, x, y);
-	clearShip(field, possiblePositions, x, y);
+	clearShip(field, x, y, FIELD_SIZE, FIELD_SIZE, shipLength);
+	addShipToFleed(shipLength, fleet);
+	fillImpossiblePositions(possiblePositions, field);
 	printBattlefield(field, "Place your ship");
 	placeShip(field, possiblePositions);
 	printBattlefield(field, "Your field");
@@ -296,11 +297,12 @@ void printUnusedShips(Fleet& fleet)
 
 void chooseReadyArrangement()
 {
-	//printPlayer(firstPlayer);
-
 	ifstream file;
 	char fileName[] = "shipsArrangements.txt";
+
 	file.open(fileName);
+
+	validateStream(file);
 
 	int option = FIRST_ARRANGEMENT_OPTION_INDEX,
 		choice,
@@ -354,86 +356,110 @@ void chooseReadyArrangement()
 
 void startPlaying()
 {
-	system("CLS");
+	cout << "\x1B[2J\x1B[H";
 	int x, y;
-	bool hit = false;
+	bool hit = true,
+		firstPlayerTurn = true,
+		endGame = false;
 
-	printBattlefield(secondPlayer.firedField, "First player's turn");
-	chooseFieldToShoot(x, y);
-	if (secondPlayer.field[x][y] == 1)
+	while (!endGame)
 	{
-		secondPlayer.firedField[x][y] = 3;
-		hit = true;
-		printBattlefield(secondPlayer.firedField, "First player's turn");
-		cout << "You hit! It's your turn again." << endl;
-	}
-	else
-	{
-		secondPlayer.firedField[x][y] = 2;
-		hit = false;
-		printBattlefield(secondPlayer.firedField, "First player's turn");
-		cout << "You missed!" << endl;
-	}
-	system("Pause");
-
-	while (hit)
-	{
-		printBattlefield(secondPlayer.firedField, "First player's turn");
-		chooseFieldToShoot(x, y);
-		if (secondPlayer.field[x][y] == 1)
+		if (firstPlayerTurn)
 		{
-			while (secondPlayer.firedField[x][y] != 0)
+			while (hit)
 			{
-				cout << "You have already shooted at this field. Try again." << endl;
+				printBattlefield(secondPlayer.firedField, "First player's turn");
 				chooseFieldToShoot(x, y);
+				if (secondPlayer.field[x][y] == 1)
+				{
+					while (secondPlayer.firedField[x][y] != 0)
+					{
+						cout << "You have already shooted at this field. Try again." << endl;
+						chooseFieldToShoot(x, y);
+					}
+					secondPlayer.firedField[x][y] = 3;
+					hit = true;
+					if (shipIsSunk(secondPlayer, x, y))
+					{
+						cout << "You just sunk a ship of your enemy!" << endl;
+
+						printBattlefield(secondPlayer.firedField, "First player's turn");
+						system("Pause");
+					}
+					else
+					{
+						printBattlefield(secondPlayer.firedField, "First player's turn");
+						cout << "You hit! It's your turn again." << endl;
+					}
+
+				}
+				else
+				{
+					while (secondPlayer.firedField[x][y] != 0)
+					{
+						cout << "You have already shooted at this field. Try again." << endl;
+						chooseFieldToShoot(x, y);
+					}
+					secondPlayer.firedField[x][y] = 2;
+					hit = false;
+					printBattlefield(secondPlayer.firedField, "First player's turn");
+					cout << "You missed!" << endl;
+					system("Pause");
+				}
+
 			}
-			secondPlayer.firedField[x][y] = 3;
-			hit = true;
-			printBattlefield(secondPlayer.firedField, "First player's turn");
-			cout << "You hit! It's your turn again." << endl;
+			firstPlayerTurn = false;
 		}
-		else
+
+		hit = true;
+
+		while (hit)
 		{
-			while (secondPlayer.firedField[x][y] != 0)
+			printBattlefield(firstPlayer.firedField, "Second player's turn");
+			chooseFieldToShoot(x, y);
+			if (firstPlayer.field[x][y] == 1)
 			{
-				cout << "You have already shooted at this field. Try again." << endl;
-				chooseFieldToShoot(x, y);
+				while (firstPlayer.firedField[x][y] != 0)
+				{
+					cout << "You have already shooted at this field. Try again." << endl;
+					chooseFieldToShoot(x, y);
+				}
+				firstPlayer.firedField[x][y] = 3;
+				hit = true;
+				if (shipIsSunk(firstPlayer, x, y))
+				{
+					if (firstPlayer.fleet.allShips == 0)
+					{
+						endGame = true;
+						break;
+					}
+					cout << "You just sunk a ship of your enemy!" << endl;
+					printBattlefield(firstPlayer.firedField, "Second player's turn");
+				}
+				else
+				{
+					printBattlefield(firstPlayer.firedField, "First player's turn");
+					cout << "You hit! It's your turn again." << endl;
+				}
 			}
-			secondPlayer.firedField[x][y] = 2;
-			hit = false;
-			printBattlefield(secondPlayer.firedField, "First player's turn");
-			cout << "You missed!" << endl;
+			else
+			{
+				while (firstPlayer.firedField[x][y] != 0)
+				{
+					cout << "You have already shooted at this field. Try again." << endl;
+					chooseFieldToShoot(x, y);
+				}
+				firstPlayer.firedField[x][y] = 2;
+				hit = false;
+				printBattlefield(firstPlayer.firedField, "First player's turn");
+				cout << "You missed!" << endl;
+			}
 		}
-		system("Pause");
+		hit = true;
+		firstPlayerTurn = true;
 	}
 
-	printBattlefield(firstPlayer.firedField, "Second player's turn");
-	chooseFieldToShoot(x, y);
-	if (firstPlayer.field[x][y] == 1)
-	{
-		while (firstPlayer.firedField[x][y] != 0)
-		{
-			cout << "You have already shooted at this field. Try again." << endl;
-			chooseFieldToShoot(x, y);
-		}
-		firstPlayer.firedField[x][y] = 3;
-		hit = true;
-		printBattlefield(firstPlayer.firedField, "First player's turn");
-		cout << "You hit! It's your turn again." << endl;
-	}
-	else
-	{
-		while (firstPlayer.firedField[x][y] != 0)
-		{
-			cout << "You have already shooted at this field. Try again."<<endl;
-			chooseFieldToShoot(x, y);
-		}
-		firstPlayer.firedField[x][y] = 2;
-		hit = false;
-		printBattlefield(firstPlayer.firedField, "First player's turn");
-		cout << "You missed!" << endl;
-	}
-	system("Pause");
+
 }
 
 void chooseFieldToShoot(int& x, int& y)
@@ -445,4 +471,76 @@ void chooseFieldToShoot(int& x, int& y)
 
 	chosedField = validateStartingFieldInput(input);
 	getShipCoordinates(chosedField, x, y);
+}
+
+bool shipIsSunk(Player& player, const int x, const int y)
+{
+	char orientation = 'm'; //v-vertical h-horizontal
+	if (player.firedField[x - 1][y] == 3 || player.field[x - 1][y] == 1 || player.firedField[x + 1][y] == 3 || player.field[x + 1][y] == 1)
+		orientation = 'v';
+	else if (player.firedField[x][y - 1] == 3 || player.field[x][y - 1] == 1 || player.firedField[x][y + 1] == 3 || player.field[x][y + 1] == 1)
+		orientation = 'h';
+
+	int startIndex = 0,
+		tempX = x - 1,
+		tempY = y - 1,
+		temp = 0,
+		shipLength = 1;
+	bool isSunk = true;
+
+	if (orientation == 'v')
+	{
+		startIndex = x;
+		while (player.field[tempX][y] == 1)
+		{
+			startIndex = tempX;
+			tempX--;
+		}
+		temp = startIndex;
+		while (player.field[temp + 1][y] == 1)
+		{
+			shipLength++;
+			temp++;
+		}
+		for (int i = startIndex; i < startIndex + shipLength; i++)
+		{
+			if (player.firedField[i][y] != 3)
+			{
+				isSunk = false;
+				break;
+			}
+		}
+	}
+	else
+	{
+		startIndex = y;
+		while (player.field[x][tempY] == 1)
+		{
+			startIndex = tempY;
+			tempY--;
+		}
+		temp = startIndex;
+		while (player.field[x][temp + 1] == 1)
+		{
+			shipLength++;
+			temp++;
+		}
+		for (int i = startIndex; i < startIndex + shipLength; i++)
+		{
+			if (player.firedField[x][i] != 3)
+				isSunk = false;
+		}
+	}
+
+	if (isSunk)
+	{
+		removeShipFromFleed(player, shipLength);
+		/*if (orientation == 'v')
+			chageFieldAroundSunkShip(player, orientation, startIndex, y, shipLength);
+		else
+			chageFieldAroundSunkShip(player, orientation, startIndex, x, shipLength);*/
+		return true;
+	}
+	else
+		return false;
 }

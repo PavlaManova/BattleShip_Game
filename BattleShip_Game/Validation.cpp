@@ -14,6 +14,7 @@
 */
 
 #include <iostream>
+#include <fstream>
 #include "Validation.h"
 #include "GameLogic.h"
 #include "Constants.h"
@@ -309,4 +310,13 @@ char validateChoice(int options)
 		}
 	}
 	return choice[0];
+}
+
+void validateStream(ifstream& file)
+{
+	if (!file.is_open())
+	{
+		cout << "Something went wrong." << endl;
+		exit(-1);
+	}
 }

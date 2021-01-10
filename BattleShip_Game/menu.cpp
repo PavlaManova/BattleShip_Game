@@ -1,4 +1,4 @@
-	/**
+/**
 *
 * Solution to course project #5
 * Introduction to programming course
@@ -21,7 +21,7 @@
 
 void startingMenu()
 {
-	system("CLS");
+	cout << "\x1B[2J\x1B[H";
 	startGameOption();
 
 	int choice = _getch(),
@@ -41,13 +41,13 @@ void startingMenu()
 
 		if (temp % 2 == 0)
 		{
-			system("CLS");
+			cout << "\x1B[2J\x1B[H";
 			startGameOption();
 			endGame = false;
 		}
 		else
 		{
-			system("CLS");
+			cout << "\x1B[2J\x1B[H";
 			exitOption();
 			endGame = true;
 		}
@@ -65,7 +65,7 @@ void startingMenu()
 
 int arrangeShipsMenu() //ADD ---return option---
 {
-	system("CLS");
+	cout << "\x1B[2J\x1B[H";
 	randomArrangementOption();
 	int choice = _getch(),
 		temp = 0,
@@ -83,19 +83,19 @@ int arrangeShipsMenu() //ADD ---return option---
 
 		if (abs(temp) % 3 == 0)
 		{
-			system("CLS");
+			cout << "\x1B[2J\x1B[H";
 			chosenActionCode = 0;
 			randomArrangementOption();
 		}
 		else if (abs(temp) % 3 == 1)
 		{
-			system("CLS");
+			cout << "\x1B[2J\x1B[H";
 			chosenActionCode = 1;
 			playersArrangementOption();
 		}
 		else
 		{
-			system("CLS");
+			cout << "\x1B[2J\x1B[H";
 			chosenActionCode = 2;
 			returnOption();
 		}

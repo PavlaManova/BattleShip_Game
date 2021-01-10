@@ -106,6 +106,11 @@ void getChangeShipInfo(int field[FIELD_SIZE][FIELD_SIZE], const Fleet& fleet, in
 
 void fillImpossiblePositions(int positions[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE], int field[FIELD_SIZE][FIELD_SIZE])
 {
+	for (int i = 0; i < POSITIONS_FIELD_SIZE; i++)
+	{
+		for (int j = 0; j < POSITIONS_FIELD_SIZE; j++)
+			positions[i][j] = 0;
+	}
 	for (int i = 1; i < FIELD_SIZE + 1; i++)
 	{
 		for (int j = 1; j < FIELD_SIZE + 1; j++)
@@ -158,97 +163,6 @@ void addShipToFleed(int shipSize, Fleet& fleet)
 	fleet.allShips++;
 }
 
-void clearShip(int field[FIELD_SIZE][FIELD_SIZE], int possiblePositions[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE], const int x, const int y)
-{
-	int tempField[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE];
-	getArrayValueWithSqaureOfZeroes(field, tempField); // to eliminate the checks for going outside the array
-
-	int tempX = x + 1,
-		tempY = y + 1;
-	field[x][y] = 0;
-
-	while (tempField[tempX - 1][y + 1] == 1 || tempField[tempX + 1][y + 1] == 1 || tempField[x + 1][tempY - 1] == 1 || tempField[x + 1][tempY + 1] == 1)
-	{
-
-		tempField[tempX][tempY] = 0;
-		field[x][y] = 0;
-		possiblePositions[tempX - 1][y] = 0;
-		possiblePositions[tempX - 1][y + 1] = 0;
-		possiblePositions[tempX - 1][y + 2] = 0;
-		possiblePositions[x][tempY - 1] = 0;
-		possiblePositions[x + 1][tempY - 1] = 0;
-		possiblePositions[x + 2][tempY - 1] = 0;
-		possiblePositions[tempX + 1][y] = 0;
-		possiblePositions[tempX + 1][y + 1] = 0;
-		possiblePositions[tempX + 1][y + 2] = 0;
-		possiblePositions[x][tempY + 1] = 0;
-		possiblePositions[x + 1][tempY + 1] = 0;
-		possiblePositions[x + 2][tempY + 1] = 0;
-
-		while (tempField[tempX - 1][y + 1] == 1)
-		{
-			field[tempX - 2][y] = 0;
-
-			possiblePositions[tempX - 2][y] = 0;
-			possiblePositions[tempX - 2][y + 1] = 0;
-			possiblePositions[tempX - 2][y + 2] = 0;
-
-			possiblePositions[tempX ][y] = 0;
-			possiblePositions[tempX ][y + 1] = 0;
-			possiblePositions[tempX ][y + 2] = 0;
-
-			possiblePositions[x][tempY - 1] = 0;
-			possiblePositions[x + 1][tempY - 1] = 0;
-			possiblePositions[x + 2][tempY - 1] = 0;
-			possiblePositions[x][tempY + 1] = 0;
-			possiblePositions[x + 1][tempY + 1] = 0;
-			possiblePositions[x + 2][tempY + 1] = 0;
-
-
-
-
-			tempField[tempX - 1][y + 1] == 0;
-			tempX--;
-			cout << 1;
-		}
-		tempX = x + 1;
-		while (tempField[tempX + 1][y + 1] == 1)
-		{
-			field[tempX - 1][y] = 0;
-			possiblePositions[tempX + 1][y] = 0;
-			possiblePositions[tempX + 1][y + 1] = 0;
-			possiblePositions[tempX + 1][y + 2] = 0;
-			tempField[tempX + 1][y + 1] == 0;
-			tempX++;
-			cout << 2;
-		}
-
-		while (tempField[x + 1][tempY - 1] == 1)
-		{
-			field[x][tempY - 1] = 0;
-			possiblePositions[x + 1][tempY - 1] = 0;
-			possiblePositions[x + 2][tempY - 1] = 0;
-			possiblePositions[x + 3][tempY - 1] = 0;
-			tempField[x + 1][tempY - 1] == 0;
-			tempY--;
-		}
-		tempY = y + 1;
-		while (tempField[x + 1][tempY + 1] == 1)
-		{
-			field[x][tempY] = 0;
-			possiblePositions[x + 1][tempY + 1] = 0;
-			possiblePositions[x + 2][tempY + 1] = 0;
-			possiblePositions[x + 3][tempY + 1] = 0;
-			tempField[x + 1][tempY + 1] == 0;
-			tempY++;
-		}
-		tempX = x + 1;
-		tempY = y + 1;
-	}
-
-	//removeShipFromFleed();
-}
-
 void getArrayValueWithSqaureOfZeroes(int source[FIELD_SIZE][FIELD_SIZE], int destination[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE])
 {
 	//make a frame of zeroes
@@ -288,4 +202,106 @@ void getShipsCount(Fleet& fleet, Player& player)
 	player.fleet.bigShips = tempFleet.bigShips - fleet.bigShips;
 	player.fleet.cruiserShips = tempFleet.cruiserShips - fleet.cruiserShips;
 	player.fleet.allShips = fleet.allShips;
+}
+
+void removeShipFromFleed(Player& player, int shipLength)
+{
+	switch (shipLength)
+	{
+	case '2':
+	{
+		player.fleet.smallShips--;
+		break;
+	}
+	case '3':
+	{
+		player.fleet.mediumShips--;
+		break;
+	}
+	case '4':
+	{
+		player.fleet.bigShips--;
+		break;
+	}
+	case '6':
+	{
+		player.fleet.cruiserShips--;
+		break;
+	}
+	default:
+		break;
+	}
+	player.fleet.allShips--;
+}
+
+void chageFieldAroundSunkShip(Player& player, const char orientation, const int startIndex,const int otherCoordinate, const int shipLength)
+{
+	if (orientation == 'v')
+	{
+		/*if (startIndex == 0)
+		{
+			if (otherCoordinate == 0)
+			{
+				for (int i = startIndex; i < shipLength+1; i++)
+				{
+					player.firedField[i][otherCoordinate + 1] = 2;
+				}
+				player.firedField[shipLength][otherCoordinate] = 2;
+			}
+			else if (otherCoordinate == FIELD_SIZE - 1)
+			{
+				for (int i = startIndex; i < shipLength + 1; i++)
+				{
+					player.firedField[i][otherCoordinate - 1] = 2;
+				}
+				player.firedField[shipLength][otherCoordinate-1] = 2;
+			}
+		}*/
+		for (int i = startIndex - 1; i < shipLength + 1 + startIndex; i++)
+		{
+			player.firedField[i][otherCoordinate - 1] = 2;
+			player.firedField[i][otherCoordinate + 1] = 2;
+		}
+		player.firedField[startIndex-1][otherCoordinate] = 2;
+		player.firedField[startIndex+shipLength][otherCoordinate] = 2;
+	}
+	else
+	{
+		for (int i = startIndex - 1; i < shipLength + 1 + startIndex; i++)
+		{
+			player.firedField[otherCoordinate - 1][i] = 2;
+			player.firedField[otherCoordinate + 1][i] = 2;
+		}
+		player.firedField[otherCoordinate][startIndex - 1] = 2;
+		player.firedField[otherCoordinate][startIndex + shipLength] = 2;
+	}
+}
+
+int clearShip(int field[FIELD_SIZE][FIELD_SIZE], int x, int y, const int n, const int m, int &shipLength)
+{
+	static const int dx[] = { 0,0,1,-1 };
+	static const int dy[] = { 1,-1,0,0 };
+	static const int numMoves = sizeof(dx) / sizeof(dx[0]);
+
+	//  Terminal checks
+	// failure state:
+	if (x < 0 || x >= m || y < 0 || y >= n) { // out of the array
+		return -1;
+	}
+
+	if (field[x][y] == 0) 
+		return -1;
+
+	if (field[x][y] != 0)
+	{
+		field[x][y] = 0;
+		shipLength++;
+	}
+
+	// Try recursively to find a way in any possible direction
+	int pathLen = -1;
+	for (int direction = 0; pathLen < 0 && direction < numMoves; ++direction) {
+		pathLen = clearShip(field, x + dx[direction], y + dy[direction], n, m, shipLength);
+	}
+	return pathLen;
 }

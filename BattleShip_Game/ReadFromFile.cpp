@@ -20,13 +20,6 @@
 
 using namespace std;
 
-void validateStream(fstream& file)
-{
-	if (!file.is_open())
-		cout << "Something went wrong. Press any key to return to menu." << endl;
-	//---ADD return to startMenu---
-}
-
 int findAllRandomArrangements(ifstream& file)
 {
 	int number,
