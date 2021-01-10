@@ -15,4 +15,9 @@
 
 #pragma once
 
+#include <fstream>
 
+using namespace std;
+
+void readArrangementFromFile(ifstream& file, int &indexOfOption);
+int findAllRandomArrangements(ifstream& file);

@@ -20,6 +20,7 @@
 #include "Validation.h"
 #include "AuxiliaryFunctions.h"
 #include <fstream>
+#include "ReadFromFile.h"
 
 Fleet fleet;
 
@@ -75,7 +76,7 @@ void arrangeYourself()
 	{
 		printBattlefield(field, "Your filed");
 		printArrangementOptions(3);
-		
+
 		choice = validateChoice(3);
 
 		switch (choice)
@@ -107,7 +108,7 @@ void arrangeYourself()
 		printBattlefield(field, "Your filed");
 		printArrangementOptions(4);
 
-		choice = validateChoice(4);		
+		choice = validateChoice(4);
 
 		switch (choice)
 		{
@@ -230,16 +231,37 @@ void printUnusedShips(Fleet& fleet)
 
 void chooseReadyArrangement()
 {
-	ifstream myFile;
+	ifstream file;
 	char fileName[] = "shipsArrangements.txt";
-	myFile.open(fileName);
+	file.open(fileName);
 
-	readArrangementsFromFile();
+	int option = FIRST_ARRANGEMENT_OPTION_INDEX,
+		choice;
 
+	int sumArrangements = findAllRandomArrangements(file);
+	readArrangementFromFile(file, option);
+	printChooseRandomArrangementOptions();
 
+	choice = chooseRandomArrangement();
 
+	while (choice != 0) //is chosen
+	{
+		option += choice;
 
+		if (option > sumArrangements+FIRST_ARRANGEMENT_OPTION_INDEX-1)
+		{
+			option = FIRST_ARRANGEMENT_OPTION_INDEX;
+		}
+		if (option < FIRST_ARRANGEMENT_OPTION_INDEX)
+		{
+			option = sumArrangements + 1;
+		}
 
+		readArrangementFromFile(file, option);
+		printChooseRandomArrangementOptions();
+		choice = chooseRandomArrangement();
+	}
 
-	myFile.close();
+	//start game
+	file.close();
 }

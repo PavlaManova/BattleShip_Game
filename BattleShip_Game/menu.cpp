@@ -32,7 +32,7 @@ int startingMenu()
 
 	bool endGame = false;
 
-	while (choice != 13) // Enter - choice is made
+	while (choice != ENTER) // choice is made
 	{
 		if (choice == ARROW_DOWN_KEY)
 			temp++;
@@ -74,7 +74,7 @@ int arrangeShipsMenu() //ADD ---return option---
 	if (choice == INTRODUCTION_CODE)
 		choice = _getch();
 
-	while (choice != 13) // Enter - choice is made
+	while (choice != ENTER) // Enter - choice is made
 	{
 		if (choice == ARROW_DOWN_KEY)
 			temp++;
@@ -194,4 +194,43 @@ void printArrangementOptions(int options)
 		cout << "4) start game" << endl;
 	}
 	cout << "Choice: ";
+}
+
+void printChooseRandomArrangementOptions()
+{
+	cout << "<-Privious";
+	int whiteSpaces = (getConsoleWidth() - 25) / 2;
+	for (int i = 0; i < whiteSpaces; i++)
+		cout << " ";
+	cout << "Choose - Enter";
+	for (int i = 0; i < whiteSpaces; i++)
+		cout << " ";
+	cout << "Next->";
+}
+
+int chooseRandomArrangement()
+{
+	int choice = _getch();
+	if (choice == INTRODUCTION_CODE)
+		choice = _getch();
+
+	switch (choice)
+	{
+	case ARROW_RIGHT_KEY:
+	{
+		return 1;
+		break;
+	}
+	case ARROW_LEFT_KEY:
+	{
+		return (-1);
+	}
+	case ENTER:
+	{
+		return 0;
+		break;
+	}
+	default:
+		break;
+	}
 }

@@ -31,8 +31,16 @@ const int FIELD_SIZE = 10,
 		  ARROW_UP_KEY = 72,
 
 		  ARROW_DOWN_KEY = 80,
+
+		  ARROW_RIGHT_KEY = 77,
+
+		  ARROW_LEFT_KEY = 75,
+
+		  ENTER = 13,
 		  
-		  INTRODUCTION_CODE=224;
+		  INTRODUCTION_CODE=224,
+		  
+		  FIRST_ARRANGEMENT_OPTION_INDEX = 2;
 
 
 //char codes used for drawing the board

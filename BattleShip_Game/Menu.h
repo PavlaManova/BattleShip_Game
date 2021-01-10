@@ -30,3 +30,5 @@ void randomArrangementOption();
 void playersArrangementOption();
 void returnOption();
 void printArrangementOptions(int options);
+void printChooseRandomArrangementOptions();
+int chooseRandomArrangement();
