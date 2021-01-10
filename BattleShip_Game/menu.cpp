@@ -21,7 +21,7 @@
 
 void startingMenu()
 {
-	cout << "\x1B[2J\x1B[H";
+	system("CLS");
 	startGameOption();
 
 	int choice = _getch(),
@@ -41,13 +41,13 @@ void startingMenu()
 
 		if (temp % 2 == 0)
 		{
-			cout << "\x1B[2J\x1B[H";
+			system("CLS");
 			startGameOption();
 			endGame = false;
 		}
 		else
 		{
-			cout << "\x1B[2J\x1B[H";
+			system("CLS");
 			exitOption();
 			endGame = true;
 		}
@@ -65,7 +65,7 @@ void startingMenu()
 
 int arrangeShipsMenu() //ADD ---return option---
 {
-	cout << "\x1B[2J\x1B[H";
+	system("CLS");
 	randomArrangementOption();
 	int choice = _getch(),
 		temp = 0,
@@ -83,19 +83,19 @@ int arrangeShipsMenu() //ADD ---return option---
 
 		if (abs(temp) % 3 == 0)
 		{
-			cout << "\x1B[2J\x1B[H";
+			system("CLS");
 			chosenActionCode = 0;
 			randomArrangementOption();
 		}
 		else if (abs(temp) % 3 == 1)
 		{
-			cout << "\x1B[2J\x1B[H";
+			system("CLS");
 			chosenActionCode = 1;
 			playersArrangementOption();
 		}
 		else
 		{
-			cout << "\x1B[2J\x1B[H";
+			system("CLS");
 			chosenActionCode = 2;
 			returnOption();
 		}

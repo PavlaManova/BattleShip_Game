@@ -33,7 +33,7 @@ void printIndent()
 
 void printPlayer(string text)
 {
-	cout << "\x1B[2J\x1B[H";
+	system("CLS");
 	int keyPressed;
 
 	for (int i = 0; i < getConsoleHeight() / 2; i++)
@@ -72,7 +72,7 @@ void printTextAboveField(string text)
 
 void printBattlefield(int array[FIELD_SIZE][FIELD_SIZE], string text)
 {
-	cout << "\x1B[2J\x1B[H";
+	system("CLS");
 	printTextAboveField(text);
 	printFirstLine();
 	printLines(array);
