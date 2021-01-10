@@ -16,6 +16,7 @@
 #pragma once
 #include "Constants.h"
 
+void printIndent();
 void printBattlefield(int array[FIELD_SIZE][FIELD_SIZE], string text);
 void printTextAboveField(string text);
 void printEmptyField();

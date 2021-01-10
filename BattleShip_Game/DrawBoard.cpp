@@ -15,13 +15,24 @@
 
 #include "drawBoard.h"
 #include "Constants.h"
+#include "AuxiliaryFunctions.h"
 #include <iostream>
 
 using namespace std;
 
+void printIndent()
+{
+	int whiteSpacesIndent = (getConsoleWidth() - BOARD_WIDTH) / 2 + 5;
+	for (int i = 0; i < abs(whiteSpacesIndent); i++)
+	{
+		cout << " ";
+	}
+}
+
 void printTextAboveField(string text)
 {
 	cout << endl;
+	printIndent();
 	text = ' ' + text + ' '; //append text for better visualization
 
 	int sameCharacters = (BOARD_WIDTH - text.size()) / 2; //=
@@ -55,6 +66,7 @@ void printEmptyField()
 
 void printFirstLine()
 {
+	printIndent();
 	cout << LEFT_UPPER_CORNER << DOUBLE_HORIZONTAL_LINE << DOUBLE_HORIZONTAL_LINE << DOUBLE_HORIZONTAL_LINE;
 	cout << DOUBLE_T << DOUBLE_HORIZONTAL_LINE << DOUBLE_HORIZONTAL_LINE << DOUBLE_HORIZONTAL_LINE;
 
@@ -62,12 +74,16 @@ void printFirstLine()
 		cout << T_DOUBLE_UPPER << DOUBLE_HORIZONTAL_LINE << DOUBLE_HORIZONTAL_LINE << DOUBLE_HORIZONTAL_LINE;
 	cout << RIGHT_UPPER_CORNER << endl;
 
+	printIndent();
+
 	cout << DOUBLE_VERTICAL_LINE << EMPTY_SPACE << DOUBLE_VERTICAL_LINE << " " << (char)65 << " ";
 	for (int i = 66; i < 65 + FIELD_SIZE; i++)
 	{
 		cout << VERTICAL_LINE << " " << (char)i << " ";
 	}
 	cout << DOUBLE_VERTICAL_LINE << endl;
+
+	printIndent();
 
 	cout << DOUBLE_T_LEFT << DOUBLE_HORIZONTAL_LINE << DOUBLE_HORIZONTAL_LINE << DOUBLE_HORIZONTAL_LINE << DOUBLE_CROSS;
 	for (int i = 0; i < FIELD_SIZE * 3 - 4; i += 3)
@@ -85,6 +101,7 @@ void printLines(int array[FIELD_SIZE][FIELD_SIZE])
 {
 	for (int i = 0; i < FIELD_SIZE - 1; i++)
 	{
+		printIndent();
 		cout << DOUBLE_VERTICAL_LINE << " " << i + 1 << " " << DOUBLE_VERTICAL_LINE;
 		symbol(array[i][0]);
 
@@ -95,6 +112,7 @@ void printLines(int array[FIELD_SIZE][FIELD_SIZE])
 		}
 
 		cout << DOUBLE_VERTICAL_LINE << endl;
+		printIndent();
 		printHorizontalLines();
 	}
 }
@@ -141,6 +159,7 @@ void symbol(int code)
 
 void printLastLine(int array[FIELD_SIZE][FIELD_SIZE])
 {
+	printIndent();
 	cout << DOUBLE_VERTICAL_LINE << FIELD_SIZE << " " << DOUBLE_VERTICAL_LINE;
 	symbol(array[FIELD_SIZE - 1][0]);
 
@@ -157,6 +176,7 @@ void printLastLine(int array[FIELD_SIZE][FIELD_SIZE])
 
 void printLowerBorder()
 {
+	printIndent();
 	cout << LEFT_LOWER_CORNER << DOUBLE_HORIZONTAL_LINE << DOUBLE_HORIZONTAL_LINE << DOUBLE_HORIZONTAL_LINE
 		<< DOUBLE_T_ROTATED << DOUBLE_HORIZONTAL_LINE << DOUBLE_HORIZONTAL_LINE << DOUBLE_HORIZONTAL_LINE;
 	for (int i = 0; i < FIELD_SIZE - 1; i++)

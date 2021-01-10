@@ -248,7 +248,7 @@ void chooseReadyArrangement()
 	{
 		option += choice;
 
-		if (option > sumArrangements+FIRST_ARRANGEMENT_OPTION_INDEX-1)
+		if (option > sumArrangements + FIRST_ARRANGEMENT_OPTION_INDEX - 1)
 		{
 			option = FIRST_ARRANGEMENT_OPTION_INDEX;
 		}

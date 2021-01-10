@@ -32,14 +32,12 @@ void positionConsoleWindow()
 	consoleWidth = 9 * screenWidth / 10;
 	consoleHeight = 4 * screenHeight / 5;
 
-	//MIDDLE_CONSOLE = consoleWidth / 2;
-
 	//centrate window by adding equal indentation on all four sides of the screen
-	int identWidth = (screenWidth - consoleWidth) / 2;
-	int identHeight = (screenHeight - consoleHeight) / 2;
+	int indentWidth = (screenWidth - consoleWidth) / 2;
+	int indentHeight = (screenHeight - consoleHeight) / 2;
 
 	HWND hwnd = GetConsoleWindow();
-	MoveWindow(hwnd, identWidth, identHeight, consoleWidth, consoleHeight, TRUE);
+	MoveWindow(hwnd, indentWidth, indentHeight, consoleWidth, consoleHeight, TRUE);
 }
 
 int getConsoleWidth()
