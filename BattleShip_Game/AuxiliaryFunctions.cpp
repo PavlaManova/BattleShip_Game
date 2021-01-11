@@ -18,6 +18,7 @@
 #include "GameLogic.h"
 #include "Validation.h"
 #include <Windows.h> //for positioning the console window
+#include "drawBoard.h"
 
 int consoleWidth = 0;
 int consoleHeight = 0;

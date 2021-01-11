@@ -43,6 +43,7 @@ void changeShip(int field[FIELD_SIZE][FIELD_SIZE], int possiblePositions[POSITIO
 void printUnusedShips(Fleet& fleet);
 void chooseReadyArrangement();
 void startPlaying();
+void playerIsShootingAt(Player& player, string textAboveField);
 void chooseFieldToShoot(int& x, int& y);
 bool shipIsSunk(Player& player, const int x, const int y);
 bool allShipsAreSunk(Player& player);

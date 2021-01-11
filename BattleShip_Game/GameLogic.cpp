@@ -303,7 +303,7 @@ void chooseReadyArrangement()
 	playerCanStartPlaying(firstPlayer, secondPlayer, field, tempFleet);
 	if (secondPlayer.hasChosenBoard)
 		canStartGame = true;
-	
+
 	file.close();
 }
 
@@ -311,93 +311,65 @@ void startPlaying()
 {
 	system("CLS");
 
-	int x, y;
-	bool hit = true,
-		firstPlayerTurn = true,
-		isEndGame = false;
+	bool firstPlayerTurn = true;
 
-	while (!isEndGame)
+	while (1) //the game will stop when all ships are sunk -> checking for this in playerIsShootingAt function
 	{
-		hit = true;
 		if (firstPlayerTurn)
 		{
-			while (hit)
-			{
-				printBattlefield(secondPlayer.firedField, "First player's turn");
-				chooseFieldToShoot(x, y);
-				if (secondPlayer.field[x][y] == 1)
-				{
-					while (secondPlayer.firedField[x][y] != 0)
-					{
-						cout << "You have already shooted at this field. Try again." << endl;
-						chooseFieldToShoot(x, y);
-					}
-
-					secondPlayer.firedField[x][y] = 3;
-					hit = true;
-
-					if (allShipsAreSunk(secondPlayer))
-						endGame();
-
-					printBattlefield(secondPlayer.firedField, "First player's turn");
-					cout << "You hit! It's your turn again." << endl;
-					system("Pause");
-				}
-				else
-				{
-					while (secondPlayer.firedField[x][y] != 0)
-					{
-						cout << "You have already shooted at this field. Try again." << endl;
-						chooseFieldToShoot(x, y);
-					}
-					secondPlayer.firedField[x][y] = 2;
-					hit = false;
-					firstPlayerTurn = false;
-					printBattlefield(secondPlayer.firedField, "First player's turn");
-					cout << "You missed!" << endl;
-					system("Pause");
-				}
-			}
+			playerIsShootingAt(secondPlayer, "First player's turn");
+			firstPlayerTurn = false;
 		}
 		else
 		{
-			hit = true;
-			while (hit)
-			{
-				printBattlefield(firstPlayer.firedField, "Second player's turn");
-				chooseFieldToShoot(x, y);
-				if (firstPlayer.field[x][y] == 1)
-				{
-					while (firstPlayer.firedField[x][y] != 0)
-					{
-						cout << "You have already shooted at this field. Try again." << endl;
-						chooseFieldToShoot(x, y);
-					}
-
-					firstPlayer.firedField[x][y] = 3;
-					hit = true;
-					if (allShipsAreSunk(firstPlayer))
-						endGame();
-
-					printBattlefield(firstPlayer.firedField, "Second player's turn");
-					cout << "You hit! It's your turn again." << endl;
-					system("Pause");
-				}
-				else
-				{
-					while (firstPlayer.firedField[x][y] != 0)
-					{
-						cout << "You have already shooted at this field. Try again." << endl;
-						chooseFieldToShoot(x, y);
-					}
-					firstPlayer.firedField[x][y] = 2;
-					hit = false;
-					printBattlefield(firstPlayer.firedField, "Second player's turn");
-					cout << "You missed!" << endl;
-					system("Pause");
-				}
-			}
+			playerIsShootingAt(firstPlayer, "Second player's turn");
 			firstPlayerTurn = true;
+		}
+	}
+}
+
+void playerIsShootingAt(Player& player, string textAboveField)
+{
+	bool hit = true;
+	int x, y;
+
+	while (hit)
+	{
+		printBattlefield(player.firedField, textAboveField);
+		chooseFieldToShoot(x, y);
+		if (player.field[x][y] == 1)
+		{
+			while (player.firedField[x][y] != 0)
+			{
+				cout << "You have already shooted at this field. Try again." << endl;
+				chooseFieldToShoot(x, y);
+			}
+
+			player.firedField[x][y] = 3;
+			hit = true;
+
+			if (allShipsAreSunk(player))
+				endGame();
+
+			printBattlefield(player.firedField, textAboveField);
+			cout << "You hit! It's your turn again." << endl;
+			system("Pause");
+		}
+		else
+		{
+			while (player.firedField[x][y] != 0)
+			{
+				cout << "You have already shooted at this field. Try again." << endl;
+				chooseFieldToShoot(x, y);
+			}
+			player.firedField[x][y] = 2;
+
+			hit = false;
+
+			//firstPlayerTurn = false;
+			printBattlefield(player.firedField, textAboveField);
+			cout << "You missed!" << endl;
+			system("Pause");
 		}
 	}
 }
@@ -511,7 +483,7 @@ void endGame()
 
 	string secondLine = "You Won!";
 
-	int whiteSpaces = getConsoleWidth() / 2 + secondLine.size();
+	int whiteSpaces = getConsoleWidth() / 2 + secondLine.size() / 2;
 	cout << setw(whiteSpaces) << "You Won!" << endl;
 
 	exit(-1);
