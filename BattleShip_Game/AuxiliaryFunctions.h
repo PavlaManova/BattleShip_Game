@@ -29,6 +29,7 @@ void fillImpossiblePositions(int positions[POSITIONS_FIELD_SIZE][POSITIONS_FIELD
 void getArrayValueWithSqaureOfZeroes(int source[FIELD_SIZE][FIELD_SIZE], int destination[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE]);
 void getArrayValue(int source[FIELD_SIZE][FIELD_SIZE], int destination[FIELD_SIZE][FIELD_SIZE]);
 void getShipsCount(Fleet& fleet, Player& player);
-void chageFieldAroundSunkShip(Player& player, const char orientation, const int startIndex, const int otherCoordinate, const int shipLength);
+char getShipOrientation(Player& player, const int x, const int y);
+void chageFieldAroundSunkShip(Player& player, const char orientation, const int startIndex, const int x, const int y, const int shipLength);
 int clearShip(int field[FIELD_SIZE][FIELD_SIZE], int x, int y, const int n, const int m, int& shipLength);
 void playerCanStartPlaying(Player& firstPlayer, Player& secondPlayer, int field[FIELD_SIZE][FIELD_SIZE], Fleet& fleet);

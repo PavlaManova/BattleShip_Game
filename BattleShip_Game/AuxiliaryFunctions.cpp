@@ -242,46 +242,90 @@ void removeShipFromFleed(Fleet& fleet, int shipLength)
 	fleet.allShips--;
 }
 
-void chageFieldAroundSunkShip(Player& player, const char orientation, const int startIndex, const int otherCoordinate, const int shipLength)
+char getShipOrientation(Player& player, const int x, const int y)
+{
+	if (x - 1 >= 0)
+	{
+		if (x + 1 < FIELD_SIZE)
+		{
+			if (player.firedField[x - 1][y] == 3 || player.field[x - 1][y] == 1 || player.firedField[x + 1][y] == 3 || player.field[x + 1][y] == 1)
+				return 'v';
+		}
+		else
+		{
+			if (player.firedField[x - 1][y] == 3 || player.field[x - 1][y] == 1)
+				return 'v';
+		}
+	}
+	else
+	{
+		if (player.firedField[x + 1][y] == 3 || player.field[x + 1][y] == 1)
+			return 'v';
+	}
+
+	if (y - 1 >= 0)
+	{
+		if (y + 1 < FIELD_SIZE)
+		{
+			if (player.firedField[x][y - 1] == 3 || player.field[x][y - 1] == 1 || player.firedField[x][y + 1] == 3 || player.field[x][y + 1] == 1)
+				return 'h';
+		}
+		else
+		{
+			if (player.firedField[x][y - 1] == 3 || player.field[x][y - 1] == 1)
+				return 'h';
+		}
+	}
+	else
+	{
+		if (player.firedField[x][y + 1] == 3 || player.field[x][y + 1] == 1)
+			return 'h';
+	}
+}
+
+void chageFieldAroundSunkShip(Player& player, const char orientation, const int startIndex, const int x, const int y, const int shipLength)
 {
 	if (orientation == 'v')
 	{
-		/*if (startIndex == 0)
-		{
-			if (otherCoordinate == 0)
-			{
-				for (int i = startIndex; i < shipLength+1; i++)
-				{
-					player.firedField[i][otherCoordinate + 1] = 2;
-				}
-				player.firedField[shipLength][otherCoordinate] = 2;
-			}
-			else if (otherCoordinate == FIELD_SIZE - 1)
-			{
-				for (int i = startIndex; i < shipLength + 1; i++)
-				{
-					player.firedField[i][otherCoordinate - 1] = 2;
-				}
-				player.firedField[shipLength][otherCoordinate-1] = 2;
-			}
-		}*/
 		for (int i = startIndex - 1; i < shipLength + 1 + startIndex; i++)
 		{
-			player.firedField[i][otherCoordinate - 1] = 2;
-			player.firedField[i][otherCoordinate + 1] = 2;
+			if (i >= 0 && i < FIELD_SIZE)
+			{
+				if (y - 1 >= 0)
+					player.firedField[i][y - 1] = 2;
+				if (y + 1 < FIELD_SIZE)
+					player.firedField[i][y + 1] = 2;
+			}
 		}
-		player.firedField[startIndex - 1][otherCoordinate] = 2;
-		player.firedField[startIndex + shipLength][otherCoordinate] = 2;
+		if (startIndex - 1 >= 0)
+			player.firedField[startIndex - 1][y] = 2;
+		if (startIndex + shipLength < FIELD_SIZE)
+			player.firedField[startIndex + shipLength][y] = 2;
 	}
 	else
 	{
 		for (int i = startIndex - 1; i < shipLength + 1 + startIndex; i++)
 		{
-			player.firedField[otherCoordinate - 1][i] = 2;
-			player.firedField[otherCoordinate + 1][i] = 2;
+			if (i >= 0 && i < FIELD_SIZE)
+			{
+				if (x - 1 >= 0)
+					player.firedField[x - 1][i] = 2;
+				if (x + 1 < FIELD_SIZE)
+					player.firedField[x + 1][i] = 2;
+			}
 		}
-		player.firedField[otherCoordinate][startIndex - 1] = 2;
-		player.firedField[otherCoordinate][startIndex + shipLength] = 2;
+		if (startIndex - 1 >= 0)
+			player.firedField[x][startIndex - 1] = 2;
+		if (startIndex + shipLength < FIELD_SIZE)
+			player.firedField[x][startIndex + shipLength] = 2;
+
+		for (int i = 0; i < FIELD_SIZE; i++)
+		{
+			for (int j = 0; j < FIELD_SIZE; j++)
+				cout << player.firedField[i][j];
+			cout << endl;
+		}
+		system("Pause");
 	}
 }
 

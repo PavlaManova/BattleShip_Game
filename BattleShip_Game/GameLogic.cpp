@@ -348,12 +348,19 @@ void playerIsShootingAt(Player& player, string textAboveField)
 			player.firedField[x][y] = 3;
 			hit = true;
 
+			printBattlefield(player.firedField, textAboveField);
+			if (shipIsSunk(player, x, y))
+			{
+				cout << "You sunk ship" << endl;
+				system("Pause");
+			}
+			else
+			{
+				cout << "You hit! It's your turn again." << endl;
+				system("Pause");
+			}
 			if (allShipsAreSunk(player))
 				endGame();
-
-			printBattlefield(player.firedField, textAboveField);
-			cout << "You hit! It's your turn again." << endl;
-			system("Pause");
 		}
 		else
 		{
@@ -366,7 +373,6 @@ void playerIsShootingAt(Player& player, string textAboveField)
 
 			hit = false;
 
-			//firstPlayerTurn = false;
 			printBattlefield(player.firedField, textAboveField);
 			cout << "You missed!" << endl;
 			system("Pause");
@@ -387,11 +393,7 @@ void chooseFieldToShoot(int& x, int& y)
 
 bool shipIsSunk(Player& player, const int x, const int y)
 {
-	char orientation = 'm'; //v-vertical h-horizontal
-	if (player.firedField[x - 1][y] == 3 || player.field[x - 1][y] == 1 || player.firedField[x + 1][y] == 3 || player.field[x + 1][y] == 1)
-		orientation = 'v';
-	else if (player.firedField[x][y - 1] == 3 || player.field[x][y - 1] == 1 || player.firedField[x][y + 1] == 3 || player.field[x][y + 1] == 1)
-		orientation = 'h';
+	char orientation = getShipOrientation(player, x, y); //v-vertical h-horizontal
 
 	int startIndex = 0,
 		tempX = x - 1,
@@ -416,10 +418,13 @@ bool shipIsSunk(Player& player, const int x, const int y)
 		}
 		for (int i = startIndex; i < startIndex + shipLength; i++)
 		{
-			if (player.firedField[i][y] != 3)
+			if (i >= 0 && i < FIELD_SIZE)
 			{
-				isSunk = false;
-				break;
+				if (player.firedField[i][y] != 3)
+				{
+					isSunk = false;
+					break;
+				}
 			}
 		}
 	}
@@ -439,24 +444,24 @@ bool shipIsSunk(Player& player, const int x, const int y)
 		}
 		for (int i = startIndex; i < startIndex + shipLength; i++)
 		{
-			if (player.firedField[x][i] != 3)
+			if (i >= 0 && i < FIELD_SIZE)
 			{
-				isSunk = false;
-				break;
+				if (player.firedField[x][i] != 3)
+				{
+					isSunk = false;
+					break;
+				}
 			}
 		}
 	}
 
-	for (int i = 0; i < FIELD_SIZE; i++)
-	{
-		for (int j = 0; j < FIELD_SIZE; j++)
-		{
-
-		}
-	}
-
 	if (isSunk)
+	{
+		addShipToFleed(shipLength, player.fleet);
+		player.fleet.allShips -= 2; //the function addShipToFleed reduces the numbers of the given ship size by 1 but increases the number of all thi ships => -1-1=-2
+		chageFieldAroundSunkShip(player, orientation, startIndex, x, y, shipLength);
 		return true;
+	}
 	else
 		return false;
 }
