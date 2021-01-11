@@ -181,6 +181,9 @@ bool positionIsPossible(int positions[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE
 {
 	int startPosition = 0;
 
+	//check if the ship-to-be-placed falls within a forbidden area of another ship
+	//checking is searching for 1 in a rectangular with width and height according to ship's size and orientation - horizontal or vertical
+
 	switch (direction)
 	{
 	case 'U':

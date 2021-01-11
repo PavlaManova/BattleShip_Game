@@ -77,7 +77,6 @@ void arrangeYourself()
 {
 	int field[FIELD_SIZE][FIELD_SIZE] = { 0 };
 	char choice;
-	Fleet tempFleet;
 
 	//When a ship is placed it forms a rectangular arount itself with field that are not possible for placing another ship
 
@@ -221,15 +220,25 @@ void printUnusedShips(Fleet& fleet)
 	cout << "You can place:" << endl;
 	if (fleet.smallShips != 0)
 	{
-		cout << fleet.smallShips << " small ships with size 2" << endl;
+		if (fleet.smallShips == 1)
+			cout << fleet.smallShips << " small ship with size 2" << endl;
+		else
+			cout << fleet.smallShips << " small ships with size 2" << endl;
 	}
 	if (fleet.mediumShips != 0)
 	{
-		cout << fleet.mediumShips << " medium ships with size 3" << endl;
+		if (fleet.mediumShips == 1)
+			cout << fleet.mediumShips << " medium ship with size 3" << endl;
+		else
+			cout << fleet.mediumShips << " medium ships with size 3" << endl;
+
 	}
 	if (fleet.bigShips != 0)
 	{
-		cout << fleet.bigShips << " big ships with size 4" << endl;
+		if (fleet.bigShips != 0)
+			cout << fleet.bigShips << " big ship with size 4" << endl;
+		else
+			cout << fleet.bigShips << " big ships with size 4" << endl;
 	}
 	if (fleet.cruiserShips != 0)
 	{
@@ -270,10 +279,13 @@ void chooseReadyArrangement()
 	{
 		option += choice;
 
+		//if end of options is reached and next option is wanted -> start from begging
 		if (option > sumArrangements + FIRST_ARRANGEMENT_OPTION_INDEX - 1)
 		{
 			option = FIRST_ARRANGEMENT_OPTION_INDEX;
 		}
+
+		//iffirst option is reached and previous option is wanted -> go to last option
 		if (option < FIRST_ARRANGEMENT_OPTION_INDEX)
 		{
 			option = sumArrangements + 1;
@@ -288,19 +300,10 @@ void chooseReadyArrangement()
 	//start game
 	Fleet tempFleet;
 	tempFleet.allShips = MAX_SHIPS_COUNT;
-	if (!firstPlayer.hasChosenBoard)
-	{
-		firstPlayer.hasChosenBoard = true;
-		getArrayValue(field, firstPlayer.field);
-		firstPlayer.fleet = tempFleet;
-	}
-	else
-	{
-		secondPlayer.hasChosenBoard = true;
-		getArrayValue(field, secondPlayer.field);
-		secondPlayer.fleet = tempFleet;
+	playerCanStartPlaying(firstPlayer, secondPlayer, field, tempFleet);
+	if (secondPlayer.hasChosenBoard)
 		canStartGame = true;
-	}
+	
 	file.close();
 }
 
@@ -332,6 +335,7 @@ void startPlaying()
 
 					secondPlayer.firedField[x][y] = 3;
 					hit = true;
+
 					if (allShipsAreSunk(secondPlayer))
 						endGame();
 
@@ -377,6 +381,7 @@ void startPlaying()
 
 					printBattlefield(firstPlayer.firedField, "Second player's turn");
 					cout << "You hit! It's your turn again." << endl;
+					system("Pause");
 				}
 				else
 				{

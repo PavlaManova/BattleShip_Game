@@ -25,6 +25,7 @@ using namespace std;
 void printIndent()
 {
 	int whiteSpacesIndent = (getConsoleWidth() - BOARD_WIDTH) / 2 + 5;
+
 	for (int i = 0; i < abs(whiteSpacesIndent); i++)
 	{
 		cout << " ";
@@ -91,6 +92,7 @@ void printBattlefield(int array[FIELD_SIZE][FIELD_SIZE], string text)
 void printFirstLine()
 {
 	printIndent();
+
 	cout << LEFT_UPPER_CORNER << DOUBLE_HORIZONTAL_LINE << DOUBLE_HORIZONTAL_LINE << DOUBLE_HORIZONTAL_LINE;
 	cout << DOUBLE_T << DOUBLE_HORIZONTAL_LINE << DOUBLE_HORIZONTAL_LINE << DOUBLE_HORIZONTAL_LINE;
 
@@ -157,8 +159,6 @@ void printHorizontalLines()
 
 void symbol(int code)
 {
-	char output[SINGLE_FIELD_SIZE + 1] = { 0 };
-	output[SINGLE_FIELD_SIZE] = '\0';
 	switch (code)
 	{
 	case 0: {
@@ -184,6 +184,7 @@ void symbol(int code)
 void printLastLine(int array[FIELD_SIZE][FIELD_SIZE])
 {
 	printIndent();
+
 	cout << DOUBLE_VERTICAL_LINE << FIELD_SIZE << " " << DOUBLE_VERTICAL_LINE;
 	symbol(array[FIELD_SIZE - 1][0]);
 
@@ -201,6 +202,7 @@ void printLastLine(int array[FIELD_SIZE][FIELD_SIZE])
 void printLowerBorder()
 {
 	printIndent();
+
 	cout << LEFT_LOWER_CORNER << DOUBLE_HORIZONTAL_LINE << DOUBLE_HORIZONTAL_LINE << DOUBLE_HORIZONTAL_LINE
 		<< DOUBLE_T_ROTATED << DOUBLE_HORIZONTAL_LINE << DOUBLE_HORIZONTAL_LINE << DOUBLE_HORIZONTAL_LINE;
 	for (int i = 0; i < FIELD_SIZE - 1; i++)

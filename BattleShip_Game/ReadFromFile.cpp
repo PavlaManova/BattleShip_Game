@@ -22,6 +22,12 @@ using namespace std;
 
 int findAllRandomArrangements(ifstream& file)
 {
+	//indexes of ready boards in the file start from 2 -> for not to be mixed with the board values of 0 and 1
+
+	//start reading file from beggining
+	file.clear();
+	file.seekg(0, ios::beg);
+
 	int number,
 		counter = 0;
 
@@ -31,9 +37,6 @@ int findAllRandomArrangements(ifstream& file)
 		if (number >= 2)
 			counter++;
 	}
-
-	file.clear();
-	file.seekg(0, ios::beg);
 
 	return counter;
 }
@@ -62,14 +65,13 @@ void readArrangementFromFile(ifstream& file, int& indexOfOption, int field[FIELD
 				optionFaund = true;
 			}
 		}
-		if (file.eof() && !optionFaund)
+		if (file.eof() && !optionFaund) //return to the first option
 		{
 			indexOfOption = FIRST_ARRANGEMENT_OPTION_INDEX;
 
+			//return to beggining of file
 			file.clear();
 			file.seekg(0, ios::beg);
 		}
 	} while (!optionFaund);
-
-
 }

@@ -59,7 +59,6 @@ void getPlaceShipInfo(int& shipSize, string& startingField, char& direction, int
 
 	checkIfShipThisSizeCanBePlaced(shipSize, fleet);
 
-
 	cout << "Choose starting field (letter then number of field):";
 	cin >> input;
 	startingField = validateStartingFieldInput(input);
@@ -76,13 +75,16 @@ void getPlaceShipInfo(int& shipSize, string& startingField, char& direction, int
 
 void getShipCoordinates(string field, int& x, int& y)
 {
-	y = field[0] - 65;
+	//input A1 -> the letter is for columns (index y); the number is for rows (index x)
+
+	y = field[0] - 65; //from the ASCII code of the letter -> number between 0 and 9
+
 	if (field.size() == 2)
 	{
 		x = field[1] - 49;
 	}
 	else
-		x = 9;
+		x = 9; //A10 for example
 }
 
 void getChangeShipInfo(int field[FIELD_SIZE][FIELD_SIZE], const Fleet& fleet, int& x, int& y)
@@ -106,6 +108,9 @@ void getChangeShipInfo(int field[FIELD_SIZE][FIELD_SIZE], const Fleet& fleet, in
 
 void fillImpossiblePositions(int positions[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE], int field[FIELD_SIZE][FIELD_SIZE])
 {
+	//clear the possible positions array because of the change ship option
+	//when ship is placed its forbidden area can overlap with another ship's foribidden area
+
 	for (int i = 0; i < POSITIONS_FIELD_SIZE; i++)
 	{
 		for (int j = 0; j < POSITIONS_FIELD_SIZE; j++)
@@ -196,6 +201,8 @@ void getArrayValue(int source[FIELD_SIZE][FIELD_SIZE], int destination[FIELD_SIZ
 
 void getShipsCount(Fleet& fleet, Player& player)
 {
+	//if the player has chosen to start with less than 10 ships
+
 	Fleet tempFleet;
 	player.fleet.smallShips = tempFleet.smallShips - fleet.smallShips;
 	player.fleet.mediumShips = tempFleet.mediumShips - fleet.mediumShips;
@@ -281,17 +288,20 @@ int clearShip(int field[FIELD_SIZE][FIELD_SIZE], int x, int y, const int n, cons
 {
 	static const int dx[] = { 0,0,1,-1 };
 	static const int dy[] = { 1,-1,0,0 };
-	static const int numMoves = sizeof(dx) / sizeof(dx[0]);
+	static const int numMoves = 4;
 
 	//  Terminal checks
 	// failure state:
-	if (x < 0 || x >= m || y < 0 || y >= n) { // out of the array
+	if (x < 0 || x >= m || y < 0 || y >= n)
+	{
+		// out of the array
 		return -1;
 	}
 
 	if (field[x][y] == 0)
 		return -1;
 
+	//clear ship
 	if (field[x][y] != 0)
 	{
 		field[x][y] = 0;
@@ -300,7 +310,8 @@ int clearShip(int field[FIELD_SIZE][FIELD_SIZE], int x, int y, const int n, cons
 
 	// Try recursively to find a way in any possible direction
 	int pathLen = -1;
-	for (int direction = 0; pathLen < 0 && direction < numMoves; ++direction) {
+	for (int direction = 0; pathLen < 0 && direction < numMoves; ++direction)
+	{
 		pathLen = clearShip(field, x + dx[direction], y + dy[direction], n, m, shipLength);
 	}
 	return pathLen;
@@ -309,13 +320,14 @@ int clearShip(int field[FIELD_SIZE][FIELD_SIZE], int x, int y, const int n, cons
 void playerCanStartPlaying(Player& firstPlayer, Player& secondPlayer, int field[FIELD_SIZE][FIELD_SIZE], Fleet& fleet)
 {
 	Fleet tempFleet;
+
 	if (!firstPlayer.hasChosenBoard)
 	{
 		firstPlayer.hasChosenBoard = true;
 		getArrayValue(field, firstPlayer.field);
 		getShipsCount(fleet, firstPlayer);
 
-		//restart fleet for second player
+		//clear fleet for second player
 		fleet = tempFleet;
 	}
 	else

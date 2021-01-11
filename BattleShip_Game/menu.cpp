@@ -67,6 +67,7 @@ int arrangeShipsMenu() //ADD ---return option---
 {
 	system("CLS");
 	randomArrangementOption();
+
 	int choice = _getch(),
 		temp = 0,
 		chosenActionCode = 0;
@@ -80,6 +81,8 @@ int arrangeShipsMenu() //ADD ---return option---
 			temp++;
 		else if (choice == ARROW_UP_KEY)
 			temp--;
+
+		//separate the choice values by mod(3)
 
 		if (abs(temp) % 3 == 0)
 		{
@@ -141,6 +144,7 @@ void printOptions(string firstOption, string secondOption)
 
 	int whiteSpacesFirst = 0, whiteSpacesSecond = 0;
 	setWhiteSpacesLength(firstOption, secondOption, whiteSpacesFirst, whiteSpacesSecond);
+
 	cout << setw(whiteSpacesFirst) << firstOption << endl << endl;
 	cout << setw(whiteSpacesSecond) << secondOption << endl;
 }
@@ -151,6 +155,7 @@ void printOptions(string firstOption, string secondOption, string thirdOption)
 		cout << endl;
 	int whiteSpacesFirst = 0, whiteSpacesSecond = 0, whiteSpacesThird = 0;
 	setWhiteSpacesLength(firstOption, secondOption, thirdOption, whiteSpacesFirst, whiteSpacesSecond, whiteSpacesThird);
+
 	cout << setw(whiteSpacesFirst) << firstOption << endl << endl;
 	cout << setw(whiteSpacesSecond) << secondOption << endl << endl;
 	cout << setw(whiteSpacesThird) << thirdOption << endl;
@@ -203,7 +208,7 @@ void printChooseRandomArrangementOptions()
 	for (int i = 0; i < whiteSpaces; i++)
 		cout << " ";
 	cout << "Choose - Enter";
-	for (int i = 0; i < whiteSpaces; i++)
+	for (int i = 0; i < whiteSpaces - 1; i++)
 		cout << " ";
 	cout << "Next->";
 }
