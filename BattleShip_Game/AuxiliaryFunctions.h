@@ -31,3 +31,4 @@ void getArrayValue(int source[FIELD_SIZE][FIELD_SIZE], int destination[FIELD_SIZ
 void getShipsCount(Fleet &fleet, Player &player);
 void chageFieldAroundSunkShip(Player& player, const char orientation, const int startIndex, const int otherCoordinate, const int shipLength);
 int clearShip(int field[FIELD_SIZE][FIELD_SIZE], int x, int y, const int n, const int m, int &shipLength);
+void playerCanStartPlaying(Player& firstPlayer, Player& secondPlayer, int field[FIELD_SIZE][FIELD_SIZE], Fleet& fleet);

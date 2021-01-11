@@ -87,38 +87,6 @@ void arrangeYourself()
 	printBattlefield(field, "Place your ship");
 	placeShip(field, possiblePositions);
 
-	/*while (fleet.allShips < 5) //the game can start with minimum of 5 ships
-	{
-		printBattlefield(field, "Your filed");
-		printArrangementOptions(3);
-
-		choice = validateChoice(3);
-
-		switch (choice)
-		{
-		case '1':
-		{
-			printBattlefield(field, "Place your ship");
-			placeShip(field, possiblePositions);
-			break;
-		}
-		case '2':
-		{
-			printBattlefield(field, "Change ship's position");
-			changeShip(field, possiblePositions);
-			break;
-		}
-		case '3':
-		{
-			printBattlefield(field, "Your field");
-			printUnusedShips(fleet);
-			break;
-		}
-		default:
-			break;
-		}
-	}*/
-
 	while (fleet.allShips < MAX_SHIPS_COUNT)
 	{
 		printBattlefield(field, "Your filed");
@@ -131,7 +99,6 @@ void arrangeYourself()
 		}
 		else
 		{
-
 			printArrangementOptions(4);
 
 			choice = validateChoice(4);
@@ -160,22 +127,9 @@ void arrangeYourself()
 		}
 		case '4':
 		{
-			if (!firstPlayer.hasChosenBoard)
-			{
-				firstPlayer.hasChosenBoard = true;
-				getArrayValue(field, firstPlayer.field);
-				getShipsCount(fleet, firstPlayer);
-
-				//restart fleet for second player
-				fleet = tempFleet;
-			}
-			else
-			{
-				secondPlayer.hasChosenBoard = true;
-				getArrayValue(field, secondPlayer.field);
-				getShipsCount(fleet, secondPlayer);
+			playerCanStartPlaying(firstPlayer, secondPlayer,field,fleet);
+			if(secondPlayer.hasChosenBoard)
 				canStartGame = true;
-			}
 			return;
 			break;
 		}
@@ -184,26 +138,11 @@ void arrangeYourself()
 		}
 	}
 
-	if (fleet.allShips == MAX_SHIPS_COUNT)
-	{
-		if (!firstPlayer.hasChosenBoard)
-		{
+	//all ships have been placed
+	playerCanStartPlaying(firstPlayer, secondPlayer, field, fleet);
+	if (secondPlayer.hasChosenBoard)
+		canStartGame = true;
 
-			firstPlayer.hasChosenBoard = true;
-			getArrayValue(field, firstPlayer.field);
-			firstPlayer.fleet = fleet;
-
-			//restart fleet for second player
-			fleet = tempFleet;
-		}
-		else
-		{
-			secondPlayer.hasChosenBoard = true;
-			getArrayValue(field, secondPlayer.field);
-			secondPlayer.fleet = fleet;
-			canStartGame = true;
-		}
-	}
 }
 
 void placeShip(int field[FIELD_SIZE][FIELD_SIZE], int possiblePositions[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE])

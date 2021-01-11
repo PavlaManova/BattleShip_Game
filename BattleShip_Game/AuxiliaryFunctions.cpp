@@ -305,3 +305,24 @@ int clearShip(int field[FIELD_SIZE][FIELD_SIZE], int x, int y, const int n, cons
 	}
 	return pathLen;
 }
+
+void playerCanStartPlaying(Player & firstPlayer,Player& secondPlayer, int field[FIELD_SIZE][FIELD_SIZE], Fleet &fleet)
+{
+	Fleet tempFleet;
+	if (!firstPlayer.hasChosenBoard)
+	{
+		firstPlayer.hasChosenBoard = true;
+		getArrayValue(field, firstPlayer.field);
+		getShipsCount(fleet, firstPlayer);
+
+		//restart fleet for second player
+		fleet = tempFleet;
+	}
+	else
+	{
+		secondPlayer.hasChosenBoard = true;
+		getArrayValue(field, secondPlayer.field);
+		getShipsCount(fleet, secondPlayer);
+		//canStartGame = true;
+	}
+}

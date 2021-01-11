@@ -185,7 +185,7 @@ void printArrangementOptions(int options)
 {
 	if (options == 4)
 		cout << "You have enough ships to start the game now.\n" << endl;
-	cout << "Chose one of the following options:" << endl;
+	cout << "Choose one of the following options:" << endl;
 	cout << "1) place next ship" << endl;
 	cout << "2) change position of some of your ships" << endl;
 	cout << "3) check how many ships you have left to place on the board" << endl; //the fourth option - view board, is shown the whole time	
