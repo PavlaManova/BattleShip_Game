@@ -86,7 +86,7 @@ void arrangeYourself()
 	//Place first ship
 	printBattlefield(field, "Place your ship");
 	placeShip(field, possiblePositions);
-	printBattlefield(field, "Your field");
+	//printBattlefield(field, "Your field");
 
 	while (fleet.allShips < 5) //the game can start with minimum of 5 ships 
 	{
@@ -260,7 +260,7 @@ void changeShip(int field[FIELD_SIZE][FIELD_SIZE], int possiblePositions[POSITIO
 	int x, y, shipLength = 0;
 	getChangeShipInfo(field, fleet, x, y);
 	clearShip(field, x, y, FIELD_SIZE, FIELD_SIZE, shipLength);
-	addShipToFleed(shipLength, fleet);
+	removeShipFromFleed(fleet, shipLength);
 	fillImpossiblePositions(possiblePositions, field);
 	printBattlefield(field, "Place your ship");
 	placeShip(field, possiblePositions);

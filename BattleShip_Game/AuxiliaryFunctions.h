@@ -24,7 +24,7 @@ void getPlaceShipInfo(int& shipSize, string& startingField, char& direction, int
 void getShipCoordinates(string field, int& x, int& y);
 void getChangeShipInfo(int field[FIELD_SIZE][FIELD_SIZE], const Fleet& fleet, int& x, int& y);
 void addShipToFleed(int shipSize, Fleet& fleet);
-void removeShipFromFleed(Player &player, int shipLength);
+void removeShipFromFleed(Fleet &fleet, int shipLength);
 void fillImpossiblePositions(int positions[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE], int field[FIELD_SIZE][FIELD_SIZE]);
 void getArrayValueWithSqaureOfZeroes(int source[FIELD_SIZE][FIELD_SIZE], int destination[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE]);
 void getArrayValue(int source[FIELD_SIZE][FIELD_SIZE], int destination[FIELD_SIZE][FIELD_SIZE]);

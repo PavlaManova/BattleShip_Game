@@ -204,34 +204,34 @@ void getShipsCount(Fleet& fleet, Player& player)
 	player.fleet.allShips = fleet.allShips;
 }
 
-void removeShipFromFleed(Player& player, int shipLength)
+void removeShipFromFleed(Fleet &fleet, int shipLength)
 {
 	switch (shipLength)
 	{
-	case '2':
+	case 2:
 	{
-		player.fleet.smallShips--;
+		fleet.smallShips++;
 		break;
 	}
-	case '3':
+	case 3:
 	{
-		player.fleet.mediumShips--;
+		fleet.mediumShips++;
 		break;
 	}
-	case '4':
+	case 4:
 	{
-		player.fleet.bigShips--;
+		fleet.bigShips++;
 		break;
 	}
-	case '6':
+	case 6:
 	{
-		player.fleet.cruiserShips--;
+		fleet.cruiserShips++;
 		break;
 	}
 	default:
 		break;
 	}
-	player.fleet.allShips--;
+	fleet.allShips--;
 }
 
 void chageFieldAroundSunkShip(Player& player, const char orientation, const int startIndex,const int otherCoordinate, const int shipLength)
