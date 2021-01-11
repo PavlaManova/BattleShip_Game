@@ -86,9 +86,8 @@ void arrangeYourself()
 	//Place first ship
 	printBattlefield(field, "Place your ship");
 	placeShip(field, possiblePositions);
-	//printBattlefield(field, "Your field");
 
-	while (fleet.allShips < 5) //the game can start with minimum of 5 ships 
+	/*while (fleet.allShips < 5) //the game can start with minimum of 5 ships
 	{
 		printBattlefield(field, "Your filed");
 		printArrangementOptions(3);
@@ -118,14 +117,25 @@ void arrangeYourself()
 		default:
 			break;
 		}
-	}
+	}*/
 
 	while (fleet.allShips < MAX_SHIPS_COUNT)
 	{
 		printBattlefield(field, "Your filed");
-		printArrangementOptions(4);
 
-		choice = validateChoice(4);
+		if (fleet.allShips < 5)
+		{
+			printArrangementOptions(3);
+
+			choice = validateChoice(3);
+		}
+		else
+		{
+
+			printArrangementOptions(4);
+
+			choice = validateChoice(4);
+		}
 
 		switch (choice)
 		{
