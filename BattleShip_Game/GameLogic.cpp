@@ -127,8 +127,8 @@ void arrangeYourself()
 		}
 		case '4':
 		{
-			playerCanStartPlaying(firstPlayer, secondPlayer,field,fleet);
-			if(secondPlayer.hasChosenBoard)
+			playerCanStartPlaying(firstPlayer, secondPlayer, field, fleet);
+			if (secondPlayer.hasChosenBoard)
 				canStartGame = true;
 			return;
 			break;
@@ -501,16 +501,11 @@ bool allShipsAreSunk(Player& player)
 
 void endGame()
 {
-	system("CLS");
+	printTextInTheMiddleOfConsole("Congratulations!");
 
-	for (int i = 0; i < getConsoleHeight() / 2; i++)
-		cout << endl;
+	string secondLine = "You Won!";
 
-	int whiteSpaces = getConsoleWidth() / 2 + 8;
-
-	cout << setw(whiteSpaces) << "Congratulations!" << endl << endl;
-
-	whiteSpaces = getConsoleWidth() / 2 + 4;
+	int whiteSpaces = getConsoleWidth() / 2 + secondLine.size();
 	cout << setw(whiteSpaces) << "You Won!" << endl;
 
 	exit(-1);

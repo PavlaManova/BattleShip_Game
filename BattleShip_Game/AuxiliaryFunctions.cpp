@@ -204,7 +204,7 @@ void getShipsCount(Fleet& fleet, Player& player)
 	player.fleet.allShips = fleet.allShips;
 }
 
-void removeShipFromFleed(Fleet &fleet, int shipLength)
+void removeShipFromFleed(Fleet& fleet, int shipLength)
 {
 	switch (shipLength)
 	{
@@ -234,7 +234,7 @@ void removeShipFromFleed(Fleet &fleet, int shipLength)
 	fleet.allShips--;
 }
 
-void chageFieldAroundSunkShip(Player& player, const char orientation, const int startIndex,const int otherCoordinate, const int shipLength)
+void chageFieldAroundSunkShip(Player& player, const char orientation, const int startIndex, const int otherCoordinate, const int shipLength)
 {
 	if (orientation == 'v')
 	{
@@ -262,8 +262,8 @@ void chageFieldAroundSunkShip(Player& player, const char orientation, const int 
 			player.firedField[i][otherCoordinate - 1] = 2;
 			player.firedField[i][otherCoordinate + 1] = 2;
 		}
-		player.firedField[startIndex-1][otherCoordinate] = 2;
-		player.firedField[startIndex+shipLength][otherCoordinate] = 2;
+		player.firedField[startIndex - 1][otherCoordinate] = 2;
+		player.firedField[startIndex + shipLength][otherCoordinate] = 2;
 	}
 	else
 	{
@@ -277,7 +277,7 @@ void chageFieldAroundSunkShip(Player& player, const char orientation, const int 
 	}
 }
 
-int clearShip(int field[FIELD_SIZE][FIELD_SIZE], int x, int y, const int n, const int m, int &shipLength)
+int clearShip(int field[FIELD_SIZE][FIELD_SIZE], int x, int y, const int n, const int m, int& shipLength)
 {
 	static const int dx[] = { 0,0,1,-1 };
 	static const int dy[] = { 1,-1,0,0 };
@@ -289,7 +289,7 @@ int clearShip(int field[FIELD_SIZE][FIELD_SIZE], int x, int y, const int n, cons
 		return -1;
 	}
 
-	if (field[x][y] == 0) 
+	if (field[x][y] == 0)
 		return -1;
 
 	if (field[x][y] != 0)
@@ -306,7 +306,7 @@ int clearShip(int field[FIELD_SIZE][FIELD_SIZE], int x, int y, const int n, cons
 	return pathLen;
 }
 
-void playerCanStartPlaying(Player & firstPlayer,Player& secondPlayer, int field[FIELD_SIZE][FIELD_SIZE], Fleet &fleet)
+void playerCanStartPlaying(Player& firstPlayer, Player& secondPlayer, int field[FIELD_SIZE][FIELD_SIZE], Fleet& fleet)
 {
 	Fleet tempFleet;
 	if (!firstPlayer.hasChosenBoard)
@@ -323,6 +323,5 @@ void playerCanStartPlaying(Player & firstPlayer,Player& secondPlayer, int field[
 		secondPlayer.hasChosenBoard = true;
 		getArrayValue(field, secondPlayer.field);
 		getShipsCount(fleet, secondPlayer);
-		//canStartGame = true;
 	}
 }

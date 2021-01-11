@@ -17,6 +17,7 @@
 #include "Constants.h"
 
 void printIndent();
+void printTextInTheMiddleOfConsole(string text);
 void printPlayer(string text);
 void printBattlefield(int array[FIELD_SIZE][FIELD_SIZE], string text);
 void printTextAboveField(string text);

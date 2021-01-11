@@ -31,20 +31,29 @@ void printIndent()
 	}
 }
 
-void printPlayer(string text)
+void printTextInTheMiddleOfConsole(string text)
 {
 	system("CLS");
-	int keyPressed;
 
 	for (int i = 0; i < getConsoleHeight() / 2; i++)
 		cout << endl;
 
 	int whiteSpaces = getConsoleWidth() / 2 + (text.size() / 2);
 
-	cout << setw(whiteSpaces) << text << endl << endl;
+	cout << setw(whiteSpaces) << text << endl;
+}
 
-	whiteSpaces = getConsoleWidth() / 2 + 11;
-	cout << setw(whiteSpaces) << "Press Enter To Continue" << endl;
+void printPlayer(string text)
+{
+	int keyPressed,
+		whiteSpaces;
+
+	string secondLine = "Press Enter To Continue";
+
+	printTextInTheMiddleOfConsole(text);
+
+	whiteSpaces = getConsoleWidth() / 2 + secondLine.size() / 2;
+	cout << endl << setw(whiteSpaces) << secondLine << endl;
 
 	keyPressed = _getch();
 	while (keyPressed != ENTER)
