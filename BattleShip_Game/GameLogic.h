@@ -40,7 +40,7 @@ void startGame();
 void arrangeYourself();
 void placeShip(int field[FIELD_SIZE][FIELD_SIZE], int possiblePositions[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE]);
 void changeShip(int field[FIELD_SIZE][FIELD_SIZE], int possiblePositions[POSITIONS_FIELD_SIZE][POSITIONS_FIELD_SIZE]);
-void printUnusedShips(Fleet &fleet);
+void printUnusedShips(Fleet& fleet);
 void chooseReadyArrangement();
 void startPlaying();
 void chooseFieldToShoot(int& x, int& y);

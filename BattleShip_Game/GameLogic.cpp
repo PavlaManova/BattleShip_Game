@@ -337,6 +337,7 @@ void startPlaying()
 
 					printBattlefield(secondPlayer.firedField, "First player's turn");
 					cout << "You hit! It's your turn again." << endl;
+					system("Pause");
 				}
 				else
 				{

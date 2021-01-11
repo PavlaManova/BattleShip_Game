@@ -20,5 +20,5 @@
 
 using namespace std;
 
-void readArrangementFromFile(ifstream& file, int &indexOfOption, int field[FIELD_SIZE][FIELD_SIZE]);
+void readArrangementFromFile(ifstream& file, int& indexOfOption, int field[FIELD_SIZE][FIELD_SIZE]);
 int findAllRandomArrangements(ifstream& file);
