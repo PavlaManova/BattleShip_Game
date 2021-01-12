@@ -356,7 +356,6 @@ void playerIsShootingAt(Player& player, string textAboveField)
 
 			if (shipIsSunk(player, x, y))
 			{
-				player.fleet.allShips = 0;
 				if (player.fleet.allShips == 0)
 					endGame();
 
