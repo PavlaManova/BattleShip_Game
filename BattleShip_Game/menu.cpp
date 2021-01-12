@@ -236,6 +236,9 @@ int chooseRandomArrangement()
 		break;
 	}
 	default:
+	{
+		return -2;
 		break;
+	}
 	}
 }

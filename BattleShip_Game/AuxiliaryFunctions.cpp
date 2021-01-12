@@ -19,6 +19,7 @@
 #include "Validation.h"
 #include <Windows.h> //for positioning the console window
 #include "drawBoard.h"
+#include <conio.h>
 
 int consoleWidth = 0;
 int consoleHeight = 0;
@@ -283,6 +284,123 @@ char getShipOrientation(Player& player, const int x, const int y)
 	}
 }
 
+void chooseFieldToShoot(int& x, int& y, int& previousX, int& previousY, bool& firstShot)
+{
+	string chosedField,
+		input,
+		rowNumber;
+
+	bool fieldOutsideBoard = true;
+
+	while (fieldOutsideBoard)
+	{
+		if (firstShot)
+		{
+			cout << "Choose field and shoot (letter then number of field):";
+			cin >> input;
+			chosedField = validateStartingFieldInput(input);
+			getShipCoordinates(chosedField, x, y);
+			previousX = x;
+			previousY = y;
+			firstShot = false;
+			fieldOutsideBoard = false;
+		}
+		else
+		{
+			cout << "Choose field and shoot OR press the arrow in the direction you want:";
+
+			int keyPressed = _getch();
+
+			if (keyPressed == INTRODUCTION_CODE)
+			{
+				keyPressed = _getch();
+				switch (keyPressed)
+				{
+				case ARROW_UP_KEY:
+				{
+					if (previousX == 0)
+					{
+						cout << "This field is outside the board. Try again." << endl;
+					}
+					else
+					{
+						x = previousX - 1;
+						y = previousY;
+						previousX = x;
+						fieldOutsideBoard = false;
+					}
+					break;
+				}
+				case ARROW_DOWN_KEY:
+				{
+					if (previousX == FIELD_SIZE - 1)
+					{
+						cout << "This field is outside the board. Try again." << endl;
+					}
+					else
+					{
+						x = previousX + 1;
+						y = previousY;
+						previousX = x;
+						fieldOutsideBoard = false;
+					}
+					break;
+				}
+				case ARROW_LEFT_KEY:
+				{
+					if (previousY == 0)
+					{
+						cout << "This field is outside the board. Try again." << endl;
+					}
+					else
+					{
+						x = previousX;
+						y = previousY - 1;
+						previousY = y;
+						fieldOutsideBoard = false;
+					}
+					break;
+				}
+				case ARROW_RIGHT_KEY:
+				{
+					if (previousY == FIELD_SIZE - 1)
+					{
+						cout << "This field is outside the board. Try again." << endl;
+					}
+					else
+					{
+						x = previousX;
+						y = previousY + 1;
+						previousY = y;
+						fieldOutsideBoard = false;
+					}
+					break;
+				}
+				default:
+					break;
+				}
+			}
+			else if ((keyPressed > 64 && keyPressed < 75) || (keyPressed > 96 && keyPressed < 107)) //if the key pressed is between A and J or a and j
+			{
+				cout << (char)keyPressed; //_getch() gets the code for the key that is pressed but the key value does not show on the console
+										  //it is printed so that the player can see which field he has chosed 
+				input = (char)keyPressed;
+				cin >> rowNumber;
+				input += rowNumber;
+				chosedField = validateStartingFieldInput(input);
+				getShipCoordinates(chosedField, x, y);
+				previousX = x;
+				previousY = y;
+				fieldOutsideBoard = false;
+			}
+			else
+			{
+				fieldOutsideBoard = true;
+			}
+		}
+	}
+}
+
 void chageFieldAroundSunkShip(Player& player, const char orientation, const int startIndex, const int x, const int y, const int shipLength)
 {
 	if (orientation == 'v')
@@ -318,14 +436,6 @@ void chageFieldAroundSunkShip(Player& player, const char orientation, const int 
 			player.firedField[x][startIndex - 1] = 2;
 		if (startIndex + shipLength < FIELD_SIZE)
 			player.firedField[x][startIndex + shipLength] = 2;
-
-		for (int i = 0; i < FIELD_SIZE; i++)
-		{
-			for (int j = 0; j < FIELD_SIZE; j++)
-				cout << player.firedField[i][j];
-			cout << endl;
-		}
-		system("Pause");
 	}
 }
 

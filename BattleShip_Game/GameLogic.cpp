@@ -330,65 +330,63 @@ void startPlaying()
 
 void playerIsShootingAt(Player& player, string textAboveField)
 {
-	bool hit = true;
-	int x, y;
+	bool firstShot = true;
+	int x,
+		y,
+		previousX,
+		previousY;
 
-	while (hit)
+	printBattlefield(player.firedField, textAboveField);
+	chooseFieldToShoot(x, y, previousX, previousY, firstShot);
+	printBattlefield(player.firedField, textAboveField);
+
+	while (1)
 	{
-		printBattlefield(player.firedField, textAboveField);
-		chooseFieldToShoot(x, y);
 		if (player.field[x][y] == 1)
 		{
 			while (player.firedField[x][y] != 0)
 			{
 				cout << "You have already shooted at this field. Try again." << endl;
-				chooseFieldToShoot(x, y);
+				chooseFieldToShoot(x, y, previousX, previousY, firstShot);
 			}
 
 			player.firedField[x][y] = 3;
-			hit = true;
 
 			printBattlefield(player.firedField, textAboveField);
+
 			if (shipIsSunk(player, x, y))
 			{
+				player.fleet.allShips = 0;
+				if (player.fleet.allShips == 0)
+					endGame();
+
 				cout << "You sunk ship" << endl;
-				system("Pause");
+				printBattlefield(player.firedField, textAboveField);
+				firstShot = true;
+				chooseFieldToShoot(x, y, previousX, previousY, firstShot);
 			}
 			else
 			{
 				cout << "You hit! It's your turn again." << endl;
-				system("Pause");
+				chooseFieldToShoot(x, y, previousX, previousY, firstShot);
 			}
-			if (allShipsAreSunk(player))
-				endGame();
 		}
 		else
 		{
 			while (player.firedField[x][y] != 0)
 			{
 				cout << "You have already shooted at this field. Try again." << endl;
-				chooseFieldToShoot(x, y);
+				chooseFieldToShoot(x, y, previousX, previousY, firstShot);
 			}
 			player.firedField[x][y] = 2;
-
-			hit = false;
 
 			printBattlefield(player.firedField, textAboveField);
 			cout << "You missed!" << endl;
 			system("Pause");
+
+			break;
 		}
 	}
-}
-
-void chooseFieldToShoot(int& x, int& y)
-{
-	string chosedField, input;
-
-	cout << "Choose field and shoot (letter then number of field):";
-	cin >> input;
-
-	chosedField = validateStartingFieldInput(input);
-	getShipCoordinates(chosedField, x, y);
 }
 
 bool shipIsSunk(Player& player, const int x, const int y)
@@ -405,12 +403,14 @@ bool shipIsSunk(Player& player, const int x, const int y)
 	if (orientation == 'v')
 	{
 		startIndex = x;
+		//while previous field is still a ship -> make it startIndex
 		while (player.field[tempX][y] == 1)
 		{
 			startIndex = tempX;
 			tempX--;
 		}
 		temp = startIndex;
+
 		while (player.field[temp + 1][y] == 1)
 		{
 			shipLength++;
@@ -420,7 +420,7 @@ bool shipIsSunk(Player& player, const int x, const int y)
 		{
 			if (i >= 0 && i < FIELD_SIZE)
 			{
-				if (player.firedField[i][y] != 3)
+				if (player.firedField[i][y] != 3) //3 - sunk ship field
 				{
 					isSunk = false;
 					break;
@@ -458,7 +458,7 @@ bool shipIsSunk(Player& player, const int x, const int y)
 	if (isSunk)
 	{
 		addShipToFleed(shipLength, player.fleet);
-		player.fleet.allShips -= 2; //the function addShipToFleed reduces the numbers of the given ship size by 1 but increases the number of all thi ships => -1-1=-2
+		player.fleet.allShips-=2; //the function addShipToFleed reduces the numbers of the given ship size by 1 but increases the number of all thi ships => -1-1=-2
 		chageFieldAroundSunkShip(player, orientation, startIndex, x, y, shipLength);
 		return true;
 	}
@@ -466,30 +466,19 @@ bool shipIsSunk(Player& player, const int x, const int y)
 		return false;
 }
 
-bool allShipsAreSunk(Player& player)
-{
-	for (int i = 0; i < FIELD_SIZE; i++)
-	{
-		for (int j = 0; j < FIELD_SIZE; j++)
-		{
-			if (player.field[i][j] == 1)
-			{
-				if (player.firedField[i][j] != 3)
-					return false;
-			}
-		}
-	}
-	return true;
-}
-
 void endGame()
 {
+	system("CLS");
+
 	printTextInTheMiddleOfConsole("Congratulations!");
 
 	string secondLine = "You Won!";
 
 	int whiteSpaces = getConsoleWidth() / 2 + secondLine.size() / 2;
 	cout << setw(whiteSpaces) << "You Won!" << endl;
+
+	for (int i = 0; i < getConsoleHeight() / 2; i++)
+		cout << endl;
 
 	exit(-1);
 }
