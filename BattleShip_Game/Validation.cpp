@@ -44,7 +44,7 @@ int validateShipSizeInput(string input)
 	return (int)input[0] - 48; //returns the int value of the input '2' -> 2
 }
 
-void checkIfShipThisSizeCanBePlaced(int shipSize, const Fleet& fleet)
+void checkIfShipThisSizeCanBePlaced(int &shipSize, const Fleet& fleet)
 {
 	string input;
 	while (!thisNumberOfShipsIsNotFull(shipSize, fleet))

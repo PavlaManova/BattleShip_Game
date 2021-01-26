@@ -17,7 +17,6 @@
 #include <iostream>
 #include "GameLogic.h"
 #include "AuxiliaryFunctions.h"
-#include "drawBoard.h"
 
 using namespace std;
 
